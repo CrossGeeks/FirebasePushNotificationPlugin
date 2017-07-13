@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "772744134431",
+    "firebase_url": "https://fir-pushsample-4720b.firebaseio.com",
+    "project_id": "fir-pushsample-4720b",
+    "storage_bucket": "fir-pushsample-4720b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772744134431:android:721c6b3f600a5c85",
+        "android_client_info": {
+          "package_name": "com.crossgeeks.firebasepushnotificationsample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772744134431-5s4odcogi4ulr2qmngufaltfucvd5abb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Ukri1ckgX-u-VlcPgMNwxnOW5kCVHAg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

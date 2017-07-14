@@ -219,8 +219,9 @@ namespace Plugin.FirebasePushNotification
                 resultIntent.PutExtras(extras);
             }
 
-            
-             var pendingIntent = PendingIntent.GetActivity(context, 0, resultIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
+            resultIntent.SetFlags(ActivityFlags.ClearTop);
+
+            var pendingIntent = PendingIntent.GetActivity(context, 0, resultIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
 
              var notificationBuilder = new NotificationCompat.Builder(context)
                  .SetSmallIcon(FirebasePushNotificationManager.IconResource)

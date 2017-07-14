@@ -108,7 +108,7 @@ namespace Plugin.FirebasePushNotification
                     try
                     {
 #if DEBUG
-                        Reset();
+                        CleanUp();
 #else
                         
                         var storedVersionName = prefs.GetString(FirebasePushNotificationManager.AppVersionNameKey, string.Empty);
@@ -118,7 +118,7 @@ namespace Plugin.FirebasePushNotification
                         
                         if (!string.IsNullOrEmpty(storedPackageName) && (!storedPackageName.Equals(packageName, StringComparison.CurrentCultureIgnoreCase) || !storedVersionName.Equals(versionName, StringComparison.CurrentCultureIgnoreCase) || !storedVersionCode.Equals($"{versionCode}", StringComparison.CurrentCultureIgnoreCase)))
                         {
-                            Reset();
+                            CleanUp();
                             
                         }
 #endif
@@ -155,11 +155,29 @@ namespace Plugin.FirebasePushNotification
         }
         public static void Reset()
         {
+            try
+            {
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    CleanUp();
+                });
+            }
+            catch (Exception ex)
+            {
+                _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(ex.ToString()));
+            }
+
+           
+        }
+
+        static void CleanUp()
+        {
             CrossFirebasePushNotification.Current.UnsubscribeAll();
             FirebaseInstanceId.Instance.DeleteInstanceId();
             SaveToken(string.Empty);
         }
-     
+
+
         public static void Initialize(Context context,IPushNotificationHandler pushNotificationHandler)
         {
             CrossFirebasePushNotification.Current.NotificationHandler = pushNotificationHandler;

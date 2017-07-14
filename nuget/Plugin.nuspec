@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package >
+  <metadata minClientVersion="2.8.1">
+    <id>Plugin.FirebasePushNotification</id>
+    <version>1.0.0-beta</version>
+    <title>FirebasePushNotification Plugin for Xamarin</title>
+    <authors>Rendy Del Rosario</authors>
+    <owners>crossgeeks,rdelrosario</owners>
+    <licenseUrl>https://raw.githubusercontent.com/CrossGeeks/FirebasePushNotificationPlugin/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</projectUrl>
+    <iconUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/art/icon.png?raw=true</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</description>
+    <summary>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</summary>
+    <releaseNotes>Support for handling firebase push notifications</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>iOS,Android,firebase,push notifications,cloud messaging</tags>
+    <dependencies>
+        <group targetFramework="MonoAndroid10">
+            <dependency id="Xamarin.GooglePlayServices.Base" version="42.1021.1" />
+            <dependency id="Xamarin.Firebase.Messaging" version="42.1021.1" />
+        </group>
+        <group targetFramework="Xamarin.iOS10">
+            <dependency id="Xamarin.Firebase.iOS.CloudMessaging" version="1.2.1.3" />
+        </group>
+    </dependencies>
+  </metadata>
+  <files>
+        <file src="..\src\Plugin.FirebasePushNotification.Android\bin\Release\Plugin.FirebasePushNotification.*" target="lib\MonoAndroid10" />
+        <file src="..\src\Plugin.FirebasePushNotification\bin\Release\Plugin.FirebasePushNotification.*" target="lib\netstandard1.4" />
+        <file src="..\src\Plugin.FirebasePushNotification\bin\Release\Plugin.FirebasePushNotification.*" target="lib\portable-net45+wp80+win8+wpa81" />
+        <file src="..\src\Plugin.FirebasePushNotification.iOS\bin\iPhone\Release\Plugin.FirebasePushNotification.*" target="lib\Xamarin.iOS10" />
+  </files>
+</package>
+

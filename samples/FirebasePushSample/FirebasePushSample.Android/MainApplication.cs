@@ -42,12 +42,8 @@ namespace FirebasePushSample.Droid
             //A great place to initialize Xamarin.Insights and Dependency Services!
             CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
             {
-                /*System.Diagnostics.Debug.WriteLine("NOTIFICATION RECEIVED",p);
+                System.Diagnostics.Debug.WriteLine("NOTIFICATION RECEIVED",p.Data);
    
-                new Handler(Looper.MainLooper).Post(() =>
-                {
-                    Toast.MakeText(Android.App.Application.Context, "PUSH RECEIVED", ToastLength.Long);
-                });*/
                 
             };
 

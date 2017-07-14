@@ -25,7 +25,7 @@ namespace FirebasePushSample
             CrossFirebasePushNotification.Current.Subscribe("general");
             CrossFirebasePushNotification.Current.OnTokenRefresh += (s,p) =>
             {
-                System.Diagnostics.Debug.WriteLine($"TOKEN REC: {p}");
+                System.Diagnostics.Debug.WriteLine($"TOKEN REC: {p.Token}");
             };
             System.Diagnostics.Debug.WriteLine($"TOKEN: {CrossFirebasePushNotification.Current.Token}");
         }

@@ -12,7 +12,7 @@ It is drop dead simple to gain access to the FirebasePushNotification APIs in an
 
 ### Android Initialization
 
-Edit AndroidManifest.xml (under Properties in the Solution Explorer) and insert the following <receiver> elements into the <application> section:
+Edit AndroidManifest.xml (under Properties in the Solution Explorer) and insert the following **<receiver>** elements into the **<application>** section:
 
 ```xml
 <receiver 

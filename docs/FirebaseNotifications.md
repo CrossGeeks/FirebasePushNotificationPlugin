@@ -66,8 +66,6 @@ public interface IPushNotificationHandler
         void OnOpened(NotificationResponse response);
         //Method triggered when a notification is received
         void OnReceived(IDictionary<string, string> parameters);
-        //Method triggered when notification user categories are requested to be setup
-        NotificationUserCategory[] NotificationUserCategories { get; }
 }
 ```
 

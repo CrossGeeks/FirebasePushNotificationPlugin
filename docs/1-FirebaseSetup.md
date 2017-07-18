@@ -35,5 +35,6 @@ Download GoogleService-Info.plist
 ![Apps added](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-apps.png?raw=true)
 
 [Communicate with APNs using a TLS certificate](http://help.apple.com/xcode/mac/current/#/dev11b059073?sub=dev1eb5dfe65)
+
 [Communicate with APNs using authentication tokens](http://help.apple.com/xcode/mac/current/#/dev54d690a66?sub=dev1eb5dfe65)
 

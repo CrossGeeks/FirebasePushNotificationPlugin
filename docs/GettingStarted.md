@@ -12,6 +12,24 @@ It is drop dead simple to gain access to the FirebasePushNotification APIs in an
 
 ### Android Initialization
 
+Edit AndroidManifest.xml (under Properties in the Solution Explorer) and insert the following <receiver> elements into the <application> section:
+
+```xml
+<receiver 
+    android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" 
+    android:exported="false" />
+<receiver 
+    android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" 
+    android:exported="true" 
+    android:permission="com.google.android.c2dm.permission.SEND">
+    <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+        <category android:name="${applicationId}" />
+    </intent-filter>
+</receiver>
+```
+
 On MainApplication OnCreate
 
 ```csharp

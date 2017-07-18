@@ -6,8 +6,31 @@ With FCM, you can send two types of messages to clients:
 
 Notification messages - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground
 
-Data messages - Handled by the client app. Theses messages trigger the onMessageReceived() callback even if your app is in foreground/background/killed
+```json
+{
+   "notification" : 
+   {
+    "body" : "hello!",
+    "title": "afruz",
+    "sound": "default"
+   }
+    "registration_ids": ["eoPr8fUIPns:APA91bEVYODiWaL9a9JidumLRcFjVrEC4iHY80mHSE1e-udmPB32RjMiYL2P2vWTIUgYCJYVOx9SGSN_R4Ksau3vFX4WvkDj4ZstxqmcBhM3K-NMrX8P6U0sdDEqDpr-lD_N5JWBLCoV"]
+}
+```
 
+Data messages - Handled by the client app. Theses messages trigger the onMessageReceived() callback even if your app is in foreground/background/killed. When using this type of message you are the one providing the UI for Android notification.
+
+```json
+{
+    "data": {
+        "message" : "my_custom_value",
+        "other_key" : true,
+        "body":"test"
+     },
+     "priority": "high",
+     "condition": "'general' in topics"
+}
+```
 
 
 ### Subscribing/Unsubscribing topics

@@ -114,9 +114,14 @@ On AppDelegate FinishedLaunching
 
 Enable background modes Remote notifications
 
+
+
+Once token is refreshed you will get it on **OnTokenRefresh** event.
+
+
+
 #### Events in FirebasePushNotification
 
-Once token is refreshed you will get the event here:
 ```csharp
    /// <summary>
    /// Event triggered when token is refreshed
@@ -145,6 +150,48 @@ Once token is refreshed you will get the event here:
   /// </summary>
   event FirebasePushNotificationErrorEventHandler OnNotificationError;
 ```
+
+Token event usage sample:
+```csharp
+
+  CrossFirebasePushNotification.Current.OnTokenRefresh += (s,p) =>
+  {
+        System.Diagnostics.Debug.WriteLine($"TOKEN : {p.Token}");
+  };
+
+```
+
+Push message received event usage sample:
+```csharp
+
+  CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
+  {
+ 
+        System.Diagnostics.Debug.WriteLine("Received");
+    
+  };
+
+```
+
+Push message opened event usage sample:
+```csharp
+  
+  CrossFirebasePushNotification.Current.OnNotificationOpened += (s,p) =>
+  {
+                System.Diagnostics.Debug.WriteLine("Opened");
+                foreach(var data in p.Data)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+                }
+
+                if(!string.IsNullOrEmpty(p.Identifier))
+                {
+                    System.Diagnostics.Debug.WriteLine($"ActionId: {p.Identifier}");
+                }
+             
+ };
+```
+
 
 
 <= Back to [Table of Contents](../README.md)

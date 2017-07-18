@@ -44,6 +44,7 @@ FirebasePushNotificationManager.Initialize(options);
 ```
  Note: When using Xamarin Forms do it just after LoadApplication call.
 
+Also should override these methods and make the following calls:
 ```csharp
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
         {

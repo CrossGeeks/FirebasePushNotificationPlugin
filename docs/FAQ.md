@@ -21,7 +21,6 @@ Make sure the google-services.json has the GoogleServicesJson build action. If y
 ![image](https://cloud.githubusercontent.com/assets/2547751/6440604/1b0afb64-c0b5-11e4-93b8-c496e2bfa588.png)
 
 
-
 ### iOS
 
 <b> 1. When subscribing to topics getting error: Failed to subscribe to topic Error Domain=com.google.fcm Code=5 "(null)" </b>

@@ -1,0 +1,9 @@
+## Firebase Notifications
+
+Message types
+
+With FCM, you can send two types of messages to clients:
+
+Notification messages - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground
+
+Data messages - Handled by the client app. Theses messages trigger the onMessageReceived() callback even if your app is in foreground/background/killed

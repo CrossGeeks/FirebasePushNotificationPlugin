@@ -7,7 +7,8 @@ POST https://fcm.googleapis.com/fcm/send
 Using headers:
 
 Content-Type: application/json
-Authorization: <your-fcm-server-key>
+
+Authorization: {your-fcm-server-key}
 
 
 Sending to specific topic on iOS:

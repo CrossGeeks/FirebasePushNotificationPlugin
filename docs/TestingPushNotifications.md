@@ -11,25 +11,28 @@ Authorization: <your-fcm-server-key>
 
 
 Sending to specific topic on iOS:
-
+```json
 {
   "to": "/topics/test",
   "data": {
     "message": "hello world"
    }
 }
+```
 
 Sending push to specific devices:
-
+```json
 {
     "data": {
          "message": "hello world"
      },
     "registration_ids": ["{device-token}","{device2-token}"]
 }
+```
 
 Sending push to topic based on conditions:
 
+```json
 {
     "data": {
         "message": "hello world"
@@ -37,3 +40,4 @@ Sending push to topic based on conditions:
      "priority": "high",
      "condition": "'test' in topics"
 }
+```

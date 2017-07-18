@@ -1,4 +1,4 @@
-## FirebasePushNotification Plugin for Xamarin iOS and Android
+## Firebase Push Notification Plugin for Xamarin iOS and Android
 Simple cross platform plugin for handling firebase push notifications.
 
 ### Setup

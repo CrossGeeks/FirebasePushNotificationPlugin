@@ -9,3 +9,30 @@ Make sure the google-services.json has the GoogleServicesJson build action. If y
 <b> 3. You won't receive any push notifications if application is stopped while debugging, should reopen and close again for notifications to work when app closed. This is due to the application being on an unstable state when stopped while debugging.</b>
 
 <b> 4. On some phones android background services might be blocked by some application. This is the case of ASUS Zenfone 3 that has an Auto-start manager, which disables background services by default. You need to make sure that your push notification service is not being blocked by some application like this one, since you won't receive push notifications when app is closed if so.</b>
+
+<b> 5. When subscribing to topics getting error: Failed to subscribe to topic Error Domain=com.google.fcm Code=5 "(null)" </b>
+
+Add this to you Info.plist:
+```xml
+<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.google.fcm</string>
+			</array>
+		</dict>
+</array>
+``` 
+
+Some references:
+
+
+https://stackoverflow.com/questions/37549717/cannot-receive-push-notification-on-ios-from-firebase-3-2-0-topics
+https://stackoverflow.com/questions/37711082/how-to-handle-notification-when-app-in-background-in-firebase
+https://stackoverflow.com/questions/41102932/updating-firebase-push-notification-when-app-is-in-background
+https://github.com/xamarin/GooglePlayServicesComponents/issues/20
+https://stackoverflow.com/questions/42158239/getting-exception-using-firebase-in-xamarin-android/42159446#42159446
+https://stackoverflow.com/questions/37372806/firebase-cloud-messaging-and-multiple-topic-subscription-from-ios-fails

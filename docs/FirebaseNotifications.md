@@ -22,7 +22,7 @@ CrossFirebasePushNotification.Current.Subscribe(new string[]{"baseball","footbal
 //Unsubscribing to single topic
 CrossFirebasePushNotification.Current.Unsubscribe("general");
 
-//Unsubscribing from multiple topic
+//Unsubscribing from multiple topics
 CrossFirebasePushNotification.Current.Unsubscribe(new string[]{"food","music"});
 
 //Unsubscribing from all topics

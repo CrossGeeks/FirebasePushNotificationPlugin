@@ -39,6 +39,39 @@ iOS on AppDelegate FinishLaunching:
    });
    
 ```
+Can use category or click_action keys to use notification actions.
 
+Android Notification Sample Payload:
+```json
+{
+    "data": {
+        "body" : "hello!",
+        "title": "afruz",
+        "category":"message"
+     },
+     
+     "priority": "high",
+
+     "condition": "'general' in topics"
+}
+```
+
+iOS Notification Sample Payload:
+```json
+{
+   "data": {
+        "category":"message"
+     },
+  "notification" : {
+    "body" : "hello!",
+    "title": "afruz",
+    "sound": "default"
+  },
+  
+  "priority": "high",
+
+  "condition": "'general' in topics"
+}
+```
 
 

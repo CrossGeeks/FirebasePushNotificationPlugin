@@ -47,7 +47,7 @@ Sending push to topic based on conditions:
 
 #### Sending push notification to Android:
 
-```json
+```csharp
  Task.Run(async() => {
  
             FCMClient client = new FCMClient("YOUR_APP_SERVER_KEY"); //as derived from https://console.firebase.google.com/project/
@@ -75,7 +75,7 @@ Sending push to topic based on conditions:
 ```
 #### Sending push notification to iOS:
 
-```json
+```csharp
  Task.Run(async() => {
  
             FCMClient client = new FCMClient("YOUR_APP_SERVER_KEY"); //as derived from https://console.firebase.google.com/project/

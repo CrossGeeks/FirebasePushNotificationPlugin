@@ -11,7 +11,7 @@ Using headers:
 **Authorization: {your-fcm-server-key}**
 
 
-Sending to specific topic on iOS:
+Sending to specific topic:
 ```json
 {
   "to": "/topics/test",

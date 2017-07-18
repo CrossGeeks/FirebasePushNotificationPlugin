@@ -5,85 +5,146 @@
 * `PM> Install-Package Plugin.FirebasePushNotification`
 * Install into ALL of your projects, include client projects.
 
-## Firebase Cloud Messaging Setup
-
-Login to https://console.firebase.google.com
-
 ## Using FirebasePushNotification APIs
 It is drop dead simple to gain access to the FirebasePushNotification APIs in any project. All you need to do is get a reference to the current instance of IFirebasePushNotification via `CrossFirebasePushNotification.Current`:
 
-```csharp
-public bool DoIHaveInternet()
-{
-    return CrossFirebasePushNotification.Current.IsConnected;
-}
-```
+## Initialize
 
-There may be instances where you install a plugin into a platform that it isn't supported yet. This means you will have access to the interface, but no implementation exists. You can make a simple check before calling any API to see if it is supported on the platform where the code is running. This if nifty when unit testing:
+### Android Initialization
+
+On MainApplication OnCreate
 
 ```csharp
-public bool DoIHaveInternet()
-{
-    if(!CrossFirebasePushNotification.IsSupported)
-        return true;
+ FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[] {
+                new NotificationUserCategory("message",new List<NotificationUserAction> {
+                    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
+                    new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)
 
-    return CrossFirebasePushNotification.Current.IsConnected;
-}
+                }),
+                new NotificationUserCategory("request",new List<NotificationUserAction> {
+                    new NotificationUserAction("Accept","Accept"),
+                    new NotificationUserAction("Reject","Reject")
+                })
+
+  });
+
+  //Handle notification when app is closed here
+  CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
+  {
+
+                
+  };
+
 ```
 
-## Disposing of FirebasePushNotification Plugin
-This plugin also implements IDisposable on all implementations. This ensure that all events are unregistered from the platform. Only dispose when you need to and are no longer listening to events. The next time you gain access to the `CrossFirebasePushNotification.Current` a new instance will be created.
+On your main launcher activity OnCreate method
 
 ```csharp
-public bool DoIHaveInternet()
-{
-    if(!CrossFirebasePushNotification.IsSupported)
-        return true;
-        
-    //Do this only if you need to and aren't listening to any other events as they will not fire.
-    using(var FirebasePushNotification = CrossFirebasePushNotification.Current)
-    {
-        return FirebasePushNotification.IsConnected;
-    }
-}
+ FirebasePushNotificationManager.ProcessIntent(Intent);
+ ```
+
+ Note: When using Xamarin Forms do it just after LoadApplication call.
+
+### iOS Initialization
+
+On AppDelegate FinishedLaunching
+```csharp
+
+        FirebasePushNotificationManager.Initialize(options, new NotificationUserCategory[]
+        {
+                new NotificationUserCategory("message",new List<NotificationUserAction> {
+                    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground)
+                }),
+                new NotificationUserCategory("request",new List<NotificationUserAction> {
+                    new NotificationUserAction("Accept","Accept"),
+                    new NotificationUserAction("Reject","Reject",NotificationActionType.Destructive)
+                })
+
+        });
+
 ```
-
-
-## Permissions & Additional Setup Considerations
-
-### Android:
-The `ACCESS_NETWORK_STATE` and `ACCESS_WIFI_STATE` permissions are required and are automatically added to your Android Manifest when you compile. No need to add them manually!
-
-By adding these permissions [Google Play will automatically filter out devices](http://developer.android.com/guide/topics/manifest/uses-feature-element.html#permissions-features) without specific hardware. You can get around this by adding the following to your AssemblyInfo.cs file in your Android project:
+ Note: When using Xamarin Forms do it just after LoadApplication call.
 
 ```csharp
-[assembly: UsesFeature("android.hardware.wifi", Required = false)]
+        public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+        {
+            #if DEBUG
+                    FirebasePushNotificationManager.DidRegisterRemoteNotifications(deviceToken, FirebaseTokenType.Sandbox);
+            #endif
+            #if RELEASE
+                    FirebasePushNotificationManager.DidRegisterRemoteNotifications(deviceToken,FirebaseTokenType.Production);
+            #endif
+
+        }
+
+        public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
+        {
+            base.FailedToRegisterForRemoteNotifications(application, error);
+            FirebasePushNotificationManager.RemoteNotificationRegistrationFailed(error);
+
+        }
+        // To receive notifications in foregroung on iOS 9 and below.
+        // To receive notifications in background in any iOS version
+        public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            // If you are receiving a notification message while your app is in the background,
+            // this callback will not be fired 'till the user taps on the notification launching the application.
+
+            // If you disable method swizzling, you'll need to call this method. 
+            // This lets FCM track message delivery and analytics, which is performed
+            // automatically with method swizzling enabled.
+            FirebasePushNotificationManager.DidReceiveMessage(userInfo);
+            // Do your magic to handle the notification data
+            System.Console.WriteLine(userInfo);
+        }
+
+        public override void OnActivated(UIApplication uiApplication)
+        {
+            FirebasePushNotificationManager.Connect();
+            base.OnActivated(uiApplication);
+           
+        }
+        public override void DidEnterBackground(UIApplication application)
+        {
+            // Use this method to release shared resources, save user data, invalidate timers and store the application state.
+            // If your application supports background exection this method is called instead of WillTerminate when the user quits.
+            FirebasePushNotificationManager.Disconnect();
+        }
 ```
 
-## Architecture
+Enable background modes Remote notifications
 
-### What's with this .Current Global Variable? Why can't I use $FAVORITE_IOC_LIBARY
-You totally can! Every plugin I create is based on an interface. The static singleton just gives you a super simple way of gaining access to the platform implementation. If you are looking to use Depenency Injector or Inversion of Control (IoC) you will need to gain access to a reference of `IFirebasePushNotification`. 
+#### Events in FirebasePushNotification
 
-This is what your code may look like when using this approach:
-
+Once token is refreshed you will get the event here:
 ```csharp
-public MyViewModel()
-{
-    readonly IFirebasePushNotification FirebasePushNotification;
-    public MyViewModel(IFirebasePushNotification FirebasePushNotification)
-    {
-        this.FirebasePushNotification = FirebasePushNotification;
-    }
-
-    public bool IsConnected => FirebasePushNotification.IsConnected;
-}
+   /// <summary>
+   /// Event triggered when token is refreshed
+   /// </summary>
+    event FirebasePushNotificationTokenEventHandler OnTokenRefresh;
 ```
 
-Remember that the implementation of the plugin lives in the platform specific applications, which means you will need to register .Current (or instantiate your own CrossFirebasePushNotificationImplementation) in your IoC container as the implementation of IFirebasePushNotification on each platform. This registration must happen from your application binary, not from your portable/netstandard class library.
+```csharp        
+  /// <summary>
+  /// Event triggered when a notification is received
+  /// </summary>
+  event FirebasePushNotificationResponseEventHandler OnNotificationReceived;
+```
 
-### What About Unit Testing?
-To learn about unit testing strategies be sure to read my blog: [Unit Testing Plugins for Xamarin](http://motzcod.es/post/159267241302/unit-testing-plugins-for-xamarin)
+
+```csharp        
+  /// <summary>
+  /// Event triggered when a notification is opened
+  /// </summary>
+  event FirebasePushNotificationResponseEventHandler OnNotificationOpened;
+```
+
+```csharp        
+  /// <summary>
+  /// Event triggered when there's an error
+  /// </summary>
+  event FirebasePushNotificationErrorEventHandler OnNotificationError;
+```
 
 
 <= Back to [Table of Contents](README.md)

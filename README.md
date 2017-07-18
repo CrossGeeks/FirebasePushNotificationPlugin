@@ -25,3 +25,4 @@ c
 * [Receiving Push Notifications](docs/ReceivingPushNotifications.md)
 * [Notifications Actions](docs/NotificationActions.md)
 * [Push notifications handlers](docs/PushHandlers.md)
+* [FAQ](docs/FAQ.md)

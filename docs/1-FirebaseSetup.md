@@ -38,3 +38,4 @@ Download GoogleService-Info.plist
 
 [Communicate with APNs using authentication tokens](http://help.apple.com/xcode/mac/current/#/dev54d690a66?sub=dev1eb5dfe65)
 
+<= Back to [Table of Contents](../README.md)

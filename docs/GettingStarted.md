@@ -39,7 +39,7 @@ On your main launcher activity OnCreate method
 On AppDelegate FinishedLaunching
 ```csharp
 
-        FirebasePushNotificationManager.Initialize(options);
+FirebasePushNotificationManager.Initialize(options);
 
 ```
  Note: When using Xamarin Forms do it just after LoadApplication call.

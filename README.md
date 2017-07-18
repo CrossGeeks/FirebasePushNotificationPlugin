@@ -20,8 +20,8 @@ Call **CrossFirebasePushNotification.Current** from any project or PCL to gain a
 
 Here you will find detailed documentation on setting up and using the Firebase Push Notification Plugin for Xamarin
 c
-* [Firebase Setup](FirebaseSetup.md)docdocs
-* [Getting Started](GettingStarted.md)
-* [Receiving Push Notifications](ReceivingPushNotifications.md)
-* [Notifications Actions](NotificationActions.md)
-* [Push notifications handlers](PushHandlers.md)
+* [Firebase Setup](docs/FirebaseSetup.md)
+* [Getting Started](docs/GettingStarted.md)
+* [Receiving Push Notifications](docs/ReceivingPushNotifications.md)
+* [Notifications Actions](docs/NotificationActions.md)
+* [Push notifications handlers](docs/PushHandlers.md)

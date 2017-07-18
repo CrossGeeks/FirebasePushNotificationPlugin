@@ -2,8 +2,8 @@
 <package >
   <metadata minClientVersion="2.8.1">
     <id>Plugin.FirebasePushNotification</id>
-    <version>1.0.0-beta</version>
-    <title>FirebasePushNotification Plugin for Xamarin</title>
+    <version>1.0.1-beta</version>
+    <title>Firebase Push Notification Plugin for Xamarin</title>
     <authors>Rendy Del Rosario</authors>
     <owners>crossgeeks,rdelrosario</owners>
     <licenseUrl>https://raw.githubusercontent.com/CrossGeeks/FirebasePushNotificationPlugin/master/LICENSE</licenseUrl>

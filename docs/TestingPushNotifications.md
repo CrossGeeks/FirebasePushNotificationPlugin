@@ -1,8 +1,6 @@
 ## Testing Push Notifications
 
-Perform a POST to the following URL:
-
-POST https://fcm.googleapis.com/fcm/send
+Perform POST to https://fcm.googleapis.com/fcm/send
 
 Using headers:
 

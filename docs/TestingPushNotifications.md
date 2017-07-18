@@ -43,9 +43,10 @@ Sending push to topic based on conditions:
 }
 ```
 
-Using [FirebaseNet](https://www.nuget.org/packages/firebaseNet) to send push notifications:
+### Using [FirebaseNet](https://www.nuget.org/packages/firebaseNet) to send push notifications:
 
-Sending notification to Android:
+#### Sending push notification to Android:
+
 ```json
  Task.Run(async() => {
  
@@ -72,7 +73,8 @@ Sending notification to Android:
             return result;
  });
 ```
-Sending notification to iOS:
+#### Sending push notification to iOS:
+
 ```json
  Task.Run(async() => {
  
@@ -93,4 +95,4 @@ Sending notification to iOS:
             return result;
  });
 ```
-          
+More information here: https://github.com/tiagomtotti/firebaseNet        

@@ -15,18 +15,7 @@ It is drop dead simple to gain access to the FirebasePushNotification APIs in an
 On MainApplication OnCreate
 
 ```csharp
- FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[] {
-                new NotificationUserCategory("message",new List<NotificationUserAction> {
-                    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
-                    new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)
-
-                }),
-                new NotificationUserCategory("request",new List<NotificationUserAction> {
-                    new NotificationUserAction("Accept","Accept"),
-                    new NotificationUserAction("Reject","Reject")
-                })
-
-  });
+ FirebasePushNotificationManager.Initialize(this);
 
   //Handle notification when app is closed here
   CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
@@ -50,17 +39,7 @@ On your main launcher activity OnCreate method
 On AppDelegate FinishedLaunching
 ```csharp
 
-        FirebasePushNotificationManager.Initialize(options, new NotificationUserCategory[]
-        {
-                new NotificationUserCategory("message",new List<NotificationUserAction> {
-                    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground)
-                }),
-                new NotificationUserCategory("request",new List<NotificationUserAction> {
-                    new NotificationUserAction("Accept","Accept"),
-                    new NotificationUserAction("Reject","Reject",NotificationActionType.Destructive)
-                })
-
-        });
+        FirebasePushNotificationManager.Initialize(options);
 
 ```
  Note: When using Xamarin Forms do it just after LoadApplication call.

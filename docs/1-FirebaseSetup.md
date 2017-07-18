@@ -9,7 +9,7 @@
 
 ![Firebase Overview](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-overview.png?raw=true)
 
-### Android Firebase Setup
+#### Android Firebase Setup
 
 3. Let's start adding firebase to our Android application. Package name must match your Android app package name.
 
@@ -18,4 +18,19 @@
 4. Download the file google-services.json
 
 ![GooglePlayJson](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-android-json.png?raw=true)
+
+
+#### iOS Firebase Setup
+
+6. Add Firebase to iOS App
+
+![Add Firebase to iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-add-ios-app.png?raw=true)
+
+![Add Firebase to iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-create-ios-app.png?raw=true)
+
+Download GoogleService-Info.plist
+
+![Plist iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-ios-plist.png?raw=true)
+
+![Apps added](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-apps.png?raw=true)
 

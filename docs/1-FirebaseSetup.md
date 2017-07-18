@@ -9,10 +9,13 @@
 
 ![Firebase Overview](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-overview.png?raw=true)
 
-### Creating Android Application
+### Android Firebase Setup
 
-Let's start adding firebase to our Android application
+3. Let's start adding firebase to our Android application. Package name must match your Android app package name.
 
-![Add Firebase to Android](images/firebase-portal-create-android-app.png)
+![Add Firebase to Android](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-create-android-app.png?raw=true)
 
+4. Download the file google-services.json
+
+![GooglePlayJson](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-android-json.png?raw=true)
 

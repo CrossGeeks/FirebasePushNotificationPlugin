@@ -21,7 +21,7 @@
 
 5. Add google-services.json to Android project. Make sure build action is GoogleServicesJson
 
-![ADD Plist](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/android-googleservices-json?raw=true)
+![ADD JSON](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/android-googleservices-json.png?raw=true)
 
 
 #### iOS Firebase Setup

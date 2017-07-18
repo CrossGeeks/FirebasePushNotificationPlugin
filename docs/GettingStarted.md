@@ -31,8 +31,9 @@ Edit AndroidManifest.xml and insert the following receiver elements inside the a
 ```
 Also add this permission to AndroidManifest.xml:
 
+```xml
 <uses-permission android:name="android.permission.INTERNET" />
-
+```
 
 On MainApplication OnCreate
 

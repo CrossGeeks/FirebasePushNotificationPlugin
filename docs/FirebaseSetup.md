@@ -19,6 +19,10 @@
 
 ![GooglePlayJson](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-android-json.png?raw=true)
 
+5. Add google-services.json to Android project. Make sure build action is GoogleServicesJson
+
+![ADD Plist](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/android-googleservices-json?raw=true)
+
 
 #### iOS Firebase Setup
 
@@ -28,11 +32,15 @@
 
 ![Add Firebase to iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-create-ios-app.png?raw=true)
 
-Download GoogleService-Info.plist
+7. Download GoogleService-Info.plist
 
 ![Plist iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-ios-plist.png?raw=true)
 
 ![Apps added](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-apps.png?raw=true)
+
+8. Add GoogleService-Info.plist to iOS project. Make sure build action is BundleResource
+
+![ADD Plist](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-googleservices-plist.png?raw=true)
 
 [Communicate with APNs using a TLS certificate](http://help.apple.com/xcode/mac/current/#/dev11b059073?sub=dev1eb5dfe65)
 

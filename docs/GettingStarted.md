@@ -49,7 +49,13 @@ You should initialize the plugin on an Android Application class if you don't ha
         public override void OnCreate()
         {
             base.OnCreate();
-            FirebasePushNotificationManager.Initialize(this);
+            
+            //If debug you should reset the token each time.
+            #if DEBUG
+              FirebasePushNotificationManager.Initialize(this,true);
+            #else
+              FirebasePushNotificationManager.Initialize(this,false);
+            #endif
 
               //Handle notification when app is closed here
               CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>

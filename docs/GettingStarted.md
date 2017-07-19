@@ -35,7 +35,7 @@ Also add this permission to AndroidManifest.xml:
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-You should initialize the plugin on an Android Application class if you don't have one on your project, should create and application class
+You should initialize the plugin on an Android Application class if you don't have one on your project, should create an application class. Then call **FirebasePushNotificationManager.Initialize** method.
 
 ```csharp
 

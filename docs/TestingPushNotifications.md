@@ -41,6 +41,17 @@ Sending push to topic based on conditions:
 }
 ```
 
+```json
+{
+  "condition": "'dogs' in topics || 'cats' in topics",
+  "data": {
+    "message": "This is a Firebase Cloud Messaging Topic Message!",
+   }
+}
+```
+
+More information here: https://firebase.google.com/docs/cloud-messaging/android/topic-messaging
+
 ### Using [FirebaseNet](https://www.nuget.org/packages/firebaseNet) to send push notifications:
 
 #### Sending push notification to Android:

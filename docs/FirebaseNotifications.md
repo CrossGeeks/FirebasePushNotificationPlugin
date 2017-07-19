@@ -18,7 +18,7 @@ Notification messages - Delivered when the application is in background. These m
 }
 ```
 
-Data messages - Handled by the client app. Theses messages trigger the onMessageReceived() callback even if your app is in foreground/background/killed. When using this type of message you are the one providing the UI and handling when push notification is received on an Android device.
+Data messages - Handled by the client app. These messages trigger the onMessageReceived() callback even if your app is in foreground/background/killed. When using this type of message you are the one providing the UI and handling when push notification is received on an Android device.
 
 ```json
 {

@@ -73,7 +73,7 @@ On your main launcher activity OnCreate method
  FirebasePushNotificationManager.ProcessIntent(Intent);
  ```
 
- Note: When using Xamarin Forms do it just after LoadApplication call.
+ **Note: When using Xamarin Forms do it just after LoadApplication call.**
 
 ### iOS Initialization
 
@@ -83,7 +83,7 @@ On AppDelegate FinishedLaunching
 FirebasePushNotificationManager.Initialize(options);
 
 ```
- Note: When using Xamarin Forms do it just after LoadApplication call.
+ **Note: When using Xamarin Forms do it just after LoadApplication call.**
 
 Also should override these methods and make the following calls:
 ```csharp

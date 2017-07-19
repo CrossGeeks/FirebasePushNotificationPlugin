@@ -133,9 +133,6 @@ Also should override these methods and make the following calls:
         }
 ```
 
-Enable background modes Remote notifications
-
-
 
 Once token is refreshed you will get it on **OnTokenRefresh** event.
 

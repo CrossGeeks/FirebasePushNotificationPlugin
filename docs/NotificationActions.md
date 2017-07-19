@@ -9,7 +9,7 @@ Android on Application class:
 
 ```csharp
 
-  FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[] {
+  FirebasePushNotificationManager.Initialize(this,true,new NotificationUserCategory[] {
                 new NotificationUserCategory("message",new List<NotificationUserAction> {
                     new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
                     new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)

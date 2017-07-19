@@ -20,6 +20,7 @@ Make sure the google-services.json has the GoogleServicesJson build action. If y
 
 ![image](https://cloud.githubusercontent.com/assets/2547751/6440604/1b0afb64-c0b5-11e4-93b8-c496e2bfa588.png)
 
+<b> 8. Topics are case sensitive so "test" and "Test" are different topics </b>
 
 ### iOS
 

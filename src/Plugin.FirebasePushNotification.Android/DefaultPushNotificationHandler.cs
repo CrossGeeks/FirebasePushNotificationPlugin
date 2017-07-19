@@ -14,6 +14,7 @@ using Android.Media;
 using Android.Support.V4.App;
 using System.Collections.ObjectModel;
 using Android.Content.PM;
+using Android.Content.Res;
 
 namespace Plugin.FirebasePushNotification
 {
@@ -289,7 +290,7 @@ namespace Plugin.FirebasePushNotification
 
                                 }
                                 
-                                notificationBuilder.AddAction(FirebasePushNotificationManager.IconResource, action.Title, pendingActionIntent);
+                                notificationBuilder.AddAction(context.Resources.GetIdentifier(action.Icon, "drawable", Application.Context.PackageName), action.Title, pendingActionIntent);
                             }
 
 

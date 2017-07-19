@@ -34,12 +34,12 @@ namespace FirebasePushSample.Droid
 
                 }),
                 new NotificationUserCategory("request",new List<NotificationUserAction> {
-                    new NotificationUserAction("Accept","Accept"),
-                    new NotificationUserAction("Reject","Reject")
+                    new NotificationUserAction("Accept","Accept",NotificationActionType.Default,"check"),
+                    new NotificationUserAction("Reject","Reject",NotificationActionType.Default,"cancel")
                 })
 
             },true);
-            //A great place to initialize Xamarin.Insights and Dependency Services!
+
             CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
             {
                 System.Diagnostics.Debug.WriteLine("NOTIFICATION RECEIVED",p.Data);

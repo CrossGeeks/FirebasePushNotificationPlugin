@@ -7,8 +7,6 @@ using Android.Content;
 using Android.OS;
 using Firebase;
 using System.Collections.ObjectModel;
-using System.Collections;
-using System.Collections.Specialized;
 using System.Linq;
 using Android.Gms.Tasks;
 using System.Threading;
@@ -287,20 +285,12 @@ namespace Plugin.FirebasePushNotification
             if (notificationCategories != null && notificationCategories.Length > 0)
             {
                 ClearUserNotificationCategories();
-
-                //IntentFilter intentFilter = new IntentFilter();
+                
                 foreach (var userCat in notificationCategories)
                 {
-                    foreach (var action in userCat.Actions)
-                    {
-                        //if(!intentFilter.HasAction(action.Id))
-                        //    intentFilter.AddAction($"{Application.Context.PackageManager.GetPackageInfo(Application.Context.PackageName, PackageInfoFlags.MetaData).PackageName}.{action.Id}");
-                    }
                     userNotificationCategories.Add(userCat);
                 }
-
-               // actionReceiver = new PushNotificationActionReceiver();
-               // _context.RegisterReceiver(actionReceiver, intentFilter);
+                
             }
             else
             {

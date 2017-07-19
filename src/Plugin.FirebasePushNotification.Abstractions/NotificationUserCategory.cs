@@ -26,11 +26,13 @@ namespace Plugin.FirebasePushNotification.Abstractions
         public string Id { get; }
         public string Title { get; }
         public NotificationActionType Type { get; }
-        public NotificationUserAction(string id, string title, NotificationActionType type = NotificationActionType.Default)
+        public string Icon { get; }
+        public NotificationUserAction(string id, string title, NotificationActionType type = NotificationActionType.Default, string icon = "")
         {
             Id = id;
             Title = title;
             Type = type;
+            Icon = icon;
         }
     }
 }

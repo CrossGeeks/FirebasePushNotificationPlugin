@@ -1,6 +1,6 @@
 ## Notification Actions
 
-
+If you don't implement your on PushHandler there's already a build in DefaultPushHandler that handles notification actions.
 
 Initialize using a User Category actions
 
@@ -40,6 +40,25 @@ iOS on AppDelegate FinishLaunching:
    
 ```
 Can use category or click_action keys to use notification actions.
+
+You will get the identifier of the action that was clicked on **OnNotificationOpened** event:
+
+```csharp
+CrossFirebasePushNotification.Current.OnNotificationOpened += (s,p) =>
+{
+                System.Diagnostics.Debug.WriteLine("Opened");
+                foreach(var data in p.Data)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+                }
+
+                if(!string.IsNullOrEmpty(p.Identifier))
+                {
+                    System.Diagnostics.Debug.WriteLine($"ActionId: {p.Identifier}");
+                }
+             
+ };
+```
 
 Android Notification Sample Payload:
 ```json

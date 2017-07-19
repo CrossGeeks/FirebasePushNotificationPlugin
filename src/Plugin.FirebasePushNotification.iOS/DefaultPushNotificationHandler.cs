@@ -14,7 +14,6 @@ namespace Plugin.FirebasePushNotification
     public class DefaultPushNotificationHandler : IPushNotificationHandler
     {
         public const string DomainTag = "DefaultPushNotificationHandler";
-        public NotificationUserCategory[] NotificationUserCategories => new NotificationUserCategory[] { };
 
         public void OnError(string error)
         {

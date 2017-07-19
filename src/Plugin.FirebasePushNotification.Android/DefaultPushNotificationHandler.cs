@@ -85,9 +85,6 @@ namespace Plugin.FirebasePushNotification
         /// </summary>
         public const string ActionIdentifierKey = "action_identifier";
 
-
-        public NotificationUserCategory[] NotificationUserCategories => new NotificationUserCategory[] { };
-
         public void OnOpened(NotificationResponse response)
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnOpened");

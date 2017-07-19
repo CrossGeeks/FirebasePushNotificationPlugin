@@ -104,17 +104,11 @@ namespace Plugin.FirebasePushNotification
 
         public IPushNotificationHandler NotificationHandler { get; set; }
         
-
-        public static void Initialize(NSDictionary options, IPushNotificationHandler pushNotificationHandler, bool autoRegistration = true)
-        {
-            CrossFirebasePushNotification.Current.NotificationHandler = pushNotificationHandler;
-            Initialize(options, pushNotificationHandler.NotificationUserCategories, autoRegistration);
-        }
-        public static async void Initialize(NSDictionary options,NotificationUserCategory[] notificationUserCategories = null,bool autoRegistration = true)
+        public static async Task Initialize(NSDictionary options, bool autoRegistration = true)
         {
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
 
-            TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>(); 
+            TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
 
             // Register your app for remote notifications.
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
@@ -155,14 +149,14 @@ namespace Plugin.FirebasePushNotification
                 // CrossFirebasePushNotification.Current.OnNotificationOpened(GetParameters(data));
 
             }*/
-            var permissonGranted =await permisionTask.Task;
+            var permissonGranted = await permisionTask.Task;
 
-            if(!permissonGranted)
+            if (!permissonGranted)
             {
-                _onNotificationError?.Invoke(CrossFirebasePushNotification.Current,new FirebasePushNotificationErrorEventArgs("Push notification permission not granted"));
+                _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Push notification permission not granted"));
 
             }
-                
+
 
             App.Configure();
 
@@ -173,21 +167,29 @@ namespace Plugin.FirebasePushNotification
                 // time. So if you need to retrieve the token as soon as it is available this is where that
                 // should be done.
                 var refreshedToken = InstanceId.SharedInstance.Token;
-                if(!string.IsNullOrEmpty(refreshedToken))
+                if (!string.IsNullOrEmpty(refreshedToken))
                 {
                     _onTokenRefresh?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationTokenEventArgs(refreshedToken));
                     Connect();
                 }
-                
+
             });
 
-            if(autoRegistration)
+            if (autoRegistration)
             {
                 UIApplication.SharedApplication.RegisterForRemoteNotifications();
             }
-           
-            RegisterUserNotificationCategories(notificationUserCategories);
+        }
+        public static async void Initialize(NSDictionary options, IPushNotificationHandler pushNotificationHandler, bool autoRegistration = true)
+        {
+            CrossFirebasePushNotification.Current.NotificationHandler = pushNotificationHandler;
+            await Initialize(options, autoRegistration);
+        }
+        public static async void Initialize(NSDictionary options,NotificationUserCategory[] notificationUserCategories = null,bool autoRegistration = true)
+        {
 
+            await Initialize(options, autoRegistration);
+            RegisterUserNotificationCategories(notificationUserCategories);
 
         }
         static void RegisterUserNotificationCategories(NotificationUserCategory[] userCategories)

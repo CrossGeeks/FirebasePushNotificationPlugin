@@ -35,17 +35,31 @@ Also add this permission to AndroidManifest.xml:
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-On MainApplication OnCreate
+You should initialize the plugin on an Android Application class if you don't have one on your project, should create and application class
 
 ```csharp
- FirebasePushNotificationManager.Initialize(this);
 
-  //Handle notification when app is closed here
-  CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
-  {
+    [Application]
+    public class MainApplication : Application, Application.IActivityLifecycleCallbacks
+    {
+        public MainApplication(IntPtr handle, JniHandleOwnership transer)
+          :base(handle, transer)
+        {
+        }
 
-                
-  };
+        public override void OnCreate()
+        {
+            base.OnCreate();
+            FirebasePushNotificationManager.Initialize(this);
+
+              //Handle notification when app is closed here
+              CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
+              {
+
+
+              };
+         }
+    }
 
 ```
 

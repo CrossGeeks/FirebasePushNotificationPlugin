@@ -10,6 +10,8 @@ Using headers:
 
 
 Sending to specific topic:
+
+Android:
 ```json
 {
   "to": "/topics/test",
@@ -19,7 +21,50 @@ Sending to specific topic:
 }
 ```
 
+iOS:
+
+```json
+{
+  "to" : "/topics/test",
+  "priority" : "high",
+  "notification" : {
+    "body" : "Hello world",
+    "title" : "FCM Message",
+  }
+}
+```
+
 Sending push to specific devices:
+
+Single device
+
+Android:
+```json
+{
+  "to": "{device-token}",
+  "data": {
+    "message": "hello world"
+   }
+}
+```
+
+iOS:
+
+```json
+{
+  "to" : "{device-token}",
+  "priority" : "high",
+  "notification" : {
+    "body" : "Hello world",
+    "title" : "FCM Message",
+  }
+}
+```
+
+Multiple devices:
+
+Android:
+
 ```json
 {
     "data": {
@@ -29,7 +74,22 @@ Sending push to specific devices:
 }
 ```
 
+iOS:
+
+```json
+{
+    "priority" : "high",
+    "notification" : {
+      "body" : "Hello world",
+      "title" : "FCM Message"
+    },
+    "registration_ids": ["{device-token}","{device2-token}"]
+}
+```
+
 Sending push to topic based on conditions:
+
+Android:
 
 ```json
 {
@@ -45,10 +105,36 @@ Sending push to topic based on conditions:
 {
   "condition": "'dogs' in topics || 'cats' in topics",
   "data": {
-    "message": "This is a Firebase Cloud Messaging Topic Message!",
+    "message": "This is a Firebase Cloud Messaging Topic Message!"
    }
 }
 ```
+
+iOS:
+
+```json
+{
+    "priority" : "high",
+    "notification" : {
+      "body" : "Hello world",
+      "title" : "FCM Message"
+    },
+    "condition": "'test' in topics"
+}
+```
+
+```json
+{
+  "priority" : "high",
+  "notification" : {
+    "body" : "Hello world",
+    "title" : "FCM Message"
+  },
+  "condition": "'dogs' in topics || 'cats' in topics"
+}
+```
+
+
 
 More information here: https://firebase.google.com/docs/cloud-messaging/android/topic-messaging
 

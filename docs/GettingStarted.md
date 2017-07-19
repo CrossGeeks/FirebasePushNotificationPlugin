@@ -40,7 +40,7 @@ You should initialize the plugin on an Android Application class if you don't ha
 ```csharp
 
     [Application]
-    public class MainApplication : Application, Application.IActivityLifecycleCallbacks
+    public class MainApplication : Application
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer) :base(handle, transer)
         {

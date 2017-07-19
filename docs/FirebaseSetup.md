@@ -42,6 +42,8 @@
 
 ![ADD Plist](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-googleservices-plist.png?raw=true)
 
+9. Add FirebaseAppDelegateProxyEnabled in the app’s Info.plist file and set it to No 
+
 [Communicate with APNs using a TLS certificate](http://help.apple.com/xcode/mac/current/#/dev11b059073?sub=dev1eb5dfe65)
 
 [Communicate with APNs using authentication tokens](http://help.apple.com/xcode/mac/current/#/dev54d690a66?sub=dev1eb5dfe65)

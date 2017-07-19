@@ -26,7 +26,7 @@
 
 #### iOS Firebase Setup
 
-6. Add Firebase to iOS App
+6. Add Firebase to iOS App. Bundle identifier must match your iOS app bundle identifier.
 
 ![Add Firebase to iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-add-ios-app.png?raw=true)
 

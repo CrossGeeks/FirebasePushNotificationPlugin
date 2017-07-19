@@ -32,7 +32,9 @@ Data messages - Handled by the client app. These messages trigger the onMessageR
 }
 ```
 For more information: 
+
 https://firebase.google.com/docs/cloud-messaging/concept-options
+
 https://firebase.google.com/docs/cloud-messaging/http-server-ref
 
 ### Subscribing/Unsubscribing topics

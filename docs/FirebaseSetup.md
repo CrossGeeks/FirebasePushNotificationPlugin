@@ -42,9 +42,15 @@
 
 ![ADD Plist](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-googleservices-plist.png?raw=true)
 
-9. Add FirebaseAppDelegateProxyEnabled in the app’s Info.plist file and set it to No 
+9. On Info.plist enable remote notification background mode
 
-Also you'll need to create an APNs SSL Certificate or authentication token, then upload it to Firebase and finally register the app for remote notifications. Here some references:
+![Remote notifications](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-enable-remote-notifications.png?raw=true)
+
+10. Add FirebaseAppDelegateProxyEnabled in the app’s Info.plist file and set it to No 
+
+![Disable Swizzling](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-disable-swizzling.png?raw=true)
+
+Also you'll need to create an APNs SSL Certificate or authentication token, then upload it to Firebase. Here some references:
 
 [Communicate with APNs using a TLS certificate](http://help.apple.com/xcode/mac/current/#/dev11b059073?sub=dev1eb5dfe65)
 

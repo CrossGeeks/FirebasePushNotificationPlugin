@@ -95,6 +95,7 @@ CrossFirebasePushNotification.Current.UnsubscribeAll();
                 }
              
  };
+```
 
 ### Push Notification Handler
 

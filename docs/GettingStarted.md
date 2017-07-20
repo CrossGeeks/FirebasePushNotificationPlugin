@@ -151,6 +151,8 @@ Also should override these methods and make the following calls:
 
 ## Events
 
+Once token is registered/refreshed you will get it on **OnTokenRefresh** event.
+
 ```csharp
    /// <summary>
    /// Event triggered when token is refreshed
@@ -221,7 +223,7 @@ Push message opened event usage sample:
  };
 ```
 
-Once token is refreshed you will get it on **OnTokenRefresh** event.
+
 
 
 <= Back to [Table of Contents](../README.md)

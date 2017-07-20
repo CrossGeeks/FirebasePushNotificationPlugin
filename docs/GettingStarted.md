@@ -95,7 +95,16 @@ On your main launcher activity OnCreate method
 
 ### iOS Initialization
 
-On AppDelegate FinishedLaunching
+There are 3 overrides to **FirebasePushNotificationManager.Initialize**:
+
+- **FirebasePushNotificationManager.Initialize(NSDictionary userInfo)** : Default method to initialize plugin without supporting any user notification categories.
+
+- **FirebasePushNotificationManager.Initialize(NSDictionary userInfo, NotificationUserCategory[] categories)**  : Initializes plugin using user notification categories to support iOS notification actions.
+
+- **FirebasePushNotificationManager.Initialize(NSDictionary userInfo,IPushNotificationHandler pushHandler)** : Initializes the plugin using a custom push notification handler to provide native feedback of notifications event on the native platform.
+
+
+Call  **FirebasePushNotificationManager.Initialize** on AppDelegate FinishedLaunching
 ```csharp
 
 FirebasePushNotificationManager.Initialize(options);

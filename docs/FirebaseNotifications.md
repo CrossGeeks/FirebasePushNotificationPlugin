@@ -64,6 +64,38 @@ CrossFirebasePushNotification.Current.UnsubscribeAll();
 
 ```
 
+### Notification Events
+
+**OnNotificationReceived**
+```csharp
+
+  CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
+  {
+ 
+        System.Diagnostics.Debug.WriteLine("Received");
+    
+  };
+
+```
+
+**OnNotificationOpened**
+```csharp
+  
+  CrossFirebasePushNotification.Current.OnNotificationOpened += (s,p) =>
+  {
+                System.Diagnostics.Debug.WriteLine("Opened");
+                foreach(var data in p.Data)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+                }
+
+                if(!string.IsNullOrEmpty(p.Identifier))
+                {
+                    System.Diagnostics.Debug.WriteLine($"ActionId: {p.Identifier}");
+                }
+             
+ };
+
 ### Push Notification Handler
 
 You might want to customize your notifications or handle events on your native iOS and Android project. For that you can implement the following interface on your iOS/Android project:

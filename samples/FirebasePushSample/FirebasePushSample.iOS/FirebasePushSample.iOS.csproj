@@ -132,6 +132,12 @@
     <Reference Include="Firebase.InstanceID, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Xamarin.Firebase.iOS.InstanceID.1.0.8.1\lib\Xamarin.iOS10\Firebase.InstanceID.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.FirebasePushNotification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.3-beta\lib\Xamarin.iOS10\Plugin.FirebasePushNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.FirebasePushNotification.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.3-beta\lib\Xamarin.iOS10\Plugin.FirebasePushNotification.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -150,16 +156,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Plugin.FirebasePushNotification.Abstractions\Plugin.FirebasePushNotification.Abstractions.csproj">
-      <Project>{6edb0588-ffc5-4ef5-8a99-9e241d0f878d}</Project>
-      <Name>Plugin.FirebasePushNotification.Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\Plugin.FirebasePushNotification.iOS\Plugin.FirebasePushNotification.iOS.csproj">
-      <Project>{2882aeeb-d4cd-4eb9-8a6c-6653b33681f0}</Project>
-      <Name>Plugin.FirebasePushNotification.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
     <ProjectReference Include="..\FirebasePushSample\FirebasePushSample.csproj">
       <Project>{b1bb9106-076b-497b-9b11-dc0ea5e411fa}</Project>
       <Name>FirebasePushSample</Name>

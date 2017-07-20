@@ -16,6 +16,13 @@ Simple cross platform plugin for handling firebase push notifications.
 
 Call **CrossFirebasePushNotification.Current** from any project or PCL to gain access to APIs.
 
+## Features
+
+- Receive firebase push notifications
+- Subscribing/Unsubcribing to topics
+- Support for push notification category actions
+- Customize push notifications
+
 ## Documentation
 
 Here you will find detailed documentation on setting up and using the Firebase Push Notification Plugin for Xamarin

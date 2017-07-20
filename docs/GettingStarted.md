@@ -5,7 +5,7 @@
 * `PM> Install-Package Plugin.FirebasePushNotification`
 * Install into ALL of your projects, include client projects.
 
-## Initial Configuration
+## Starting with Android
 
 ### Android Configuration
 
@@ -32,8 +32,9 @@ Also add this permission:
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
+Add google-services.json to Android project. Make sure build action is GoogleServicesJson
 
-## Initialize
+![ADD JSON](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/android-googleservices-json.png?raw=true)
 
 ### Android Initialization
 
@@ -89,6 +90,22 @@ On your main launcher activity OnCreate method
  ```
 
  **Note: When using Xamarin Forms do it just after LoadApplication call.**
+
+## Starting with iOS 
+
+### iOS Configuration
+
+ Add GoogleService-Info.plist to iOS project. Make sure build action is BundleResource
+
+![ADD Plist](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-googleservices-plist.png?raw=true)
+
+On Info.plist enable remote notification background mode
+
+![Remote notifications](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-enable-remote-notifications.png?raw=true)
+
+Add FirebaseAppDelegateProxyEnabled in the app’s Info.plist file and set it to No 
+
+![Disable Swizzling](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-disable-swizzling.png?raw=true)
 
 ### iOS Initialization
 

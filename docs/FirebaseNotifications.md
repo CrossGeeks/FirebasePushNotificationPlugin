@@ -1,7 +1,5 @@
 ## Firebase Push Notifications
 
-Message types
-
 On Firebase Cloud Messaging there are two types of messages that you can send to clients:
 
 Notification messages - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground. Firebase will provide the ui for the notification shown on Android device.
@@ -31,6 +29,8 @@ Data messages - Handled by the client app. These messages trigger the onMessageR
      "condition": "'general' in topics"
 }
 ```
+Important: On iOS this type of message won't display a notification on your device, should use a notification message for that instead.
+
 For more information: 
 
 https://firebase.google.com/docs/cloud-messaging/concept-options

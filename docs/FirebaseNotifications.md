@@ -101,3 +101,5 @@ AppDelegate **FinishLaunching** on iOS:
 
 After this you should receive push notifications events in this implementation on your iOS/Android projects.
 
+<= Back to [Table of Contents](../README.md)
+

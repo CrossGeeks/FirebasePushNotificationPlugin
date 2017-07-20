@@ -36,6 +36,8 @@ Add google-services.json to Android project. Make sure build action is GoogleSer
 
 ![ADD JSON](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/android-googleservices-json.png?raw=true)
 
+Must compile against 21+ as plugin is using API 21 specific things. Here is a great breakdown: http://redth.codes/such-android-api-levels-much-confuse-wow/
+
 ### Android Initialization
 
 You should initialize the plugin on an Android Application class if you don't have one on your project, should create an application class. Then call **FirebasePushNotificationManager.Initialize** method on OnCreate.

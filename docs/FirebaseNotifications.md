@@ -108,7 +108,7 @@ CrossFirebasePushNotification.Current.UnsubscribeAll();
 
 ```
 
-Note: On iOS you don't need to set the topic as /to/topic that is already handled internally so topics are set equally as on Android just specify the topic name.
+Note: On iOS you don't need to set the topic as /topics/{topic} that is already handled internally so topics are set equally as on Android just specify the topic name {topic}.
 
 ### Notification Events
 

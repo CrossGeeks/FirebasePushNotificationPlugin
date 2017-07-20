@@ -77,12 +77,19 @@ Also need to initialize with passing this implementation when initializing:
 
 Initialize using a PushHandler on Application class on Android and AppDelegate on iOS:
 
+Application class onAndroid:
+
 ```csharp
     #if DEBUG
       FirebasePushNotificationManager.Initialize(this,true,new CustomPushHandler());
     #else
       FirebasePushNotificationManager.Initialize(this,false,new CustomPushHandler());
     #endif
+```
+
+AppDelegate on iOS:
+```csharp
+      FirebasePushNotificationManager.Initialize(options,true,new CustomPushHandler());
 ```
 
 After this you should receive push notifications events in this implementation on your iOS/Android projects.

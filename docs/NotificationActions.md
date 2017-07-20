@@ -22,7 +22,7 @@ public enum NotificationActionType
 
 **Destructive** : Action button will have a red color. This action is iOS specific will be ignored on Android.
 
-### Initialize using a User Category actions
+### Initialize using a User Category Notifications
 
 Android on **Application** class **OnCreate** method:
 

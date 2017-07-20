@@ -1,17 +1,17 @@
-## Firebase Notifications
+## Firebase Push Notifications
 
 Message types
 
-With FCM, you can send two types of messages to clients:
+On Firebase Cloud Messaging there are two types of messages that you can send to clients:
 
-Notification messages - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground.
+Notification messages - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground. Firebase will provide the ui for the notification shown on Android device.
 
 ```json
 {
    "notification" : 
    {
-    "body" : "hello!",
-    "title": "afruz",
+    "body" : "hello",
+    "title": "firebase",
     "sound": "default"
    }
     "registration_ids" : ["eoPr8fUIPns:APA91bEVYODiWaL9a9JidumLRcFjVrEC4iHY80mHSE1e-udmPB32RjMiYL2P2vWTIUgYCJYVOx9SGSN_R4Ksau3vFX4WvkDj4ZstxqmcBhM3K-NMrX8P6U0sdDEqDpr-lD_N5JWBLCoV"]
@@ -38,6 +38,8 @@ https://firebase.google.com/docs/cloud-messaging/concept-options
 https://firebase.google.com/docs/cloud-messaging/http-server-ref
 
 ### Subscribing/Unsubscribing topics
+
+Firebase provide the ability to group devices by using topics. When you send push notifications to a topic only the devices subscribed to this topic will get the notification
 
 ```csharp
 //Subscribing to single topic

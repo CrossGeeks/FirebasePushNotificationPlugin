@@ -2,7 +2,7 @@
 
 On Firebase Cloud Messaging there are two types of messages that you can send to clients:
 
-Notification messages - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground. Firebase will provide the ui for the notification shown on Android device.
+**Notification messages** - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground. Firebase will provide the ui for the notification shown on Android device.
 
 ```json
 {
@@ -16,7 +16,7 @@ Notification messages - Delivered when the application is in background. These m
 }
 ```
 
-Data messages - Handled by the client app. These messages trigger the onMessageReceived() callback even if your app is in foreground/background/killed. When using this type of message you are the one providing the UI and handling when push notification is received on an Android device.
+**Data messages** - Handled by the client app. These messages trigger the onMessageReceived() callback even if your app is in foreground/background/killed. When using this type of message you are the one providing the UI and handling when push notification is received on an Android device.
 
 ```json
 {
@@ -79,7 +79,7 @@ Also need to initialize with passing this implementation when initializing:
 
 Initialize using a PushHandler on Application class on Android and AppDelegate on iOS:
 
-Application class onAndroid:
+Application class **OnCreate** on Android:
 
 ```csharp
     #if DEBUG
@@ -89,7 +89,7 @@ Application class onAndroid:
     #endif
 ```
 
-AppDelegate on iOS:
+AppDelegate **FinishLaunching** on iOS:
 ```csharp
       FirebasePushNotificationManager.Initialize(options,true,new CustomPushHandler());
 ```

@@ -61,6 +61,24 @@ iOS:
 }
 ```
 
+If you want to send notifications when the app is in the background set content_available to true.
+
+```json
+{  
+   "data":{  
+      "title":"mytitle",
+      "body":"mybody",
+      "url":"myurl"
+   },
+   "notification" : {
+    "body" : "Hello world",
+    "title" : "FCM Message",
+    "content_available" : true
+   },
+  "to" : "{device-token}",
+}
+```
+
 Multiple devices:
 
 Android:
@@ -191,3 +209,5 @@ More information here: https://firebase.google.com/docs/cloud-messaging/android/
  });
 ```
 More information here: https://github.com/tiagomtotti/firebaseNet        
+
+<= Back to [Table of Contents](../README.md)

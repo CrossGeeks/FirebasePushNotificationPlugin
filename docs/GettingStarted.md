@@ -5,12 +5,9 @@
 * `PM> Install-Package Plugin.FirebasePushNotification`
 * Install into ALL of your projects, include client projects.
 
-## Using FirebasePushNotification APIs
-It is drop dead simple to gain access to the FirebasePushNotification APIs in any project. All you need to do is get a reference to the current instance of IFirebasePushNotification via `CrossFirebasePushNotification.Current`:
+## Starting with Android
 
-## Initialize
-
-### Android Initialization
+### Android Configuration
 
 Edit AndroidManifest.xml and insert the following receiver elements inside the application section:
 
@@ -29,13 +26,34 @@ Edit AndroidManifest.xml and insert the following receiver elements inside the a
     </intent-filter>
 </receiver>
 ```
-Also add this permission to AndroidManifest.xml:
+Also add this permission:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
+Add google-services.json to Android project. Make sure build action is GoogleServicesJson
+
+![ADD JSON](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/android-googleservices-json.png?raw=true)
+
+Must compile against 21+ as plugin is using API 21 specific things. Here is a great breakdown: http://redth.codes/such-android-api-levels-much-confuse-wow/
+
+### Android Initialization
+
 You should initialize the plugin on an Android Application class if you don't have one on your project, should create an application class. Then call **FirebasePushNotificationManager.Initialize** method on OnCreate.
+
+There are 3 overrides to **FirebasePushNotificationManager.Initialize**:
+
+- **FirebasePushNotificationManager.Initialize(Context context, bool resetToken)** : Default method to initialize plugin without supporting any user notification categories. Uses a DefaultPushHandler to provide the ui for the notification.
+
+- **FirebasePushNotificationManager.Initialize(Context context, bool resetToken, NotificationUserCategory[] categories)**  : Initializes plugin using user notification categories. Uses a DefaultPushHandler to provide the ui for the notification supporting buttons based on the action_click send on the notification
+
+- **FirebasePushNotificationManager.Initialize(Context context, bool resetToken,IPushNotificationHandler pushHandler)** : Initializes the plugin using a custom push notification handler to provide custom ui and behaviour notifications receipt and opening.
+
+**Important: While debugging set resetToken parameter to true.**
+
+Example of initialization:
+
 ```csharp
 
     [Application]
@@ -67,7 +85,7 @@ You should initialize the plugin on an Android Application class if you don't ha
 
 ```
 
-On your main launcher activity OnCreate method
+On your main launcher activity **OnCreate** method
 
 ```csharp
  FirebasePushNotificationManager.ProcessIntent(Intent);
@@ -75,9 +93,34 @@ On your main launcher activity OnCreate method
 
  **Note: When using Xamarin Forms do it just after LoadApplication call.**
 
+## Starting with iOS 
+
+### iOS Configuration
+
+ Add GoogleService-Info.plist to iOS project. Make sure build action is BundleResource
+
+![ADD Plist](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-googleservices-plist.png?raw=true)
+
+On Info.plist enable remote notification background mode
+
+![Remote notifications](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-enable-remote-notifications.png?raw=true)
+
+Add FirebaseAppDelegateProxyEnabled in the app’s Info.plist file and set it to No 
+
+![Disable Swizzling](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-disable-swizzling.png?raw=true)
+
 ### iOS Initialization
 
-On AppDelegate FinishedLaunching
+There are 3 overrides to **FirebasePushNotificationManager.Initialize**:
+
+- **FirebasePushNotificationManager.Initialize(NSDictionary options)** : Default method to initialize plugin without supporting any user notification categories.
+
+- **FirebasePushNotificationManager.Initialize(NSDictionary options, NotificationUserCategory[] categories)**  : Initializes plugin using user notification categories to support iOS notification actions.
+
+- **FirebasePushNotificationManager.Initialize(NSDictionary options,IPushNotificationHandler pushHandler)** : Initializes the plugin using a custom push notification handler to provide native feedback of notifications event on the native platform.
+
+
+Call  **FirebasePushNotificationManager.Initialize** on AppDelegate FinishedLaunching
 ```csharp
 
 FirebasePushNotificationManager.Initialize(options);
@@ -134,11 +177,13 @@ Also should override these methods and make the following calls:
 ```
 
 
-Once token is refreshed you will get it on **OnTokenRefresh** event.
+## Using Firebase Push Notification APIs
+It is drop dead simple to gain access to the FirebasePushNotification APIs in any project. All you need to do is get a reference to the current instance of IFirebasePushNotification via `CrossFirebasePushNotification.Current`:
 
+### Events
 
+Once token is registered/refreshed you will get it on **OnTokenRefresh** event.
 
-#### Events in FirebasePushNotification
 
 ```csharp
    /// <summary>
@@ -209,6 +254,7 @@ Push message opened event usage sample:
              
  };
 ```
+
 
 
 

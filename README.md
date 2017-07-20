@@ -32,5 +32,4 @@ Here you will find detailed documentation on setting up and using the Firebase P
 * [Receiving Push Notifications](docs/FirebaseNotifications.md)
 * [Testing Push Notifications](docs/TestingPushNotifications.md)
 * [Notifications Actions](docs/NotificationActions.md)
-* [Push notifications handlers](docs/PushHandlers.md)
 * [FAQ](docs/FAQ.md)

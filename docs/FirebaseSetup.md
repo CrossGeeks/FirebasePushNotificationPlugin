@@ -19,36 +19,20 @@
 
 ![GooglePlayJson](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-android-json.png?raw=true)
 
-5. Add google-services.json to Android project. Make sure build action is GoogleServicesJson
-
-![ADD JSON](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/android-googleservices-json.png?raw=true)
-
 
 #### iOS Firebase Setup
 
-6. Add Firebase to iOS App. Bundle identifier must match your iOS app bundle identifier.
+1. Add Firebase to iOS App. Bundle identifier must match your iOS app bundle identifier.
 
 ![Add Firebase to iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-add-ios-app.png?raw=true)
 
 ![Add Firebase to iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-create-ios-app.png?raw=true)
 
-7. Download GoogleService-Info.plist
+2. Download GoogleService-Info.plist
 
 ![Plist iOS](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-ios-plist.png?raw=true)
 
 ![Apps added](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-apps.png?raw=true)
-
-8. Add GoogleService-Info.plist to iOS project. Make sure build action is BundleResource
-
-![ADD Plist](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-googleservices-plist.png?raw=true)
-
-9. On Info.plist enable remote notification background mode
-
-![Remote notifications](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-enable-remote-notifications.png?raw=true)
-
-10. Add FirebaseAppDelegateProxyEnabled in the app’s Info.plist file and set it to No 
-
-![Disable Swizzling](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/iOS-disable-swizzling.png?raw=true)
 
 Also you'll need to create an APNs SSL Certificate or authentication token, then upload it to Firebase. Here some references:
 
@@ -56,7 +40,7 @@ Also you'll need to create an APNs SSL Certificate or authentication token, then
 
 [Communicate with APNs using authentication tokens](http://help.apple.com/xcode/mac/current/#/dev54d690a66?sub=dev1eb5dfe65)
 
-Upload iOS TLS certificate/auth token on Settings -> Cloud Messaging section:
+3. Upload iOS TLS certificate/auth token on Settings -> Cloud Messaging section:
 
 ![Certificate](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-ios-certificate-0.png?raw=true)
 

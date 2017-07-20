@@ -83,7 +83,7 @@ Example of initialization:
 
 ```
 
-On your main launcher activity OnCreate method
+On your main launcher activity **OnCreate** method
 
 ```csharp
  FirebasePushNotificationManager.ProcessIntent(Intent);

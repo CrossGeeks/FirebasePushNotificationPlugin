@@ -88,7 +88,7 @@ https://firebase.google.com/docs/cloud-messaging/http-server-ref
 
 ### Subscribing/Unsubscribing topics
 
-Firebase provide the ability to group devices by using topics. When you send push notifications to a topic only the devices subscribed to this topic will get the notification
+Firebase provide the ability to group devices by using topics. When you send push notifications to a topic only the devices subscribed to this topic will get the notification.
 
 ```csharp
 //Subscribing to single topic
@@ -107,6 +107,8 @@ CrossFirebasePushNotification.Current.Unsubscribe(new string[]{"food","music"});
 CrossFirebasePushNotification.Current.UnsubscribeAll();
 
 ```
+
+Note: On iOS you don't need to set the topic as /to/topic that is already handled internally so topics are set equally as on Android just specify the topic name.
 
 ### Notification Events
 

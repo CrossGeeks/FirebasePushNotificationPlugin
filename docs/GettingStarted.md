@@ -5,7 +5,7 @@
 * `PM> Install-Package Plugin.FirebasePushNotification`
 * Install into ALL of your projects, include client projects.
 
-## Using FirebasePushNotification APIs
+## Using Firebase Push Notification APIs
 It is drop dead simple to gain access to the FirebasePushNotification APIs in any project. All you need to do is get a reference to the current instance of IFirebasePushNotification via `CrossFirebasePushNotification.Current`:
 
 ## Initial Configuration

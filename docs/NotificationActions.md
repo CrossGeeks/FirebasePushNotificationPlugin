@@ -16,8 +16,8 @@ Android on Application class:
 
                 }),
                 new NotificationUserCategory("request",new List<NotificationUserAction> {
-                    new NotificationUserAction("Accept","Accept"),
-                    new NotificationUserAction("Reject","Reject")
+                    new NotificationUserAction("Accept","Accept","check"),
+                    new NotificationUserAction("Reject","Reject","cancel")
                 })
 
 ```

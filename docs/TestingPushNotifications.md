@@ -61,7 +61,7 @@ iOS:
 }
 ```
 
-On iOS if you want to send notifications when the app is in the background set content_available to true.
+If you want to send notifications when the app is in the background set content_available to true.
 
 ```json
 {  
@@ -73,6 +73,7 @@ On iOS if you want to send notifications when the app is in the background set c
    "notification" : {
     "body" : "Hello world",
     "title" : "FCM Message",
+    "content_available" : true
    },
   "to" : "{device-token}",
 }

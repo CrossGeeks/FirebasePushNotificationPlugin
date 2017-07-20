@@ -149,12 +149,7 @@ Also should override these methods and make the following calls:
         }
 ```
 
-
-Once token is refreshed you will get it on **OnTokenRefresh** event.
-
-
-
-#### Events in FirebasePushNotification
+### Events in FirebasePushNotification
 
 ```csharp
    /// <summary>
@@ -226,6 +221,7 @@ Push message opened event usage sample:
  };
 ```
 
+Once token is refreshed you will get it on **OnTokenRefresh** event.
 
 
 <= Back to [Table of Contents](../README.md)

@@ -25,6 +25,16 @@ public class NotificationUserCategory
 }
 ```
 
+```csharp
+  //This just applies for iOS on Android is always set as default when used
+    public enum NotificationCategoryType
+    {
+        Default,
+        Custom,
+        Dismiss
+    }
+```
+
 Notification User Action:
 
 Each user action represents a button option of the notification user category

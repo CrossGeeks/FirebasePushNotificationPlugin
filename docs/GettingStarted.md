@@ -149,7 +149,7 @@ Also should override these methods and make the following calls:
         }
 ```
 
-## Events in FirebasePushNotification
+## Events
 
 ```csharp
    /// <summary>

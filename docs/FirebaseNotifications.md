@@ -161,9 +161,7 @@ public interface IPushNotificationHandler
 
 An example of a custom handler use is the [DefaultPushNotificationHandler](../src/Plugin.FirebasePushNotification.Android/DefaultPushNotificationHandler.cs) which is the plugin default implementation to render the push notification ui when sending data messages and supporting notification actions.
 
-Also need to initialize with passing this implementation when initializing:
-
-Initialize using a PushHandler on Application class on Android and AppDelegate on iOS:
+### Initialize using a PushHandler on Application class on Android and AppDelegate on iOS:
 
 Application class **OnCreate** on Android:
 

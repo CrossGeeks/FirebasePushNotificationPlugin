@@ -1,6 +1,9 @@
 ## Notification Actions
 
-You can initialize the plugin with notification user categories to provide button options within the notification when received with one of the notification user categories configured.
+You can initialize the plugin with notification user categories to provide button options within the notification. Depending on the notification category received you can provide different button options.
+
+
+Notification User Category:
 
 ```csharp
 public class NotificationUserCategory
@@ -19,6 +22,8 @@ public class NotificationUserCategory
    }
 }
 ```
+
+Notification User Action:
 ```csharp
 public class NotificationUserAction
 {
@@ -26,7 +31,7 @@ public class NotificationUserAction
    
    public string Title { get; }
    
-   public NotificationActionType Type { get; }
+   public NotificationActionType Type { get; } //Determines the behaviour when action is executed
    
    public string Icon { get; } //Applies only for Android
    

@@ -61,6 +61,23 @@ iOS:
 }
 ```
 
+On iOS if you want to send notifications when the app is in the background set content_available to true.
+
+```json
+{  
+   "data":{  
+      "title":"mytitle",
+      "body":"mybody",
+      "url":"myurl"
+   },
+   "notification" : {
+    "body" : "Hello world",
+    "title" : "FCM Message",
+   },
+  "to" : "{device-token}",
+}
+```
+
 Multiple devices:
 
 Android:

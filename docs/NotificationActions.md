@@ -16,8 +16,8 @@ Android on Application class:
 
                 }),
                 new NotificationUserCategory("request",new List<NotificationUserAction> {
-                    new NotificationUserAction("Accept","Accept"),
-                    new NotificationUserAction("Reject","Reject")
+                    new NotificationUserAction("Accept","Accept","check"),
+                    new NotificationUserAction("Reject","Reject","cancel")
                 })
 
 ```
@@ -39,7 +39,7 @@ iOS on AppDelegate FinishLaunching:
    });
    
 ```
-Can use category or click_action keys to use notification actions.
+Can use **click_action** key to use notification actions.
 
 You will get the identifier of the action that was clicked on **OnNotificationOpened** event:
 
@@ -65,8 +65,8 @@ Android Notification Sample Payload:
 {
     "data": {
         "body" : "hello!",
-        "title": "afruz",
-        "category":"message"
+        "title": "firebase",
+        "click_action":"message"
      },
      
      "priority": "high",
@@ -78,17 +78,14 @@ Android Notification Sample Payload:
 iOS Notification Sample Payload:
 ```json
 {
-   "data": {
-        "category":"message"
-     },
   "notification" : {
     "body" : "hello!",
-    "title": "afruz",
+    "title": "firebase",
+    "click_action":"message",
     "sound": "default"
   },
   
   "priority": "high",
-
   "condition": "'general' in topics"
 }
 ```

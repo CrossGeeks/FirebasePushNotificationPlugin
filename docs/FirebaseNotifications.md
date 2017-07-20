@@ -4,7 +4,7 @@ Message types
 
 With FCM, you can send two types of messages to clients:
 
-Notification messages - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground
+Notification messages - Delivered when the application is in background. These messages trigger the onMessageReceived() callback only when your app is in foreground.
 
 ```json
 {
@@ -32,7 +32,9 @@ Data messages - Handled by the client app. These messages trigger the onMessageR
 }
 ```
 For more information: 
+
 https://firebase.google.com/docs/cloud-messaging/concept-options
+
 https://firebase.google.com/docs/cloud-messaging/http-server-ref
 
 ### Subscribing/Unsubscribing topics

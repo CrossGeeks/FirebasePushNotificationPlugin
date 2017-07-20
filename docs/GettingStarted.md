@@ -50,6 +50,8 @@ There are 3 overrides to **FirebasePushNotificationManager.Initialize**:
 
 - **FirebasePushNotificationManager.Initialize(Context context, bool resetToken,IPushNotificationHandler pushHandler)** : Initializes the plugin using a custom push notification handler to provide custom ui and behaviour notifications receipt and opening.
 
+**Important: While debugging set resetToken parameter to true.**
+
 Example of initialization:
 
 ```csharp

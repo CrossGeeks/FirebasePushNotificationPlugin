@@ -29,7 +29,13 @@ On Firebase Cloud Messaging there are two types of messages that you can send to
      "condition": "'general' in topics"
 }
 ```
-Important: On iOS this type of message won't display a notification on your device, should use a notification message for that instead.
+**Important: 
+
+On iOS this type of message won't display a notification on your device, should use a notification message for that instead.
+On Android this type of message is the one we use to customize notifications ui
+**
+
+
 
 For more information: 
 

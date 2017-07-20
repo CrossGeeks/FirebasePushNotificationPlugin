@@ -133,10 +133,10 @@
       <HintPath>..\..\..\packages\Xamarin.Firebase.iOS.InstanceID.1.0.8.1\lib\Xamarin.iOS10\Firebase.InstanceID.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.FirebasePushNotification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.3-beta\lib\Xamarin.iOS10\Plugin.FirebasePushNotification.dll</HintPath>
+      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.4\lib\Xamarin.iOS10\Plugin.FirebasePushNotification.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.FirebasePushNotification.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.3-beta\lib\Xamarin.iOS10\Plugin.FirebasePushNotification.Abstractions.dll</HintPath>
+      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.4\lib\Xamarin.iOS10\Plugin.FirebasePushNotification.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

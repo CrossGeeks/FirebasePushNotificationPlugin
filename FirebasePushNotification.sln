@@ -11,6 +11,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.FirebasePushNotifica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.FirebasePushNotification.Android", "src\Plugin.FirebasePushNotification.Android\Plugin.FirebasePushNotification.Android.csproj", "{56A56F17-7DE1-4CA1-9617-BF32E971AC84}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{90F2ECC9-D748-4D8C-92B4-E86B80FD6377}"
+	ProjectSection(SolutionItems) = preProject
+		docs\FAQ.md = docs\FAQ.md
+		docs\FirebaseNotifications.md = docs\FirebaseNotifications.md
+		docs\FirebaseSetup.md = docs\FirebaseSetup.md
+		docs\GettingStarted.md = docs\GettingStarted.md
+		docs\NotificationActions.md = docs\NotificationActions.md
+		nuget\Plugin.nuspec = nuget\Plugin.nuspec
+		README.md = README.md
+		docs\TestingPushNotifications.md = docs\TestingPushNotifications.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

@@ -58,10 +58,10 @@
       <HintPath>..\..\..\packages\Plugin.CurrentActivity.1.0.1\lib\MonoAndroid10\Plugin.CurrentActivity.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.FirebasePushNotification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.3-beta\lib\MonoAndroid10\Plugin.FirebasePushNotification.dll</HintPath>
+      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.4\lib\MonoAndroid10\Plugin.FirebasePushNotification.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.FirebasePushNotification.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.3-beta\lib\MonoAndroid10\Plugin.FirebasePushNotification.Abstractions.dll</HintPath>
+      <HintPath>..\FirebasePushSample\packages\Plugin.FirebasePushNotification.1.0.4\lib\MonoAndroid10\Plugin.FirebasePushNotification.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

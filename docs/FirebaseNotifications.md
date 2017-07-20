@@ -13,7 +13,7 @@ Notification messages - Delivered when the application is in background. These m
     "body" : "hello",
     "title": "firebase",
     "sound": "default"
-   }
+   },
     "registration_ids" : ["eoPr8fUIPns:APA91bEVYODiWaL9a9JidumLRcFjVrEC4iHY80mHSE1e-udmPB32RjMiYL2P2vWTIUgYCJYVOx9SGSN_R4Ksau3vFX4WvkDj4ZstxqmcBhM3K-NMrX8P6U0sdDEqDpr-lD_N5JWBLCoV"]
 }
 ```

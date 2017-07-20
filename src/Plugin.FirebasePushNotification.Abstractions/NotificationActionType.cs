@@ -4,12 +4,11 @@ using System.Text;
 
 namespace Plugin.FirebasePushNotification.Abstractions
 {
-    //This just applies for iOS on Android is always set as default when used
     public enum NotificationActionType
     {
-        Default,
-        AuthenticationRequired,
+        Default,  
+        AuthenticationRequired, //Only applies for iOS
         Foreground,
-        Destructive
+        Destructive  //Only applies for iOS
     }
 }

@@ -1,10 +1,10 @@
 ## Notification Actions
 
-You can initialize the plugin with notification user categories to provide button options within the notification once receiving one with one of the notification user categories configured.
+You can initialize the plugin with notification user categories to provide button options within the notification when received with one of the notification user categories configured.
 
 Initialize using a User Category actions
 
-Android on Application class:
+Android on **Application** class **OnCreate** method:
 
 ```csharp
 
@@ -21,7 +21,7 @@ Android on Application class:
 
 ```
 
-iOS on AppDelegate FinishLaunching:
+iOS on **AppDelegate** FinishLaunching:
 
 ```csharp
 
@@ -38,7 +38,7 @@ iOS on AppDelegate FinishLaunching:
    });
    
 ```
-Can use **click_action** key to use notification actions.
+Should use **click_action** key to when sending notification with categories. The value for this key will be the category.
 
 You will get the identifier of the action that was clicked on **OnNotificationOpened** event:
 
@@ -46,14 +46,16 @@ You will get the identifier of the action that was clicked on **OnNotificationOp
 CrossFirebasePushNotification.Current.OnNotificationOpened += (s,p) =>
 {
                 System.Diagnostics.Debug.WriteLine("Opened");
-                foreach(var data in p.Data)
-                {
-                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
-                }
+              
 
                 if(!string.IsNullOrEmpty(p.Identifier))
                 {
                     System.Diagnostics.Debug.WriteLine($"ActionId: {p.Identifier}");
+                }
+                
+                foreach(var data in p.Data)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
                 }
              
  };

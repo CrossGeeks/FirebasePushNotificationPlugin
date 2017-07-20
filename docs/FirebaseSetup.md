@@ -34,13 +34,9 @@
 
 ![Apps added](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-apps.png?raw=true)
 
-Also you'll need to create an APNs SSL Certificate or authentication token, then upload it to Firebase. Here some references:
+3. Configure APNs with FCM: https://firebase.google.com/docs/cloud-messaging/ios/certs
 
-[Communicate with APNs using a TLS certificate](http://help.apple.com/xcode/mac/current/#/dev11b059073?sub=dev1eb5dfe65)
-
-[Communicate with APNs using authentication tokens](http://help.apple.com/xcode/mac/current/#/dev54d690a66?sub=dev1eb5dfe65)
-
-3. Upload iOS TLS certificate/auth token on Settings -> Cloud Messaging section:
+4. Upload iOS TLS certificate/auth token on Settings -> Cloud Messaging section:
 
 ![Certificate](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-ios-certificate-0.png?raw=true)
 

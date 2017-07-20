@@ -1,9 +1,8 @@
 ## Notification Actions
 
-If you don't implement your on PushHandler there's already a build in DefaultPushHandler that handles notification actions.
+You can initialize the plugin with notification user categories to provide button options within the notification once receiving one with one of the notification user categories configured.
 
 Initialize using a User Category actions
-
 
 Android on Application class:
 

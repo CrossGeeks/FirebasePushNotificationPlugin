@@ -2,6 +2,43 @@
 
 You can initialize the plugin with notification user categories to provide button options within the notification when received with one of the notification user categories configured.
 
+```csharp
+public class NotificationUserCategory
+{
+   public string Category { get; }
+   
+   public List<NotificationUserAction> Actions { get; }
+
+   public NotificationCategoryType Type { get; }
+
+   public NotificationUserCategory(string category, List<NotificationUserAction> actions, NotificationCategoryType type = NotificationCategoryType.Default)
+   {
+      Category = category;
+      Actions = actions;
+      Type = type;
+   }
+}
+```
+```csharp
+public class NotificationUserAction
+{
+   public string Id { get; }
+   
+   public string Title { get; }
+   
+   public NotificationActionType Type { get; }
+   
+   public string Icon { get; } //Applies only for Android
+   
+   public NotificationUserAction(string id, string title, NotificationActionType type = NotificationActionType.Default, string icon = "")
+   {
+      Id = id;
+      Title = title;
+      Type = type;
+      Icon = icon;
+   }
+}
+```
 There are a few types of notification action types that modifies the action behaviour when a button option is tapped:
 
 ```csharp

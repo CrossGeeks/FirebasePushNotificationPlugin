@@ -31,9 +31,53 @@ On Firebase Cloud Messaging there are two types of messages that you can send to
 ```
 **Important:** 
 
-- On iOS this type of message won't display a notification on your device, should use a notification message for that instead.
+iOS :
 
-- On Android this type of message is the one we use to customize notifications ui
+- Data message won't display a notification on your device, should use a notification message for that instead.
+- For receiving push notifications on the background on should include content_available = true inside the notification key. 
+
+Example:
+
+If application on background receives push notification and display a notification.
+```json
+{
+    "data": {
+        "message" : "my_custom_value",
+        "other_key" : true,
+        "body":"test"
+     },
+     "notification": {
+       "body" : "hello",
+       "title": "firebase",
+       "sound": "default",
+        "content_available" : true
+     },
+     "priority": "high",
+     "condition": "'general' in topics"
+}
+```
+
+If application on background receives push notification doesn't display any notification.
+```json
+{
+    "data": {
+        "message" : "my_custom_value",
+        "other_key" : true,
+        "body":"test"
+     },
+     "notification": {
+        "content_available" : true
+     },
+     "priority": "high",
+     "condition": "'general' in topics"
+}
+```
+
+If  "content_available" : true is not sent then you have to tap on the notification for it to be received on the application.
+
+Android:
+
+- Data messages let's you customize notifications ui while notification messages don't (ui is renderered by firebase)
 
 
 For more information: 

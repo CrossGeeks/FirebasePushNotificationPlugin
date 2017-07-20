@@ -8,9 +8,9 @@
 ## Using FirebasePushNotification APIs
 It is drop dead simple to gain access to the FirebasePushNotification APIs in any project. All you need to do is get a reference to the current instance of IFirebasePushNotification via `CrossFirebasePushNotification.Current`:
 
-## Initialize
+## Initial Configuration
 
-### Android Initialization
+### Android Configuration
 
 Edit AndroidManifest.xml and insert the following receiver elements inside the application section:
 
@@ -29,13 +29,27 @@ Edit AndroidManifest.xml and insert the following receiver elements inside the a
     </intent-filter>
 </receiver>
 ```
-Also add this permission to AndroidManifest.xml:
+Also add this permission:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
 ```
 
+
+## Initialize
+
+### Android Initialization
+
 You should initialize the plugin on an Android Application class if you don't have one on your project, should create an application class. Then call **FirebasePushNotificationManager.Initialize** method on OnCreate.
+
+There are 3 overrides to **FirebasePushNotificationManager.Initialize**:
+
+- **FirebasePushNotificationManager.Initialize(Context context, bool resetToken)** : Default method to initialize plugin without supporting any user notification categories. Uses a DefaultPushHandler to provide the ui for the notification
+
+- **FirebasePushNotificationManager.Initialize(Context context, bool resetToken, UserNotificationCategories[] categories)**  : Initializes plugin using user notification categories. Uses a DefaultPushHandler to provide the ui for the notification supporting buttons on the notification based on the action_click send on the notification
+
+- **FirebasePushNotificationManager.Initialize(Context context, bool resetToken,IPushNotificationHandler pushHandler)** : Initializes the plugin using a custom push notification handler to provide custom ui and behaviour notifications receipt and opening.
+
 ```csharp
 
     [Application]

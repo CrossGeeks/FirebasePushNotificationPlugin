@@ -56,4 +56,8 @@ Also you'll need to create an APNs SSL Certificate or authentication token, then
 
 [Communicate with APNs using authentication tokens](http://help.apple.com/xcode/mac/current/#/dev54d690a66?sub=dev1eb5dfe65)
 
+Upload iOS TLS certificate/auth token here:
+
+![Certificate](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/firebase-portal-ios-certificate.png?raw=true)
+
 <= Back to [Table of Contents](../README.md)

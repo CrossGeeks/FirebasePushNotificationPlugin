@@ -5,6 +5,8 @@ You can initialize the plugin with notification user categories to provide butto
 
 Notification User Category:
 
+Each notification user category can have it's own options
+
 ```csharp
 public class NotificationUserCategory
 {
@@ -24,12 +26,15 @@ public class NotificationUserCategory
 ```
 
 Notification User Action:
+
+Each user action represents a button option of the notification user category
+
 ```csharp
 public class NotificationUserAction
 {
-   public string Id { get; }
+   public string Id { get; } // Action Identifier
    
-   public string Title { get; }
+   public string Title { get; } //Title to be displayed for the option
    
    public NotificationActionType Type { get; } //Determines the behaviour when action is executed
    
@@ -44,7 +49,7 @@ public class NotificationUserAction
    }
 }
 ```
-There are a few types of notification action types that modifies the action behaviour when a button option is tapped:
+There are a few types of notification user actions which determines the behaviour of it when the button option is tapped:
 
 ```csharp
 public enum NotificationActionType

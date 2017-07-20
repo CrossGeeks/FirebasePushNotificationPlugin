@@ -2,7 +2,27 @@
 
 You can initialize the plugin with notification user categories to provide button options within the notification when received with one of the notification user categories configured.
 
-Initialize using a User Category actions
+There are a few types of notification action types that modifies the action behaviour when a button option is tapped:
+
+```csharp
+public enum NotificationActionType
+{
+        Default,  
+        AuthenticationRequired, //Only applies for iOS
+        Foreground,
+        Destructive  //Only applies for iOS
+}
+```
+
+**Default** : When a button with this notification action type is tapped will handle the notification on background won't bring the application to foreground. Action will take place without launching the application.
+
+**Foreground** : When a button with this notification action type is tapped will bring the application to foreground and receive the notification once application is in foreground.
+
+**AuthenticationRequired** : If set the user needs to insert the unlock code to launch the action in background. This action is iOS specific will be ignored on Android.
+
+**Destructive** : Action button will have a red color. This action is iOS specific will be ignored on Android.
+
+### Initialize using a User Category actions
 
 Android on **Application** class **OnCreate** method:
 
@@ -40,7 +60,8 @@ iOS on **AppDelegate** FinishLaunching:
 ```
 Should use **click_action** key to when sending notification with categories. The value for this key will be the category.
 
-You will get the identifier of the action that was clicked on **OnNotificationOpened** event:
+
+You will get the identifier of the action that was tapped on **OnNotificationOpened** event:
 
 ```csharp
 CrossFirebasePushNotification.Current.OnNotificationOpened += (s,p) =>

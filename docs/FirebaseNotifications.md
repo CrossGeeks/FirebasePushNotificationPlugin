@@ -145,11 +145,26 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
 
 ### Push Notification Handler
 
-A push notification handler is the way to provide ui push notification customization and event feedback to native platforms.
+A push notification handler is the way to provide ui push notification customization and events feedback on native platforms by using IPushNotificationHandler interface. The plugin has a default push notification handler implementation and is the one used by default.
+
+
+```csharp
+public interface IPushNotificationHandler
+{
+        //Method triggered when an error occurs
+        void OnError(string error);
+        //Method triggered when a notification is opened
+        void OnOpened(NotificationResponse response);
+        //Method triggered when a notification is received
+        void OnReceived(IDictionary<string, string> parameters);
+}
+```
+
+You don't need to implement the interface on both platforms just on the platform you might need event feedback or in case of Android notification ui customization.
 
 **Default Push Notification Handler**
 
-On Android by default the plugin uses a default push notification handler to create the notification ui & actions support when sending **Data messages**.
+If plugin is not initialized with a push handler on Android by default the plugin uses the default push notification handler to create the notification ui & actions support when sending **Data messages**.
 
 * There are a few things you can configure in Android project using the following static properties from FirebasePushNotificationManager class:
     ```csharp
@@ -172,19 +187,7 @@ On Android by default the plugin uses a default push notification handler to cre
 
 **Custom Push Notification Handler**
 
-You might want to customize your notifications or handle events on your native iOS and Android project. For that you can implement the following interface on your iOS/Android project:
-
-```csharp
-public interface IPushNotificationHandler
-{
-        //Method triggered when an error occurs
-        void OnError(string error);
-        //Method triggered when a notification is opened
-        void OnOpened(NotificationResponse response);
-        //Method triggered when a notification is received
-        void OnReceived(IDictionary<string, string> parameters);
-}
-```
+You might want to customize your notifications or handle events on your native iOS and Android project. For that you can implement the IPushNotificationHandler interface on your iOS/Android project and intialize the plugin using that implementation.
 
 An example of a custom handler use is the [DefaultPushNotificationHandler](../src/Plugin.FirebasePushNotification.Android/DefaultPushNotificationHandler.cs) which is the plugin default implementation to render the push notification ui when sending data messages and supporting notification actions on Android.
 

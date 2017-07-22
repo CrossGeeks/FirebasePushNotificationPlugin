@@ -145,7 +145,7 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
 
 ### Push Notification Handler
 
-A push notification handler is the way to provide ui push notification customization and events feedback on native platforms by using IPushNotificationHandler interface. The plugin has a default push notification handler implementation and is the one used by default.
+A push notification handler is the way to provide ui push notification customization(on Android) and events feedback on native platforms by using **IPushNotificationHandler** interface. The plugin has a default push notification handler implementation and it's the one used by default.
 
 
 ```csharp
@@ -160,7 +160,7 @@ public interface IPushNotificationHandler
 }
 ```
 
-You don't need to implement the interface on both platforms just on the platform you might need event feedback or in case of Android notification ui customization.
+You don't need to implement the interface on both platforms just on the platform you might need event feedback or in case of Android notification ui customization. On most cases the default implementation might be enough so might not be need at all.
 
 **Default Push Notification Handler**
 
@@ -187,7 +187,7 @@ If plugin is not initialized with a push handler on Android by default the plugi
 
 **Custom Push Notification Handler**
 
-You might want to customize your notifications or handle events on your native iOS and Android project. For that you can implement the IPushNotificationHandler interface on your iOS/Android project and intialize the plugin using that implementation.
+You might want to customize your notifications or handle events on your native iOS and Android project. For that you can implement the **IPushNotificationHandler** interface on your iOS/Android project and intialize the plugin using that implementation.
 
 An example of a custom handler use is the [DefaultPushNotificationHandler](../src/Plugin.FirebasePushNotification.Android/DefaultPushNotificationHandler.cs) which is the plugin default implementation to render the push notification ui when sending data messages and supporting notification actions on Android.
 

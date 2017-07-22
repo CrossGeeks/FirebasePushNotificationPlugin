@@ -145,6 +145,8 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
 
 ### Push Notification Handler
 
+A push notification handler is the way to provide ui push notification customization and event feedback to native platforms.
+
 **Default Push Notification Handler**
 
 On Android by default the plugin uses a default push notification handler to create the notification ui & actions support when sending **Data messages**.

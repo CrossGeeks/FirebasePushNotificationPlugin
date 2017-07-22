@@ -150,7 +150,7 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
 On Android by default the plugin uses a default push notification handler to create the notification ui & actions support when sending **Data messages**.
 
 * There are a few things you can configure in Android project using the following static properties from FirebasePushNotificationManager class:
-    ```
+    ```csharp
     //The sets the key associated with the value will be used to show the title for the notification
     public static string NotificationContentTitleKey { get; set; }
    

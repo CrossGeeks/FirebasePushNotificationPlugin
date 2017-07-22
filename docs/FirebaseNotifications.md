@@ -145,6 +145,30 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
 
 ### Push Notification Handler
 
+**Default Push Notification Handler**
+
+On Android by default the plugin uses a default push notification handler to create the notification ui & actions support when sending **Data messages**.
+
+* There are a few things you can configure in Android project using the following static properties from FirebasePushNotificationManager class:
+    ```
+    //The sets the key associated with the value will be used to show the title for the notification
+    public static string NotificationContentTitleKey { get; set; }
+   
+    //The sets the key associated with the value will be used to show the text for the notification
+    public static string NotificationContentTextKey { get; set; }
+
+    //The sets the resource id for the icon will be used for the notification
+    public static int IconResource { get; set; }
+
+    //The sets the sound  uri will be used for the notification
+    public static Android.Net.Uri SoundUri { get; set; }
+
+   ```
+* If no By default NotificationContentTitleKey and NotificationContentTextKey configure by default displays a notification looking for the key <i><b>title</b></i> to display notification title and <i><b>message</b></i>  to display notification message. If <i><b>title</b></i>  key not present will use the application name.
+* If you send a key called <i><b>silent</b></i> with value true it won't display a notification.
+
+**Custom Push Notification Handler**
+
 You might want to customize your notifications or handle events on your native iOS and Android project. For that you can implement the following interface on your iOS/Android project:
 
 ```csharp

@@ -160,7 +160,7 @@ public interface IPushNotificationHandler
 }
 ```
 
-You don't need to implement the interface on both platforms just on the platform you might need event feedback or in case of Android notification ui customization. On most cases the default implementation might be enough so might not be need at all.
+You don't need to implement the interface on both platforms just on the platform you might need event feedback or in case of Android notification ui customization. On most common use cases the default implementation might be enough so a custom implementation might not be needed at all.
 
 **Default Push Notification Handler**
 

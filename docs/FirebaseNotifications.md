@@ -166,7 +166,7 @@ On Android by default the plugin uses a default push notification handler to cre
    ```
 * If no NotificationContentTitleKey and NotificationContentTextKey is set, by default displays a notification looking for the key <i><b>title</b></i> to display notification title and <i><b>message</b></i> to display notification message. If <i><b>title</b></i>  key not present will use the application name.
 * If you send a key called <i><b>silent</b></i> with value true it won't display a notification.
-* For notification with actions will look for **action_click** key value as the match. More information here:  [Notification Actions](../NotificationActions.md)
+* For notification with actions will look for **action_click** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
 
 **Custom Push Notification Handler**
 

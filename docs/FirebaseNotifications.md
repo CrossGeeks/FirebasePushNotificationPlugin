@@ -164,7 +164,7 @@ On Android by default the plugin uses a default push notification handler to cre
     public static Android.Net.Uri SoundUri { get; set; }
 
    ```
-* If no By default NotificationContentTitleKey and NotificationContentTextKey configure by default displays a notification looking for the key <i><b>title</b></i> to display notification title and <i><b>message</b></i>  to display notification message. If <i><b>title</b></i>  key not present will use the application name.
+* If no NotificationContentTitleKey and NotificationContentTextKey is set by default displays a notification looking for the key <i><b>title</b></i> to display notification title and <i><b>message</b></i>  to display notification message. If <i><b>title</b></i>  key not present will use the application name.
 * If you send a key called <i><b>silent</b></i> with value true it won't display a notification.
 
 **Custom Push Notification Handler**

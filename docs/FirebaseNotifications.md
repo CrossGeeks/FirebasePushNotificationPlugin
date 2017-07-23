@@ -181,7 +181,18 @@ If plugin is not initialized with a push handler on Android by default the plugi
     public static Android.Net.Uri SoundUri { get; set; }
 
    ```
-* If no NotificationContentTitleKey and NotificationContentTextKey is set, by default displays a notification looking for the key <i><b>title</b></i> to display notification title and <i><b>message</b></i> to display notification message. If <i><b>title</b></i>  key not present will use the application name.
+   
+If **NotificationContentTitleKey** not set will look for **title** key value to set the title. If no title key present will use the application name as the notification title.
+
+If **NotificationContentTextKey** not set will look for one of the following keys value in the priority order shown below to set the message for the notification:
+            
+1. **alert**
+2. **body**
+3. **message**
+4. **subtitle**
+5. **text**
+6. **title**
+
 * If you send a key called <i><b>silent</b></i> with value true it won't display a notification.
 * For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
 

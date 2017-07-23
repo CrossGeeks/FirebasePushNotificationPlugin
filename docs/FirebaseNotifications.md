@@ -193,6 +193,8 @@ If **NotificationContentTextKey** not set will look for one of the following key
 5. **text**
 6. **title**
 
+Once one of the above keys is found on the notification data message will shown it's value as the notification message.
+
 * If you send a key called <i><b>silent</b></i> with value true it won't display a notification.
 * For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
 

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirebasePushSample", "FirebasePushSample.csproj", "{3CB6619F-44BE-439F-9119-0DB084FC9784}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirebasePushSample", "FirebasePushSample\FirebasePushSample.csproj", "{3CB6619F-44BE-439F-9119-0DB084FC9784}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirebasePushSample.Android", "..\FirebasePushSample.Android\FirebasePushSample.Android.csproj", "{524779F2-E29E-4BA2-B346-BAA571729A1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirebasePushSample.Android", "FirebasePushSample.Android\FirebasePushSample.Android.csproj", "{524779F2-E29E-4BA2-B346-BAA571729A1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirebasePushSample.iOS", "..\FirebasePushSample.iOS\FirebasePushSample.iOS.csproj", "{FA3C97AC-3E34-4566-A146-CE8B49669AC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirebasePushSample.iOS", "FirebasePushSample.iOS\FirebasePushSample.iOS.csproj", "{FA3C97AC-3E34-4566-A146-CE8B49669AC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

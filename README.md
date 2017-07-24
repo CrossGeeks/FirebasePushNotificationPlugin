@@ -33,3 +33,10 @@ Here you will find detailed documentation on setting up and using the Firebase P
 * [Testing Push Notifications](docs/TestingPushNotifications.md)
 * [Notifications Actions](docs/NotificationActions.md)
 * [FAQ](docs/FAQ.md)
+
+#### Contributors
+
+* [Rendy Del Rosario](https://github.com/rdelrosario)
+* [Charlin Agramonte](https://github.com/char0394)
+* [Alberto Florenzan](https://github.com/aflorenzan)
+* [Angel Andres Mañon](https://github.com/AngelAndresM)

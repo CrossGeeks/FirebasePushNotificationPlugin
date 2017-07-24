@@ -145,7 +145,8 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
 
 ### Push Notification Handler
 
-You might want to customize your notifications or handle events on your native iOS and Android project. For that you can implement the following interface on your iOS/Android project:
+A push notification handler is the way to provide ui push notification customization(on Android) and events feedback on native platforms by using **IPushNotificationHandler** interface. The plugin has a default push notification handler implementation and it's the one used by default.
+
 
 ```csharp
 public interface IPushNotificationHandler
@@ -158,6 +159,50 @@ public interface IPushNotificationHandler
         void OnReceived(IDictionary<string, string> parameters);
 }
 ```
+
+You don't need to implement the interface on both platforms just on the platform you might need event feedback or in case of Android notification ui customization. On most common use cases the default implementation might be enough so a custom implementation might not be needed at all.
+
+**Default Push Notification Handler**
+
+If plugin is not initialized with a push handler on Android by default the plugin uses the default push notification handler to create the notification ui & actions support when sending **Data messages**.
+
+* There are a few things you can configure in Android project using the following static properties from FirebasePushNotificationManager class:
+    ```csharp
+    //The sets the key associated with the value will be used to show the title for the notification
+    public static string NotificationContentTitleKey { get; set; }
+   
+    //The sets the key associated with the value will be used to show the text for the notification
+    public static string NotificationContentTextKey { get; set; }
+
+    //The sets the resource id for the icon will be used for the notification
+    public static int IconResource { get; set; }
+
+    //The sets the sound  uri will be used for the notification
+    public static Android.Net.Uri SoundUri { get; set; }
+
+   ```
+   
+If **NotificationContentTitleKey** not set will look for **title** key value to set the title. If no title key present will use the application name as the notification title.
+
+If **NotificationContentTextKey** not set will look for one of the following keys value in the priority order shown below to set the message for the notification:
+            
+1. **alert**
+2. **body**
+3. **message**
+4. **subtitle**
+5. **text**
+6. **title**
+
+Once one of the above keys is found on the notification data message will shown it's value as the notification message.
+
+* **id** key is set as the notification id if present.
+* **tag** key is set as the notification tag if present.
+* If you send a key called <i><b>silent</b></i> with value true it won't display a notification.
+* For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
+
+**Custom Push Notification Handler**
+
+You might want to customize your notifications or handle events on your native iOS and Android project. For that you can implement the **IPushNotificationHandler** interface on your iOS/Android project and intialize the plugin using that implementation.
 
 An example of a custom handler use is the [DefaultPushNotificationHandler](../src/Plugin.FirebasePushNotification.Android/DefaultPushNotificationHandler.cs) which is the plugin default implementation to render the push notification ui when sending data messages and supporting notification actions on Android.
 

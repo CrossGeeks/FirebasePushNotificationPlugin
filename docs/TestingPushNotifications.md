@@ -8,8 +8,6 @@ Using headers:
 
 **Authorization: key={your-fcm-server-key}**
 
-If using Postman import this collection: [Firebase Postman Collection](../extras/Firebase.postman_collection.json)
-
 Sending to specific topic:
 
 Android:
@@ -135,9 +133,11 @@ iOS:
 }
 ```
 
-
-
 More information here: https://firebase.google.com/docs/cloud-messaging/android/topic-messaging
+
+### Using Postman
+
+Import this collection: [Firebase Postman Collection](../extras/Firebase.postman_collection.json)
 
 ### Using [FirebaseNet](https://www.nuget.org/packages/firebaseNet) to send push notifications:
 

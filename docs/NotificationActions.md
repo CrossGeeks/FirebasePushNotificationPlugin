@@ -85,16 +85,19 @@ Android on **Application** class **OnCreate** method:
 
 ```csharp
 
-  FirebasePushNotificationManager.Initialize(this,true,new NotificationUserCategory[] {
-                new NotificationUserCategory("message",new List<NotificationUserAction> {
-                    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
-                    new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)
+  FirebasePushNotificationManager.Initialize(this,
+                new NotificationUserCategory[]
+                {
+                    new NotificationUserCategory("message",new List<NotificationUserAction> {
+                        new NotificationUserAction("Reply","Reply", NotificationActionType.Foreground),
+                        new NotificationUserAction("Forward","Forward", NotificationActionType.Foreground)
 
-                }),
-                new NotificationUserCategory("request",new List<NotificationUserAction> {
-                    new NotificationUserAction("Accept","Accept","check"),
-                    new NotificationUserAction("Reject","Reject","cancel")
-                })
+                    }),
+                    new NotificationUserCategory("request",new List<NotificationUserAction> {
+                    new NotificationUserAction("Accept","Accept", NotificationActionType.Default, "check"),
+                    new NotificationUserAction("Reject","Reject", NotificationActionType.Default, "cancel")
+                    })
+                }, true);
 
 ```
 

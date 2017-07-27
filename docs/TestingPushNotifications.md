@@ -6,7 +6,7 @@ Using headers:
 
 **Content-Type: application/json**
 
-**Authorization: {your-fcm-server-key}**
+**Authorization: key={your-fcm-server-key}**
 
 
 Sending to specific topic:

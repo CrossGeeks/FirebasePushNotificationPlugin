@@ -46,9 +46,9 @@ There are 3 overrides to **FirebasePushNotificationManager.Initialize**:
 
 - **FirebasePushNotificationManager.Initialize(Context context, bool resetToken)** : Default method to initialize plugin without supporting any user notification categories. Uses a DefaultPushHandler to provide the ui for the notification.
 
-- **FirebasePushNotificationManager.Initialize(Context context, bool resetToken, NotificationUserCategory[] categories)**  : Initializes plugin using user notification categories. Uses a DefaultPushHandler to provide the ui for the notification supporting buttons based on the action_click send on the notification
+- **FirebasePushNotificationManager.Initialize(Context context, NotificationUserCategory[] categories, bool resetToken)**  : Initializes plugin using user notification categories. Uses a DefaultPushHandler to provide the ui for the notification supporting buttons based on the action_click send on the notification
 
-- **FirebasePushNotificationManager.Initialize(Context context, bool resetToken,IPushNotificationHandler pushHandler)** : Initializes the plugin using a custom push notification handler to provide custom ui and behaviour notifications receipt and opening.
+- **FirebasePushNotificationManager.Initialize(Context context,IPushNotificationHandler pushHandler, bool resetToken)** : Initializes the plugin using a custom push notification handler to provide custom ui and behaviour notifications receipt and opening.
 
 **Important: While debugging set resetToken parameter to true.**
 

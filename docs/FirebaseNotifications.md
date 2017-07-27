@@ -212,9 +212,9 @@ Application class **OnCreate** on Android:
 
 ```csharp
     #if DEBUG
-      FirebasePushNotificationManager.Initialize(this,true,new CustomPushHandler());
+      FirebasePushNotificationManager.Initialize(this,new CustomPushHandler(),true);
     #else
-      FirebasePushNotificationManager.Initialize(this,false,new CustomPushHandler());
+      FirebasePushNotificationManager.Initialize(this,new CustomPushHandler(),false);
     #endif
 ```
 

@@ -220,7 +220,7 @@ Application class **OnCreate** on Android:
 
 AppDelegate **FinishLaunching** on iOS:
 ```csharp
-      FirebasePushNotificationManager.Initialize(options,true,new CustomPushHandler());
+      FirebasePushNotificationManager.Initialize(options,new CustomPushHandler());
 ```
 
 After this you should receive push notifications events in this implementation on your iOS/Android projects.

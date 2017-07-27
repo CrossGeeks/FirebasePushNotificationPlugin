@@ -113,7 +113,7 @@ Add FirebaseAppDelegateProxyEnabled in the app’s Info.plist file and set it to
 
 There are 3 overrides to **FirebasePushNotificationManager.Initialize**:
 
-- **FirebasePushNotificationManager.Initialize(NSDictionary options)** : Default method to initialize plugin without supporting any user notification categories.
+- **FirebasePushNotificationManager.Initialize(NSDictionary options,bool autoRegistration)** : Default method to initialize plugin without supporting any user notification categories. Auto registers for push notifications if second parameter is true.
 
 - **FirebasePushNotificationManager.Initialize(NSDictionary options, NotificationUserCategory[] categories)**  : Initializes plugin using user notification categories to support iOS notification actions.
 

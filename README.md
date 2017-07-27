@@ -24,7 +24,7 @@ Call **CrossFirebasePushNotification.Current** from any project or PCL to gain a
 - Customize push notifications
 
 <p align="center">
-<img src="https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/Gifs/CrossGeeks%20Push%20Notification%20Plugin%20-%20Android.gif?raw=true"  title="Android"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/Gifs/CrossGeeks%20PushNotification%20Plugin%20-%20Android.gif?raw=true"  title="Android"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/Gifs/CrossGeeks%20Push%20Notification%20Plugin%20-%20iOS.gif?raw=true" height="380" title="iOS"/>
 </p>
 

@@ -1,14 +1,16 @@
 ## Notification Category Actions
 
+You can initialize the plugin with notification user categories to provide button options within the notification. Depending on the notification category received you can provide different button options.
+
 <p align="center">
 <img src="https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/Gifs/CrossGeeks%20Push%20Notification%20-%20Category%20Actions%20Android.gif?raw=true"  title="Android"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/Gifs/CrossGeeks%20Push%20Notification%20-%20Category%20Actions%20iOS.gif?raw=true" height="380" title="iOS"/>
 </p>
 
-You can initialize the plugin with notification user categories to provide button options within the notification. Depending on the notification category received you can provide different button options.
 
 
-Notification User Category:
+
+### Notification User Category:
 
 Each notification user category can have it's own options
 
@@ -40,7 +42,7 @@ public class NotificationUserCategory
     }
 ```
 
-Notification User Action:
+### Notification User Action:
 
 Each user action represents a button option of the notification user category
 

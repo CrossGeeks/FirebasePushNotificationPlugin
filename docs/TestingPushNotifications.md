@@ -8,6 +8,7 @@ Using headers:
 
 **Authorization: key={your-fcm-server-key}**
 
+Using Postman: [Firebase Postman Collection](../extras/Firebase.postman_collection.json)
 
 Sending to specific topic:
 

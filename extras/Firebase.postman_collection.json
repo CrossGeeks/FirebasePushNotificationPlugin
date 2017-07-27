@@ -1,0 +1,36 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Firebase",
+		"_postman_id": "c2a5fe7a-eedd-13ce-c7e1-5f85b8556b6f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://fcm.googleapis.com/fcm/send",
+			"request": {
+				"url": "https://fcm.googleapis.com/fcm/send",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "key=AAAAs-sjvx8:APA91bFkXoRIkbHePQ8piVThFMn_fWqTXxDKE8kkKR1WHl8C6pTw6QGQB6ke4UXb3DRrfoXrR5MYVOtQABMF_hxqeYuTAOeHugD-2yigpr6HE3EyZ07hqPoz0fh6TFFv4H58BJHtyAGi",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"message\" : \"my_custom_value\",\r\n        \"other_key\" : true,\r\n        \"body\":\"tornado\",\r\n          \t\"click_action\":\"request\"\r\n     },\r\n     \"notification\" : {\r\n    \"body\" : \"hello!\",\r\n    \"title\": \"afruz\",\r\n    \"sound\": \"default\",\r\n          \t\"click_action\":\"request\"\r\n    \r\n  },\r\n     \r\n     \"priority\": \"high\",\r\n\r\n         \"condition\": \"'general' in topics\"\r\n}\r\n"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

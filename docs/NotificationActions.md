@@ -171,7 +171,7 @@ iOS Notification Sample Payload:
   "condition": "'general' in topics"
 }
 ```
-**Note: To receive push notifications using the payload sample you must be subscribed to "general" topic.**
+**Note: To receive push notifications using these payload samples you must be subscribed to "general" topic.**
 
 <= Back to [Table of Contents](../README.md)
 

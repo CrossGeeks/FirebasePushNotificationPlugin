@@ -9,6 +9,7 @@
 
 [![Getting Started Video](https://img.youtube.com/vi/FrxPEMLfV-o/0.jpg)](https://youtu.be/FrxPEMLfV-o)
 
+<a href="https://youtu.be/FrxPEMLfV-o" target="_blank">Getting started with Firebase Push Notifications Plugin</a>
 
 ## Starting with Android
 

@@ -5,6 +5,11 @@
 * `PM> Install-Package Plugin.FirebasePushNotification`
 * Install into ALL of your projects, include client projects.
 
+## Getting Started Video
+
+[![Getting Started Video](https://img.youtube.com/vi/FrxPEMLfV-o/0.jpg)](https://youtu.be/FrxPEMLfV-o)
+
+
 ## Starting with Android
 
 ### Android Configuration

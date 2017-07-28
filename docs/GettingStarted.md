@@ -7,9 +7,12 @@
 
 ## Getting Started Video
 
-[![Getting Started Video](https://img.youtube.com/vi/FrxPEMLfV-o/0.jpg)](https://youtu.be/FrxPEMLfV-o)
+Here a step by step video to get started by setting up everything in your project:
 
 <a href="https://youtu.be/FrxPEMLfV-o" target="_blank">Getting started with Firebase Push Notifications Plugin</a>
+
+[![Getting Started Video](https://img.youtube.com/vi/FrxPEMLfV-o/0.jpg)](https://youtu.be/FrxPEMLfV-o)]
+
 
 ## Starting with Android
 

@@ -132,7 +132,7 @@ There are 3 overrides to **FirebasePushNotificationManager.Initialize**:
 Call  **FirebasePushNotificationManager.Initialize** on AppDelegate FinishedLaunching
 ```csharp
 
-FirebasePushNotificationManager.Initialize(options);
+FirebasePushNotificationManager.Initialize(options,true);
 
 ```
  **Note: When using Xamarin Forms do it just after LoadApplication call.**

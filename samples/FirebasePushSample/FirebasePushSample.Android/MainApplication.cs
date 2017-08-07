@@ -26,19 +26,37 @@ namespace FirebasePushSample.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
-            FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[]
-            {
-                new NotificationUserCategory("message",new List<NotificationUserAction> {
-                    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
-                    new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)
+	    
+	    //If debug you should reset the token each time.
+            #if DEBUG
+		    FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[]
+		    {
+			new NotificationUserCategory("message",new List<NotificationUserAction> {
+			    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
+			    new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)
 
-                }),
-                new NotificationUserCategory("request",new List<NotificationUserAction> {
-                    new NotificationUserAction("Accept","Accept",NotificationActionType.Default,"check"),
-                    new NotificationUserAction("Reject","Reject",NotificationActionType.Default,"cancel")
-                })
+			}),
+			new NotificationUserCategory("request",new List<NotificationUserAction> {
+			    new NotificationUserAction("Accept","Accept",NotificationActionType.Default,"check"),
+			    new NotificationUserAction("Reject","Reject",NotificationActionType.Default,"cancel")
+			})
 
-            },true);
+		    },true);
+	     #else
+	            FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[]
+		    {
+			new NotificationUserCategory("message",new List<NotificationUserAction> {
+			    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
+			    new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)
+
+			}),
+			new NotificationUserCategory("request",new List<NotificationUserAction> {
+			    new NotificationUserAction("Accept","Accept",NotificationActionType.Default,"check"),
+			    new NotificationUserAction("Reject","Reject",NotificationActionType.Default,"cancel")
+			})
+
+		    },false);
+	      #endif
 
             CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
             {

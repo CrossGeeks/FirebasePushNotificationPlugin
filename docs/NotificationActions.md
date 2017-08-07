@@ -91,7 +91,7 @@ public enum NotificationActionType
 Android on **Application** class **OnCreate** method:
 
 ```csharp
-
+#if DEBUG
   FirebasePushNotificationManager.Initialize(this,
                 new NotificationUserCategory[]
                 {
@@ -105,6 +105,21 @@ Android on **Application** class **OnCreate** method:
                     new NotificationUserAction("Reject","Reject", NotificationActionType.Default, "cancel")
                     })
                 }, true);
+#else
+  FirebasePushNotificationManager.Initialize(this,
+                new NotificationUserCategory[]
+                {
+                    new NotificationUserCategory("message",new List<NotificationUserAction> {
+                        new NotificationUserAction("Reply","Reply", NotificationActionType.Foreground),
+                        new NotificationUserAction("Forward","Forward", NotificationActionType.Foreground)
+
+                    }),
+                    new NotificationUserCategory("request",new List<NotificationUserAction> {
+                    new NotificationUserAction("Accept","Accept", NotificationActionType.Default, "check"),
+                    new NotificationUserAction("Reject","Reject", NotificationActionType.Default, "cancel")
+                    })
+                }, false);
+#endif
 
 ```
 

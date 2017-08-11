@@ -26,7 +26,7 @@
 
 <b> 1. When subscribing to topics getting error: Failed to subscribe to topic Error Domain=com.google.fcm Code=5 "(null)" </b>
 
-Add this to you Info.plist:
+Add this to your Info.plist:
 ```xml
 <key>CFBundleURLTypes</key>
 	<array>

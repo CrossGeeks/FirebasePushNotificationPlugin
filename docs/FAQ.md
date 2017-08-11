@@ -29,7 +29,7 @@
 Add this to your Info.plist:
 ```xml
 <key>CFBundleURLTypes</key>
-	<array>
+<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>

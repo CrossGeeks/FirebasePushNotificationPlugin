@@ -18,7 +18,7 @@ Here a step by step video to get started by setting up everything in your projec
 
 ### Android Configuration
 
-Edit AndroidManifest.xml and insert the following receiver elements inside the application section:
+Edit AndroidManifest.xml and insert the following receiver elements **inside** the **application** section:
 
 ```xml
 <receiver 

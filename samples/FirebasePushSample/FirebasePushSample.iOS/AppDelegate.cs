@@ -57,9 +57,7 @@ namespace FirebasePushSample.iOS
 
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
         {
-            base.FailedToRegisterForRemoteNotifications(application, error);
             FirebasePushNotificationManager.RemoteNotificationRegistrationFailed(error);
-
         }
         // To receive notifications in foregroung on iOS 9 and below.
         // To receive notifications in background in any iOS version

@@ -152,7 +152,6 @@ Also should override these methods and make the following calls:
 
         public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
         {
-            base.FailedToRegisterForRemoteNotifications(application, error);
             FirebasePushNotificationManager.RemoteNotificationRegistrationFailed(error);
 
         }

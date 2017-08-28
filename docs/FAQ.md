@@ -22,6 +22,14 @@
 
 <b> 8. Topics are case sensitive so "test" and "Test" are different topics </b>
 
+<b> 9. Error 1589 NotificationService Not posting notification without small icon </b><br>
+	It happen when the message is received, but the notification isn't displayed. If you got this error, it mean you need to tell which one is your app icon on <b>Android Project Properties > Android Manifest > application Icon</b> or in the <b>AndroidManifext.xml file and put android:icon="@drawable/{replace with your icon file name}"</b> in the
+	
+	<application android:label="Test" android:icon="@drawable/{replace with your icon file name}">	
+	...
+	</application>
+
+
 ### iOS
 
 <b> 1. When subscribing to topics getting error: Failed to subscribe to topic Error Domain=com.google.fcm Code=5 "(null)" </b>

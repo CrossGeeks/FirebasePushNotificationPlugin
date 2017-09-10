@@ -18,6 +18,8 @@ namespace Plugin.FirebasePushNotification
     /// </summary>
     public class FirebasePushNotificationManager : NSObject, IFirebasePushNotification, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
+        public static UNNotificationPresentationOptions CurrentNotificationPresentationOption { get; set; } = UNNotificationPresentationOptions.None;
+
         static Queue<Tuple<string, bool>> pendingTopics = new Queue<Tuple<string, bool>>();
         static bool connected = false;
         static NSString FirebaseTopicsKey = new NSString("FirebaseTopics");
@@ -185,14 +187,14 @@ namespace Plugin.FirebasePushNotification
             CrossFirebasePushNotification.Current.NotificationHandler = pushNotificationHandler;
             await Initialize(options, autoRegistration);
         }
-        public static async void Initialize(NSDictionary options,NotificationUserCategory[] notificationUserCategories = null,bool autoRegistration = true)
+        public static async void Initialize(NSDictionary options,NotificationUserCategory[] notificationUserCategories,bool autoRegistration = true)
         {
 
             await Initialize(options, autoRegistration);
             RegisterUserNotificationCategories(notificationUserCategories);
 
         }
-        static void RegisterUserNotificationCategories(NotificationUserCategory[] userCategories)
+        public static void RegisterUserNotificationCategories(NotificationUserCategory[] userCategories)
         {
             if (userCategories != null && userCategories.Length > 0)
             {
@@ -473,7 +475,7 @@ namespace Plugin.FirebasePushNotification
         }
 
         [Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
-        public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action<UNNotificationPresentationOptions> completionHandler)
         {
 
             var parameters = GetParameters(response.Notification.Request.Content.UserInfo);
@@ -490,7 +492,7 @@ namespace Plugin.FirebasePushNotification
             CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(notificationResponse);
             
             // Inform caller it has been handled
-            completionHandler();
+            completionHandler(CurrentNotificationPresentationOption);
         }
     }
 

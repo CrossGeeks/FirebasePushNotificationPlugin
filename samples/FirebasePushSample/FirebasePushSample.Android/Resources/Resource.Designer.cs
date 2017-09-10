@@ -3892,6 +3892,27 @@ namespace FirebasePushSample.Droid
 			// aapt resource value: 0x7f0a000f
 			public const int common_signin_button_text_long = 2131361807;
 			
+			// aapt resource value: 0x7f0a0050
+			public const int default_web_client_id = 2131361872;
+			
+			// aapt resource value: 0x7f0a0051
+			public const int firebase_database_url = 2131361873;
+			
+			// aapt resource value: 0x7f0a004e
+			public const int gcm_defaultSenderId = 2131361870;
+			
+			// aapt resource value: 0x7f0a0052
+			public const int google_api_key = 2131361874;
+			
+			// aapt resource value: 0x7f0a004f
+			public const int google_app_id = 2131361871;
+			
+			// aapt resource value: 0x7f0a0053
+			public const int google_crash_reporting_api_key = 2131361875;
+			
+			// aapt resource value: 0x7f0a0054
+			public const int google_storage_bucket = 2131361876;
+			
 			// aapt resource value: 0x7f0a0011
 			public const int mr_button_content_description = 2131361809;
 			

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.FirebasePushNotification", "src\Plugin.FirebasePushNotification\Plugin.FirebasePushNotification.csproj", "{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.FirebasePushNotification", "src\Plugin.FirebasePushNotification\Plugin.FirebasePushNotification.csproj", "{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.FirebasePushNotification.Abstractions", "src\Plugin.FirebasePushNotification.Abstractions\Plugin.FirebasePushNotification.Abstractions.csproj", "{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.FirebasePushNotification.Abstractions", "src\Plugin.FirebasePushNotification.Abstractions\Plugin.FirebasePushNotification.Abstractions.csproj", "{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.FirebasePushNotification.iOS", "src\Plugin.FirebasePushNotification.iOS\Plugin.FirebasePushNotification.iOS.csproj", "{2882AEEB-D4CD-4EB9-8A6C-6653B33681F0}"
 EndProject
@@ -23,7 +23,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docs\TestingPushNotifications.md = docs\TestingPushNotifications.md
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Plugin.FirebasePushNotification.Shared", "src\Plugin.FirebasePushNotification.Shared\Plugin.FirebasePushNotification.Shared.shproj", "{DE8D46F6-F381-4BC6-A40E-837023E5A6C8}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Plugin.FirebasePushNotification.Shared\Plugin.FirebasePushNotification.Shared.projitems*{2882aeeb-d4cd-4eb9-8a6c-6653b33681f0}*SharedItemsImports = 4
+		src\Plugin.FirebasePushNotification.Shared\Plugin.FirebasePushNotification.Shared.projitems*{56a56f17-7de1-4ca1-9617-bf32e971ac84}*SharedItemsImports = 4
+		src\Plugin.FirebasePushNotification.Shared\Plugin.FirebasePushNotification.Shared.projitems*{de8d46f6-f381-4bc6-a40e-837023e5a6c8}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
 		Ad-Hoc|ARM = Ad-Hoc|ARM
@@ -246,5 +253,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5817F944-7ACB-4681-B3D6-32F6B0E2546B}
 	EndGlobalSection
 EndGlobal

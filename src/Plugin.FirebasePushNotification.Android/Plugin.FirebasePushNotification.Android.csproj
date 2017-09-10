@@ -81,9 +81,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Plugin.FirebasePushNotification\CrossFirebasePushNotification.cs">
-      <Link>CrossFirebasePushNotification.cs</Link>
-    </Compile>
     <Compile Include="FirebasePushNotificationManager.cs" />
     <Compile Include="PNFirebaseIIDService.cs" />
     <Compile Include="PNFirebaseMessagingService.cs" />
@@ -102,6 +99,7 @@
       <Name>Plugin.FirebasePushNotification.Abstractions</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\Plugin.FirebasePushNotification.Shared\Plugin.FirebasePushNotification.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

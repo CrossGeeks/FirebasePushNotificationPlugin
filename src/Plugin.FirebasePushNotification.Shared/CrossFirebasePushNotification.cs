@@ -28,7 +28,7 @@ namespace Plugin.FirebasePushNotification
 
     static IFirebasePushNotification CreateFirebasePushNotification()
     {
-#if PORTABLE
+#if NETSTANDARD1_0
         return null;
 #else
         return new FirebasePushNotificationManager();

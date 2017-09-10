@@ -225,5 +225,33 @@ AppDelegate **FinishLaunching** on iOS:
 
 After this you should receive push notifications events in this implementation on your iOS/Android projects.
 
+### iOS Specifics Customization
+
+You can set UNNotificationPresentationOptions to get an alert, badge, sound when notification is opened by setting static property **FirebasePushNotificationManager.CurrentNotificationPresentationOption**. By default is set to UNNotificationPresentationOptions.None.
+
+```csharp
+     public enum UNNotificationPresentationOptions
+	 {
+	 	 Alert,	//Display the notification as an alert, using the notification text.
+		 Badge,	//Display the notification badge value in the application's badge.
+		 None,	//No options are set.
+		 Sound  //Play the notification sound.
+	 }
+```
+
+Usage sample on iOS Project:
+
+```csharp
+   //To set for alert
+   FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert;
+
+   //You can also combine them
+   FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Badge;
+```
+
+A good place to do this would be on the **OnOpened** method of a custom push notification handler if it changes depending on the notification, if not you can just set it once on the AppDelegate **FinishLaunching**.
+
+**Note: this feature is available from 1.0.6-beta version on.**
+
 <= Back to [Table of Contents](../README.md)
 

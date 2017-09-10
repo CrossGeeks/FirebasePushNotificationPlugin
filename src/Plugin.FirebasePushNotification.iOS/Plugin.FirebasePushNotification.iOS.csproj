@@ -38,9 +38,6 @@
     <DocumentationFile>bin\iPhone\Release\Plugin.FirebasePushNotification.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Plugin.FirebasePushNotification\CrossFirebasePushNotification.cs">
-      <Link>CrossFirebasePushNotification.cs</Link>
-    </Compile>
     <Compile Include="DefaultPushNotificationHandler.cs" />
     <Compile Include="FirebasePushNotificationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +69,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <Import Project="..\Plugin.FirebasePushNotification.Shared\Plugin.FirebasePushNotification.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -2,19 +2,19 @@
 <package >
   <metadata minClientVersion="2.8.1">
     <id>Plugin.FirebasePushNotification</id>
-    <version>1.0.4</version>
+    <version>1.0.6-beta</version>
     <title>Firebase Push Notification Plugin for Xamarin</title>
     <authors>Rendy Del Rosario</authors>
-    <owners>crossgeeks,rdelrosario</owners>
+    <owners>crossgeeks rdelrosario</owners>
     <licenseUrl>https://raw.githubusercontent.com/CrossGeeks/FirebasePushNotificationPlugin/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</projectUrl>
     <iconUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/art/icon.png?raw=true</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</description>
     <summary>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</summary>
-    <releaseNotes>Support for handling firebase push notifications</releaseNotes>
+    <releaseNotes>Added support for UNNotificationPresentationOptions on iOS</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>iOS,Android,firebase,push notifications,cloud messaging</tags>
+    <tags>iOS,Android,firebase,push notifications,cloud messaging,pcl,xamarin,plugins,xam.pcl</tags>
     <dependencies>
         <group targetFramework="MonoAndroid10">
             <dependency id="Xamarin.GooglePlayServices.Base" version="42.1021.1" />
@@ -26,9 +26,11 @@
     </dependencies>
   </metadata>
   <files>
+        <!--NetStandard/PCL-->
+        <file src="..\src\Plugin.FirebasePushNotification\bin\Release\netstandard1.0\Plugin.FirebasePushNotification.*" target="lib\netstandard1.0" />
+        <!--Xamarin.Android-->
         <file src="..\src\Plugin.FirebasePushNotification.Android\bin\Release\Plugin.FirebasePushNotification.*" target="lib\MonoAndroid10" />
-        <file src="..\src\Plugin.FirebasePushNotification\bin\Release\Plugin.FirebasePushNotification.*" target="lib\netstandard1.4" />
-        <file src="..\src\Plugin.FirebasePushNotification\bin\Release\Plugin.FirebasePushNotification.*" target="lib\portable-net45+wp80+win8+wpa81" />
+        <!--Xamarin.iOS-->
         <file src="..\src\Plugin.FirebasePushNotification.iOS\bin\iPhone\Release\Plugin.FirebasePushNotification.*" target="lib\Xamarin.iOS10" />
   </files>
 </package>

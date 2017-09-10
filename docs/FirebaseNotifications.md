@@ -227,7 +227,7 @@ After this you should receive push notifications events in this implementation o
 
 ### iOS Specifics Customization
 
-You can set UNNotificationPresentationOptions to get an alert, badge, sound when notification is opened by setting static property **FirebasePushNotificationManager.CurrentNotificationPresentationOption**. By default is set to UNNotificationPresentationOptions.None.
+You can set UNNotificationPresentationOptions to get an alert, badge, sound when notification is received in foreground by setting static property **FirebasePushNotificationManager.CurrentNotificationPresentationOption**. By default is set to UNNotificationPresentationOptions.None.
 
 ```csharp
      public enum UNNotificationPresentationOptions
@@ -249,9 +249,9 @@ Usage sample on iOS Project:
    FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Badge;
 ```
 
-A good place to do this would be on the **OnOpened** method of a custom push notification handler if it changes depending on the notification, if not you can just set it once on the AppDelegate **FinishLaunching**.
+A good place to do this would be on the **OnReceived** method of a custom push notification handler if it changes depending on the notification, if not you can just set it once on the AppDelegate **FinishLaunching**.
 
-**Note: this feature is available from 1.0.6-beta version on.**
+**Note: this feature is available from 1.0.7-beta version on.**
 
 <= Back to [Table of Contents](../README.md)
 

@@ -316,6 +316,8 @@ namespace Plugin.FirebasePushNotification
             var parameters = GetParameters(notification.Request.Content.UserInfo);
             _onNotificationReceived?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(parameters));
             CrossFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
+
+            completionHandler(CurrentNotificationPresentationOption);
         }
 
         public static void DidReceiveMessage(NSDictionary data)
@@ -475,7 +477,7 @@ namespace Plugin.FirebasePushNotification
         }
 
         [Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
-        public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action<UNNotificationPresentationOptions> completionHandler)
+        public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
 
             var parameters = GetParameters(response.Notification.Request.Content.UserInfo);
@@ -492,7 +494,7 @@ namespace Plugin.FirebasePushNotification
             CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(notificationResponse);
             
             // Inform caller it has been handled
-            completionHandler(CurrentNotificationPresentationOption);
+            completionHandler();
         }
     }
 

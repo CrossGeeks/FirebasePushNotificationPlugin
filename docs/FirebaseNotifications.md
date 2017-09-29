@@ -251,7 +251,5 @@ Usage sample on iOS Project:
 
 A good place to do this would be on the **OnReceived** method of a custom push notification handler if it changes depending on the notification, if not you can just set it once on the AppDelegate **FinishLaunching**.
 
-**Note: this feature is available from 1.0.7-beta version on.**
-
 <= Back to [Table of Contents](../README.md)
 

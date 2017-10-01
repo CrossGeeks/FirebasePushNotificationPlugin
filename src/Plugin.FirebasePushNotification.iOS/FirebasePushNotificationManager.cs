@@ -9,6 +9,7 @@ using System.Linq;
 using UIKit;
 using UserNotifications;
 using System.Threading.Tasks;
+using Firebase.Core;
 
 namespace Plugin.FirebasePushNotification
 {
@@ -19,13 +20,13 @@ namespace Plugin.FirebasePushNotification
     public class FirebasePushNotificationManager : NSObject, IFirebasePushNotification, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
         public static UNNotificationPresentationOptions CurrentNotificationPresentationOption { get; set; } = UNNotificationPresentationOptions.None;
-
+        static NSObject messagingConnectionChangeNotificationToken;
         static Queue<Tuple<string, bool>> pendingTopics = new Queue<Tuple<string, bool>>();
         static bool connected = false;
         static NSString FirebaseTopicsKey = new NSString("FirebaseTopics");
         const string FirebaseTokenKey = "FirebaseToken";
         static NSMutableArray currentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(FirebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
-        public string Token { get { return InstanceId.SharedInstance.Token; } }
+        public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; } }
 
         static IList<NotificationUserCategory> usernNotificationCategories = new List<NotificationUserCategory>();
 
@@ -131,7 +132,7 @@ namespace Plugin.FirebasePushNotification
                 UNUserNotificationCenter.Current.Delegate = CrossFirebasePushNotification.Current as IUNUserNotificationCenterDelegate;
 
                 // For iOS 10 data message (sent via FCM)
-                Messaging.SharedInstance.RemoteMessageDelegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
+                Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
             }
             else
             {
@@ -161,21 +162,6 @@ namespace Plugin.FirebasePushNotification
 
 
             App.Configure();
-
-            // Monitor token generation
-            InstanceId.Notifications.ObserveTokenRefresh((sender, e) =>
-            {
-                // Note that this callback will be fired everytime a new token is generated, including the first
-                // time. So if you need to retrieve the token as soon as it is available this is where that
-                // should be done.
-                var refreshedToken = InstanceId.SharedInstance.Token;
-                if (!string.IsNullOrEmpty(refreshedToken))
-                {
-                    _onTokenRefresh?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationTokenEventArgs(refreshedToken));
-                    Connect();
-                }
-
-            });
 
             if (autoRegistration)
             {
@@ -271,39 +257,53 @@ namespace Plugin.FirebasePushNotification
         /// </summary>
         public static void Connect()
         {
-            Messaging.SharedInstance.Connect((error) =>
+            if (messagingConnectionChangeNotificationToken != null)
             {
-                if (error == null)
-                {
-                    connected = true;
-                        while (pendingTopics.Count > 0)
-                        {
-                            var pTopic =pendingTopics.Dequeue();
+                NSNotificationCenter.DefaultCenter.RemoveObserver(messagingConnectionChangeNotificationToken);
+            }
 
-                            if (pTopic.Item2)
-                            {
-                                CrossFirebasePushNotification.Current.Subscribe(pTopic.Item1);
-                            }
-                            else
-                            {
-                                CrossFirebasePushNotification.Current.Unsubscribe(pTopic.Item1);
-                            }
-                            
-                        }
-                }
-                else
-                {
-                    _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(error.Description));
-                }
-            });
+            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
+
+            messagingConnectionChangeNotificationToken = NSNotificationCenter.DefaultCenter.AddObserver(Messaging.ConnectionStateChangedNotification, OnMessagingDirectChannelStateChanged);
         }
+        static void OnMessagingDirectChannelStateChanged(NSNotification notification)
+        {
+            if (Messaging.SharedInstance.IsDirectChannelEstablished)
+            {
+                connected = true;
+                while (pendingTopics.Count > 0)
+                {
+                    var pTopic = pendingTopics.Dequeue();
 
+                    if (pTopic.Item2)
+                    {
+                        CrossFirebasePushNotification.Current.Subscribe(pTopic.Item1);
+                    }
+                    else
+                    {
+                        CrossFirebasePushNotification.Current.Unsubscribe(pTopic.Item1);
+                    }
+
+                }
+            }
+           /*else
+            {
+                _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Connection couldn't be established"));
+            }*/
+        }
         public static void Disconnect()
         {
             // Use this method to release shared resources, save user data, invalidate timers and store the application state.
             // If your application supports background exection this method is called instead of WillTerminate when the user quits.
-            Messaging.SharedInstance.Disconnect();
+            //Messaging.SharedInstance.Disconnect();
+            Messaging.SharedInstance.ShouldEstablishDirectChannel = false;
             connected = false;
+
+            if (messagingConnectionChangeNotificationToken != null)
+            {
+                NSNotificationCenter.DefaultCenter.RemoveObserver(messagingConnectionChangeNotificationToken);
+                messagingConnectionChangeNotificationToken = null;
+            }
         }
 
         // To receive notifications in foreground on iOS 10 devices.
@@ -332,7 +332,8 @@ namespace Plugin.FirebasePushNotification
         }
         public static void DidRegisterRemoteNotifications(NSData deviceToken,FirebaseTokenType type)
         {
-			  Firebase.InstanceID.InstanceId.SharedInstance.SetApnsToken(deviceToken, (type == FirebaseTokenType.Sandbox)? Firebase.InstanceID.ApnsTokenType.Sandbox:Firebase.InstanceID.ApnsTokenType.Prod);
+            Messaging.SharedInstance.ApnsToken = deviceToken;
+			//Firebase.InstanceID.InstanceId.SharedInstance.SetApnsToken(deviceToken, (type == FirebaseTokenType.Sandbox)? Firebase.InstanceID.ApnsTokenType.Sandbox:Firebase.InstanceID.ApnsTokenType.Prod);
         }
 
         public static void RemoteNotificationRegistrationFailed(NSError error)
@@ -495,6 +496,21 @@ namespace Plugin.FirebasePushNotification
             
             // Inform caller it has been handled
             completionHandler();
+        }
+
+        public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
+        {
+            // Note that this callback will be fired everytime a new token is generated, including the first
+            // time. So if you need to retrieve the token as soon as it is available this is where that
+            // should be done.
+            var refreshedToken = fcmToken;
+            if (!string.IsNullOrEmpty(refreshedToken))
+            {
+                _onTokenRefresh?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationTokenEventArgs(refreshedToken));
+                Connect();
+            }
+
+            NSUserDefaults.StandardUserDefaults.SetString(fcmToken, FirebaseTokenKey);
         }
     }
 

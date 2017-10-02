@@ -96,7 +96,7 @@ Example of initialization:
 
 ```
 
-On your main launcher activity **OnCreate** method
+On your main launcher activity **OnCreate** method (On the Activity you got MainLauncher= true set)
 
 ```csharp
  FirebasePushNotificationManager.ProcessIntent(Intent);

@@ -175,7 +175,6 @@ Also should override these methods and make the following calls:
         public override void OnActivated(UIApplication uiApplication)
         {
             FirebasePushNotificationManager.Connect();
-            base.OnActivated(uiApplication);
            
         }
         public override void DidEnterBackground(UIApplication application)

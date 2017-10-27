@@ -152,16 +152,11 @@ Import this collection: [Firebase Postman Collection](../extras/Firebase.postman
             var message = new Message()
             {
                 To = "DEVICE_ID_OR_ANY_PARTICULAR_TOPIC", //topic example /topics/all
-                Notification = new AndroidNotification()
-                {
-                    Body = "Hello World",
-                    Title = "MyApp",
-                },
                 
                 Data = new Dictionary<string, string>
                 {
-                    { "number", "1" },
-                    { "count", "10" }
+                      Body = "Hello World",
+                    Title = "MyApp",
                 }
             };
            

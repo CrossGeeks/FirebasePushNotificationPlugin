@@ -6,8 +6,6 @@ When having an application available in multiple countries is very common to hav
 
 On iOS push notifications are associated with iOS default platform localization.
 
-> If you use a consistent set of messages for your notifications, you can store localized versions of the message text in your app bundle and use the loc-key and loc-args keys in your payload to specify which message to display. The loc-key and loc-args keys define the message content of the notification. When present, the local system searches the app’s Localizable.strings files for a key string matching the value in loc-key. It then uses the corresponding value from the strings file as the basis for the message text, replacing any placeholder values with the strings specified by the loc-args key. (You can also specify a title string for the notification using the title-loc-key and title-loc-args keys.). [Apple documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html#//apple_ref/doc/uid/TP40008194-CH10-SW9)
-
 So you can use iOS default platform localization by following this brief guide:
 
 On the iOS project you have to add **Localizable.strings** (Build action for these files should be Bundle Resource) for each language you need to support. This is the file where you will define your keys and values based on the language.
@@ -34,33 +32,33 @@ This is an example es.lproj/Localizable.strings (ie. Spanish) file:
 
 ```
 "NOTIFICATION_TITLE" = "Hola Mundo";
-"NOTIFICATION_MESSAGE" = "Esto es un mensaje";
+"NOTIFICATION_MESSAGE" = "Esto es un mensaje";key
 ```
 
-On the payload instead of using **title**  and **message** keys, we will use **title-loc-key** to represent the key for our localized title and **loc-key** to represent the key for our localized message.
+On the payload instead of using **title**  and **message** keys, we will use **title_loc_key** to represent the key for our localized title and **body_loc_key** to represent the key for our localized message.
 
 Finally, when sending the payload would look like this:
 
 ```json
 {
      "notification": {
-            "title-loc-key" : "NOTIFICATION_TITLE",
-            "loc-key" : "NOTIFICATION_MESSAGE"
+            "title_loc_key" : "NOTIFICATION_TITLE",
+            "body_loc_key" : "NOTIFICATION_MESSAGE"
      },
      "priority": "high",
      "condition": "'general' in topics"
 }
 ```
 
-That works out just fine for a static message but if you have variable parameters in the content then you will need some extra keys on your payloads and define the value for your Localizable.strings differently. Let's say my payload have variable content on the title and message, then there are two additional keys we need to add **title-loc-args** (represents the variable parameters for the title) and **loc-args** (represents the variable parameters for the message).
+That works out just fine for a static message but if you have variable parameters in the content then you will need some extra keys on your payloads and define the value for your Localizable.strings differently. Let's say my payload have variable content on the title and message, then there are two additional keys we need to add **title_loc_args** (represents the variable parameters for the title) and **body_loc_args** (represents the variable parameters for the message).
 
 ```json
 {
      "notification": {
-            "title-loc-key" : "NOTIFICATION_TITLE",
-            "loc-key" : "NOTIFICATION_MESSAGE",
-            "title-loc-args" : ["Dominican Republic"],
-            "loc-args" : ["Rendy"]
+            "title_loc_key" : "NOTIFICATION_TITLE",
+            "body_loc_key" : "NOTIFICATION_MESSAGE",
+            "title_loc_args" : ["Dominican Republic"],
+            "body_loc_args" : ["Rendy"]
      },
      "priority": "high",
      "condition": "'general' in topics"

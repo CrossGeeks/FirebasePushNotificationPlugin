@@ -2,7 +2,7 @@
 <package >
   <metadata minClientVersion="2.8.1">
     <id>Plugin.FirebasePushNotification</id>
-    <version>2.1.0</version>
+    <version>2.1.0-beta</version>
     <title>Firebase Push Notification Plugin for Xamarin</title>
     <authors>Rendy Del Rosario</authors>
     <owners>crossgeeks rdelrosario</owners>

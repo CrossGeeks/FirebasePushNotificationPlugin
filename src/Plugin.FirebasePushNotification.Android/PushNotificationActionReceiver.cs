@@ -18,7 +18,7 @@ namespace Plugin.FirebasePushNotification
     {
         public override void OnReceive(Context context, Intent intent)
         {
-            IDictionary<string, string> parameters = new Dictionary<string, string>();
+            IDictionary<string, object> parameters = new Dictionary<string, object>();
             var extras = intent.Extras;
 
             if (extras != null && !extras.IsEmpty)

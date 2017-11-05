@@ -11,6 +11,6 @@ namespace Plugin.FirebasePushNotification.Abstractions
         //Method triggered when a notification is opened
         void OnOpened(NotificationResponse response);
         //Method triggered when a notification is received
-        void OnReceived(IDictionary<string, string> parameters);
+        void OnReceived(IDictionary<string, object> parameters);
     }
 }

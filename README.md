@@ -22,6 +22,7 @@ Call **CrossFirebasePushNotification.Current** from any project or PCL to gain a
 - Subscribing/Unsubcribing to topics
 - Support for push notification category actions
 - Customize push notifications
+- Localization
 
 <p align="center">
 <img src="https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/Gifs/CrossGeeks%20PushNotification%20Plugin%20-%20Android.gif?raw=true"  title="Android"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,6 +38,7 @@ Here you will find detailed documentation on setting up and using the Firebase P
 * [Receiving Push Notifications](docs/FirebaseNotifications.md)
 * [Testing Push Notifications](docs/TestingPushNotifications.md)
 * [Notification Category Actions](docs/NotificationActions.md)
+* [Localized Push Notifications](docs/LocalizedFirebasePushNotifications.md)
 * [FAQ](docs/FAQ.md)
 
 #### Contributors
@@ -45,3 +47,5 @@ Here you will find detailed documentation on setting up and using the Firebase P
 * [Charlin Agramonte](https://github.com/char0394)
 * [Alberto Florenzan](https://github.com/aflorenzan)
 * [Angel Andres Mañon](https://github.com/AngelAndresM)
+* [Tymen Steur](https://github.com/TymenSteur)
+

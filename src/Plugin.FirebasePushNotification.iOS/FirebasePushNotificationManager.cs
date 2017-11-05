@@ -350,9 +350,9 @@ namespace Plugin.FirebasePushNotification
             CrossFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
         }
 
-        static IDictionary<string, string> GetParameters(NSDictionary data)
+        static IDictionary<string, object> GetParameters(NSDictionary data)
         {
-            var parameters = new Dictionary<string, string>();
+            var parameters = new Dictionary<string, object>();
 
             var keyAps = new NSString("aps");
             var keyAlert = new NSString("alert");

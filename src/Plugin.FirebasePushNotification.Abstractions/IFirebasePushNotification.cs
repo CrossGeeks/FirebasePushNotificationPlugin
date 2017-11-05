@@ -35,9 +35,9 @@ namespace Plugin.FirebasePushNotification.Abstractions
 
     public class FirebasePushNotificationDataEventArgs : EventArgs
     {
-        public IDictionary<string, string> Data { get; }
+        public IDictionary<string, object> Data { get; }
 
-        public FirebasePushNotificationDataEventArgs(IDictionary<string, string> data)
+        public FirebasePushNotificationDataEventArgs(IDictionary<string, object> data)
         {
             Data = data;
         }
@@ -51,11 +51,11 @@ namespace Plugin.FirebasePushNotification.Abstractions
     {
         public string Identifier { get; }
 
-        public IDictionary<string, string> Data { get; }
+        public IDictionary<string, object> Data { get; }
 
         public NotificationCategoryType Type { get; }
 
-        public FirebasePushNotificationResponseEventArgs(IDictionary<string, string> data, string identifier = "", NotificationCategoryType type = NotificationCategoryType.Default)
+        public FirebasePushNotificationResponseEventArgs(IDictionary<string, object> data, string identifier = "", NotificationCategoryType type = NotificationCategoryType.Default)
         {
             Identifier = identifier;
             Data = data;

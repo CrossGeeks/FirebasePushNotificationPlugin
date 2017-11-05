@@ -12,6 +12,7 @@ using Android.Gms.Tasks;
 using System.Threading;
 using Android.App;
 using Android.Content.PM;
+using Android.Graphics;
 
 namespace Plugin.FirebasePushNotification
 {
@@ -34,6 +35,7 @@ namespace Plugin.FirebasePushNotification
         public static string NotificationContentDataKey { get; set; }
         public static int IconResource { get; set; }
         public static Android.Net.Uri SoundUri { get; set; }
+        public static Color? Color { get; set; }
 
         internal static PushNotificationActionReceiver ActionReceiver = null;
         static Context _context;
@@ -42,15 +44,11 @@ namespace Plugin.FirebasePushNotification
             Bundle extras = intent?.Extras;
             if (extras != null && !extras.IsEmpty)
             {
-
-                var parameters = new Dictionary<string, string>();
-
+                var parameters = new Dictionary<string, object>();
                 foreach (var key in extras.KeySet())
                 {
                     if (!parameters.ContainsKey(key) && extras.Get(key) != null)
-                    {
                         parameters.Add(key, $"{extras.Get(key)}");
-                    }
                 }
 
                 NotificationManager manager = _context.GetSystemService(Context.NotificationService) as NotificationManager;
@@ -58,40 +56,30 @@ namespace Plugin.FirebasePushNotification
                 if (notificationId != -1)
                 {
                     var notificationTag = extras.GetString(DefaultPushNotificationHandler.ActionNotificationTagKey, string.Empty);
-
                     if(notificationTag == null)
                         manager.Cancel(notificationId);
                     else
                         manager.Cancel(notificationTag,notificationId);
-   
                 }
 
             
                 var response = new NotificationResponse(parameters, extras.GetString(DefaultPushNotificationHandler.ActionIdentifierKey,string.Empty));
 
                 if (_onNotificationOpened == null && enableDelayedResponse)
-                {
                     delayedNotificationResponse = response;
-                }
                 else
-                {
                     _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
-                }
                
               
                 CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(response);
-
             }
         }
         public static void Initialize(Context context, bool resetToken)
         {
             FirebaseApp.InitializeApp(context);
-
-            //try
-            //{
+            
             _context = context;
-
-
+            
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
 
             ThreadPool.QueueUserWorkItem(state =>
@@ -354,7 +342,7 @@ namespace Plugin.FirebasePushNotification
         {
             _onTokenRefresh?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationTokenEventArgs(token));
         }
-        internal static void RegisterData(IDictionary<string,string> data)
+        internal static void RegisterData(IDictionary<string,object> data)
         {
             _onNotificationReceived?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(data));
         }

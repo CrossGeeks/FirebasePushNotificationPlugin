@@ -25,7 +25,7 @@ namespace Plugin.FirebasePushNotification
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnOpened");
         }
 
-        public void OnReceived(IDictionary<string, string> parameters)
+        public void OnReceived(IDictionary<string, object> parameters)
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnReceived");
         }

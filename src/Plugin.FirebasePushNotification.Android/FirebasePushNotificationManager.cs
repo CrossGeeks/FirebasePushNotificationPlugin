@@ -318,8 +318,17 @@ namespace Plugin.FirebasePushNotification
         {
             foreach (var t in currentTopics)
             {
-                Unsubscribe(t);
+                if (currentTopics.Contains(t))
+                {
+                    FirebaseMessaging.Instance.UnsubscribeFromTopic(t);
+                }
             }
+
+            currentTopics.Clear();
+
+            var editor = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).Edit();
+            editor.PutStringSet(FirebaseTopicsKey, currentTopics);
+            editor.Commit();
         }
 
         public void Unsubscribe(string topic)
@@ -328,7 +337,7 @@ namespace Plugin.FirebasePushNotification
             {
                 FirebaseMessaging.Instance.UnsubscribeFromTopic(topic);
                 currentTopics.Remove(topic);
-
+              
                 var editor = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).Edit();
                 editor.PutStringSet(FirebaseTopicsKey, currentTopics);
                 editor.Commit();

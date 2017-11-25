@@ -11,8 +11,8 @@ Valid extensions are: aiff, wav, or caf file
    "notification" : {
     "body" : "hello",
     "title": "firebase",
-    "sound":"test"
-  }
+    "sound" : "test"
+  },
 
    "priority": "high",
   "condition": "'general' in topics"

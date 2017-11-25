@@ -173,7 +173,7 @@ Application class **OnCreate** on Android:
       FirebasePushNotificationManager.Initialize(this,new CustomPushHandler(),false);
     #endif
 ```
-To keep the default push notification handler functionality but make small adjustments or customizations to the notification. You can inherit from DefaultPushNotificationHandler and implement **OnBuildNotification** method which can be used to e.g. load an image from the web and set it as the 'LargeIcon' of a notification (notificationBuilder.SetLargeIcon) or other modifications to the resulting notification.
+To keep the default push notification handler functionality but make small adjustments or customizations to the notification. You can inherit from **DefaultPushNotificationHandler** and implement **OnBuildNotification** method which can be used to e.g. load an image from the web and set it as the 'LargeIcon' of a notification (notificationBuilder.SetLargeIcon) or other modifications to the resulting notification.
 
 **Note: If you use a custom push notification handler on Android, you will have full control on the notification arrival, so will be in charge of creating the notification ui for data messages when needed.**
 

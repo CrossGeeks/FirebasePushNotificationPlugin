@@ -78,7 +78,7 @@ If **sound** or **icon** keys present have priority over the **FirebasePushNotif
 {
    "data" : {
      "title": "hello",
-	 "body": "firebase",
+     "body": "firebase",
      "id": 1
   }
 }
@@ -94,9 +94,9 @@ If **sound** or **icon** keys present have priority over the **FirebasePushNotif
 {
    "data" : {
      "title": "hello",
-	 "body": "firebase",
+     "body": "firebase",
      "id": 1,
-	 "tag" : "msg"
+     "tag" : "msg"
 
   }
 }
@@ -113,7 +113,7 @@ If **sound** or **icon** keys present have priority over the **FirebasePushNotif
 {
    "data" : {
      "title": "hello",
-	 "body": "firebase",
+     "body": "firebase",
      "silent":"true"
   }
 }
@@ -148,7 +148,7 @@ Sample payload with priority
 {
    "data" : {
      "title": "hello",
-	 "body": "firebase",
+     "body": "firebase",
      "priority":"high"
   }
 }
@@ -162,7 +162,7 @@ Payload sample with sound
 {
    "data" : {
      "title": "hello",
-	 "body": "firebase",
+     "body": "firebase",
      "priority":"high",
      "sound":"test"
   }
@@ -179,7 +179,7 @@ Payload sample with icon
 {
    "data" : {
      "title": "hello",
-	 "body": "firebase",
+     "body": "firebase",
      "priority":"high",
      "icon":"test"
   }
@@ -192,10 +192,10 @@ Payload sample with icon and sound
 {
    "data" : {
      "title": "hello",
-	 "body": "firebase",
+     "body": "firebase",
      "priority":"high",
      "icon":"test",
-	 "sound":"test"
+     "sound":"test"
   }
 }
 ```

@@ -124,7 +124,7 @@ If **sound** or **icon** keys present have priority over the **FirebasePushNotif
 
 #####  Notification Priority
 
-* Depending on the value of "priority" key in your data payload. It will set the notification priority. Posible values are: "max", "high","default","low","min".
+* Depending on the value of **priority** key in your data payload. It will set the notification priority. Posible values are: "max", "high","default","low","min".
 
 The behaviour for these values:
 

@@ -102,6 +102,12 @@ namespace Plugin.FirebasePushNotification
         /// </summary>
         public const string SoundKey = "sound";
 
+
+        /// <summary>
+        /// Priority
+        /// </summary>
+        public const string PriorityKey = "priority";
+
         public void OnOpened(NotificationResponse response)
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnOpened");
@@ -230,7 +236,8 @@ namespace Plugin.FirebasePushNotification
                 }
             }
 
-            Intent resultIntent = context.PackageManager.GetLaunchIntentForPackage(context.PackageName);
+            Intent resultIntent = typeof(Activity).IsAssignableFrom(FirebasePushNotificationManager.NotificationActivityType) ? new Intent(Application.Context, FirebasePushNotificationManager.NotificationActivityType) : context.PackageManager.GetLaunchIntentForPackage(context.PackageName);
+
 
             //Intent resultIntent = new Intent(context, typeof(T));
             Bundle extras = new Bundle();
@@ -244,17 +251,59 @@ namespace Plugin.FirebasePushNotification
                 resultIntent.PutExtras(extras);
             }
 
-            resultIntent.SetFlags(ActivityFlags.ClearTop);
+            if (FirebasePushNotificationManager.NotificationActivityFlags != null)
+            {
+                resultIntent.SetFlags(FirebasePushNotificationManager.NotificationActivityFlags.Value);
+            }
 
             var pendingIntent = PendingIntent.GetActivity(context, 0, resultIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
 
              var notificationBuilder = new NotificationCompat.Builder(context)
                  .SetSmallIcon(FirebasePushNotificationManager.IconResource)
                  .SetContentTitle(title)
-                 .SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                  .SetContentText(message)
                  .SetAutoCancel(true)
                  .SetContentIntent(pendingIntent);
+
+
+            if (parameters.TryGetValue(PriorityKey, out object priority) && priority != null)
+            {
+                var priorityValue = $"{priority}";
+                if (!string.IsNullOrEmpty(priorityValue))
+                {
+                    switch (priorityValue.ToLower())
+                    {
+                        case "max":
+                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Max);
+                            notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                            break;
+                        case "high":
+                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.High);
+                            notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                            break;
+                        case "default":
+                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Default);
+                            notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                            break;
+                        case "low":
+                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Low);
+                            break;
+                        case "min":
+                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Min);
+                            break;
+                    }
+
+                }
+                else
+                {
+                    notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                }
+
+            }
+            else
+            {
+                notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+            }
 
             try
             {
@@ -305,8 +354,13 @@ namespace Plugin.FirebasePushNotification
 
                                 if (action.Type == NotificationActionType.Foreground)
                                 {
-                                    actionIntent = context.PackageManager.GetLaunchIntentForPackage(context.PackageName);
-                                    actionIntent.SetFlags( ActivityFlags.ClearTop | ActivityFlags.NewTask);
+                                    actionIntent = typeof(Activity).IsAssignableFrom(FirebasePushNotificationManager.NotificationActivityType) ? new Intent(Application.Context, FirebasePushNotificationManager.NotificationActivityType) : context.PackageManager.GetLaunchIntentForPackage(context.PackageName);
+
+                                    if (FirebasePushNotificationManager.NotificationActivityFlags != null)
+                                    {
+                                        actionIntent.SetFlags(FirebasePushNotificationManager.NotificationActivityFlags.Value);
+                                    }
+
                                     actionIntent.SetAction($"{action.Id}");
                                     extras.PutString(ActionIdentifierKey, action.Id);
                                     actionIntent.PutExtras(extras);

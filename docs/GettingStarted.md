@@ -96,13 +96,41 @@ Example of initialization:
 
 ```
 
-On your main launcher activity **OnCreate** method
+By default the plugin launches the main launcher activity when you tap at a notification, but you can change this behaviour by setting the type of the activity you want to be launch on *FirebasePushNotificationManager.NotificationActivityType**
+
+If you set **FirebasePushNotificationManager.NotificationActivityType** then put the following call on the **OnCreate** of activity of the type set. If not set then put it on the **OnCreate** of your **main launcher** activity.
 
 ```csharp
- FirebasePushNotificationManager.ProcessIntent(Intent);
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+			//Other initialization stuff
+
+            FirebasePushNotificationManager.ProcessIntent(Intent);
+        }
+
  ```
 
- **Note: When using Xamarin Forms do it just after LoadApplication call.**
+**Note: When using Xamarin Forms do it just after LoadApplication call.**
+
+By default the plugin launches the activity when you tap at a notification with activity flags: **ActivityFlags.ClearTop | ActivityFlags.SingleTop**.
+
+You can change this behaviour by setting **FirebasePushNotificationManager.NotificationActivityFlags**. 
+ 
+If you set **FirebasePushNotificationManager.NotificationActivityFlags** to ActivityFlags.SingleTop  or using default plugin behaviour then make this call on **OnNewIntent** method of the same activity on the previous step.
+       
+ ```csharp
+	    protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(intent);
+        }
+ ```
+
+ More information on **FirebasePushNotificationManager.NotificationActivityType** and **FirebasePushNotificationManager.NotificationActivityFlags** and other android customizations here:
+
+ [Android Customization](../docs/AndroidCustomization.md)
 
 ## Starting with iOS 
 

@@ -173,21 +173,23 @@ namespace Plugin.FirebasePushNotification
                     var soundName = sound.ToString();
 
                     int soundResId = context.Resources.GetIdentifier(soundName, "raw", context.PackageName);
-                    if (soundResId == 0 && soundName.IndexOf(".") != 1)
+                    if (soundResId == 0 && soundName.IndexOf(".") != -1)
                     {
                         soundName = soundName.Substring(0, soundName.LastIndexOf('.'));
                         soundResId = context.Resources.GetIdentifier(soundName, "raw", context.PackageName);
                     }
-                    else
-                    {
-                        FirebasePushNotificationManager.SoundUri = new Android.Net.Uri.Builder()
-                                  .Scheme(ContentResolver.SchemeAndroidResource)
-                                  .Path($"{context.PackageName}/{soundResId}")
-                                  .Build();
-                    }
+
+                    FirebasePushNotificationManager.SoundUri = new Android.Net.Uri.Builder()
+                                .Scheme(ContentResolver.SchemeAndroidResource)
+                                .Path($"{context.PackageName}/{soundResId}")
+                                .Build();
                 }
             }
             catch (Resources.NotFoundException ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+            catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
             }

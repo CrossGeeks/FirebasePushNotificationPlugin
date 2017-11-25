@@ -12,7 +12,7 @@ Valid extensions are: aiff, wav, or caf file
     "body" : "hello",
     "title": "firebase",
     "sound" : "test"
-  }
+  },
 
    "priority": "high",
   "condition": "'general' in topics"

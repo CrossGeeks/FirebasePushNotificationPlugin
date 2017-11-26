@@ -123,9 +123,6 @@ If **sound** or **icon** keys present have priority over the **FirebasePushNotif
 }
 ```
 
-* For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
-
-
 #####  Notification Priority
 
 * Depending on the value of **priority** key in your data payload. It will set the notification priority. Posible values are: "max", "high","default","low","min".
@@ -206,6 +203,8 @@ Payload sample with icon and sound
 ```
 
 If icon not set will set the **FirebasePushNotificationManager.IconResource** value if not set either will use the default application icon.
+
+* For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
 
 <= Back to [Table of Contents](../README.md)
 

@@ -26,7 +26,13 @@ namespace FirebasePushSample.Droid
             FirebasePushNotificationManager.ProcessIntent(Intent);
 
         }
-  
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(intent);
+        }
+
     }
 }
 

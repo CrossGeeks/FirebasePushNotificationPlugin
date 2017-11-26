@@ -293,6 +293,10 @@ namespace Plugin.FirebasePushNotification
                         case "min":
                             notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Min);
                             break;
+                        default:
+                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Default);
+                            notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                            break;
                     }
 
                 }

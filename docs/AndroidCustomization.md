@@ -20,7 +20,7 @@ FirebasePushNotificationManager.NotificationActivityFlags = ActivityFlags.ClearT
 
 If plugin is not initialized with a push handler on Android by default the plugin uses the default push notification handler to create the notification ui & actions support when sending **Data messages**.
 
-There are a few things you can configure in Android project using the following static properties of **FirebasePushNotificationManager** class:
+By using the default push notification handler. There are a few things you can configure in Android project using the following static properties of **FirebasePushNotificationManager** class:
 
 ```csharp
 
@@ -40,6 +40,10 @@ There are a few things you can configure in Android project using the following 
     public static Color? Color { get; set; }
 
 ```
+
+If **FirebasePushNotificationManager.IconResource** not set will use default application icon.
+
+If **FirebasePushNotificationManager.SoundUri** not set will use the default notification ringtone.
    
 If **NotificationContentTitleKey** not set will look for **title** key value in the notification payload to set the title. If no title key present will use the application name as the notification title.
 
@@ -168,6 +172,7 @@ Payload sample with sound
   }
 }
 ```
+If sound not set will set the **FirebasePushNotificationManager.SoundUri** value if not set either will use the default notification ringtone.
 
 #####  Notification Icon
 
@@ -199,6 +204,8 @@ Payload sample with icon and sound
   }
 }
 ```
+
+If icon not set will set the **FirebasePushNotificationManager.IconResource* value if not set either will use the default application icon.
 
 <= Back to [Table of Contents](../README.md)
 

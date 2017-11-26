@@ -293,7 +293,7 @@ Push message opened event usage sample:
  };
 ```
 
-
+Plugin by default provides some notification customization features for each platform. Check out the [Android Customization](../docs/AndroidCustomization.md) and [iOS Customization](../docs/iOSCustomization.md) sections.
 
 
 <= Back to [Table of Contents](../README.md)

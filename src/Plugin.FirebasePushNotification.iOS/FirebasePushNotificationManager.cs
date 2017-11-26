@@ -332,8 +332,7 @@ namespace Plugin.FirebasePushNotification
         }
         public static void DidRegisterRemoteNotifications(NSData deviceToken,FirebaseTokenType type)
         {
-            Messaging.SharedInstance.ApnsToken = deviceToken;
-			//Firebase.InstanceID.InstanceId.SharedInstance.SetApnsToken(deviceToken, (type == FirebaseTokenType.Sandbox)? Firebase.InstanceID.ApnsTokenType.Sandbox:Firebase.InstanceID.ApnsTokenType.Prod);
+            Messaging.SharedInstance.SetApnsToken(deviceToken, (type == FirebaseTokenType.Sandbox)? Firebase.CloudMessaging.ApnsTokenType.Sandbox:Firebase.CloudMessaging.ApnsTokenType.Production);
         }
 
         public static void RemoteNotificationRegistrationFailed(NSError error)

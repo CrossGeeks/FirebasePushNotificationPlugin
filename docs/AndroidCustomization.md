@@ -68,6 +68,7 @@ There are also some keys you can set on the payload:
 * **priority** : Sets the notification priority
 * **sound** : Sets the notification sound
 * **icon** : Sets the notification icon
+* **click_action** : Sets name for notification action
 
 If **sound** or **icon** keys present have priority over the **FirebasePushNotificationManager.SoundUri** and **FirebasePushNotificationManager.IconResource** static customization properties mentioned above.
 
@@ -203,6 +204,8 @@ Payload sample with icon and sound
 ```
 
 If icon not set will set the **FirebasePushNotificationManager.IconResource** value if not set either will use the default application icon.
+
+#####  Notification Actions
 
 * For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
 

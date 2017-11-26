@@ -205,7 +205,7 @@ Payload sample with icon and sound
 }
 ```
 
-If icon not set will set the **FirebasePushNotificationManager.IconResource* value if not set either will use the default application icon.
+If icon not set will set the **FirebasePushNotificationManager.IconResource** value if not set either will use the default application icon.
 
 <= Back to [Table of Contents](../README.md)
 

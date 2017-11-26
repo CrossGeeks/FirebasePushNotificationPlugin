@@ -50,4 +50,4 @@ Here you will find detailed documentation on setting up and using the Firebase P
 * [Alberto Florenzan](https://github.com/aflorenzan)
 * [Angel Andres Mañon](https://github.com/AngelAndresM)
 * [Tymen Steur](https://github.com/TymenSteur)
-
+* [Jonatan Rinckus](https://github.com/JonatanRinckus)

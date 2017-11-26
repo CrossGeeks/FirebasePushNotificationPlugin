@@ -47,7 +47,7 @@ Add google-services.json to Android project. Make sure build action is GoogleSer
 
 ![ADD JSON](https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/images/android-googleservices-json.png?raw=true)
 
-Must compile against 21+ as plugin is using API 21 specific things. Here is a great breakdown: http://redth.codes/such-android-api-levels-much-confuse-wow/
+Must compile against 24+ as plugin is using API 24 specific things. Here is a great breakdown: http://redth.codes/such-android-api-levels-much-confuse-wow/ (Android project must be compiled using 7.0+ target framework)
 
 ### Android Initialization
 
@@ -98,7 +98,7 @@ Example of initialization:
 
 By default the plugin launches the main launcher activity when you tap at a notification, but you can change this behaviour by setting the type of the activity you want to be launch on *FirebasePushNotificationManager.NotificationActivityType**
 
-If you set **FirebasePushNotificationManager.NotificationActivityType** then put the following call on the **OnCreate** of activity of the type set. If not set then put it on the **OnCreate** of your **main launcher** activity.
+If you set **FirebasePushNotificationManager.NotificationActivityType** then put the following call on the **OnCreate** of activity of the type set. If not set then put it on your main launcher activity **OnCreate** method (On the Activity you got MainLauncher= true set)
 
 ```csharp
         protected override void OnCreate(Bundle bundle)
@@ -203,7 +203,6 @@ Also should override these methods and make the following calls:
         public override void OnActivated(UIApplication uiApplication)
         {
             FirebasePushNotificationManager.Connect();
-            base.OnActivated(uiApplication);
            
         }
         public override void DidEnterBackground(UIApplication application)

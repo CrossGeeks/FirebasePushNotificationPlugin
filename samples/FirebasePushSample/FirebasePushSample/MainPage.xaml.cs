@@ -24,7 +24,7 @@ namespace FirebasePushSample
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            textLabel.Text = p.Data["body"];
+                            textLabel.Text = $"{p.Data["body"]}";
                         });
 
                     }
@@ -57,7 +57,7 @@ namespace FirebasePushSample
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        textLabel.Text = p.Data["aps.alert.title"];
+                        textLabel.Text = $"{p.Data["aps.alert.title"]}";
                     });
 
                 }

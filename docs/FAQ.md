@@ -8,7 +8,7 @@
 
 Add the following to the android project .csproj file:
 
-```cs
+```xml
    <Target Name="RemoveGoogleServicesJsonStampFiles" BeforeTargets="BeforeBuild">
     <Delete Files="$(IntermediateOutputPath)\ProcessGoogleServicesJson.stamp" />
    </Target>

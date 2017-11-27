@@ -46,12 +46,6 @@ https://bugzilla.xamarin.com/show_bug.cgi?id=56108
 
 https://github.com/CrossGeeks/FirebasePushNotificationPlugin/issues/67
 
-### Screenshots
-![screen shot 2017-11-25 at 00 29 40](https://user-images.githubusercontent.com/315282/33225450-09bc3720-d178-11e7-9200-21b46f0d6309.png)
-
-
-
-
 2. Android initialization should be done on and Android <b>Application class</b> to be able to handle received notifications when application is closed. Since no activity exist when application is closed.
 
 3. You won't receive any push notifications if application is stopped while <b>debugging</b>, should reopen and close again for notifications to work when app closed. This is due to the application being on an unstable state when stopped while debugging.

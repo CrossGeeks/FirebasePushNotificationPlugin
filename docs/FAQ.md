@@ -29,8 +29,9 @@ Add the following call:
 	```
 	
 Before:
+
 	```cs
-	FirebasePushNotificationManager.Initialize(this, true);
+	  FirebasePushNotificationManager.Initialize(this, true);
 	```
 	
 **Workaround 3**

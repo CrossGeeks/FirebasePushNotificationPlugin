@@ -8,7 +8,7 @@
 
 	 Add the following to the android project .csproj file:
 
-	 ```
+	 ```cs
 		  <Target Name="RemoveGoogleServicesJsonStampFiles" BeforeTargets="BeforeBuild">
 		    <Delete Files="$(IntermediateOutputPath)\ProcessGoogleServicesJson.stamp" />
 		  </Target>
@@ -17,7 +17,8 @@
 **Workaround 2**
 
 	Add the following call:
-	```
+	
+	```cs
 	var options = new FirebaseOptions.Builder()
 						     .SetApplicationId("")
 						     .SetApiKey("")
@@ -26,8 +27,9 @@
 						     .SetGcmSenderId("").Build();
 		    this.firebaseApp = FirebaseApp.InitializeApp(this, options);
 	```
+	
 	Before:
-	```
+	```cs
 	FirebasePushNotificationManager.Initialize(this, true);
 	```
 	

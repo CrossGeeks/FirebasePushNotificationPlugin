@@ -8,31 +8,31 @@
 
 Add the following to the android project .csproj file:
 
-	 ```cs
-		  <Target Name="RemoveGoogleServicesJsonStampFiles" BeforeTargets="BeforeBuild">
-		    <Delete Files="$(IntermediateOutputPath)\ProcessGoogleServicesJson.stamp" />
-		  </Target>
-	 ```
+```cs
+   <Target Name="RemoveGoogleServicesJsonStampFiles" BeforeTargets="BeforeBuild">
+    <Delete Files="$(IntermediateOutputPath)\ProcessGoogleServicesJson.stamp" />
+   </Target>
+```
    
 **Workaround 2**
 
 Add the following call:
 	
-	```cs
-	var options = new FirebaseOptions.Builder()
-						     .SetApplicationId("")
-						     .SetApiKey("")
-						     .SetDatabaseUrl("https://*.firebaseio.com")
-						     .SetStorageBucket("*.appspot.com")
-						     .SetGcmSenderId("").Build();
-		    this.firebaseApp = FirebaseApp.InitializeApp(this, options);
-	```
+```cs
+   var options = new FirebaseOptions.Builder()
+		.SetApplicationId("")
+		.SetApiKey("")
+		.SetDatabaseUrl("https://*.firebaseio.com")
+		.SetStorageBucket("*.appspot.com")
+		.SetGcmSenderId("").Build();
+    this.firebaseApp = FirebaseApp.InitializeApp(this, options);
+```
 	
 Before:
 
-	```cs
-	  FirebasePushNotificationManager.Initialize(this, true);
-	```
+```cs
+    FirebasePushNotificationManager.Initialize(this, true);
+```
 	
 **Workaround 3**
 

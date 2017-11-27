@@ -6,7 +6,7 @@
 
 **Workaround 1**
 
-	 Add the following to the android project .csproj file:
+Add the following to the android project .csproj file:
 
 	 ```cs
 		  <Target Name="RemoveGoogleServicesJsonStampFiles" BeforeTargets="BeforeBuild">
@@ -16,7 +16,7 @@
    
 **Workaround 2**
 
-	Add the following call:
+Add the following call:
 	
 	```cs
 	var options = new FirebaseOptions.Builder()
@@ -28,14 +28,14 @@
 		    this.firebaseApp = FirebaseApp.InitializeApp(this, options);
 	```
 	
-	Before:
+Before:
 	```cs
 	FirebasePushNotificationManager.Initialize(this, true);
 	```
 	
 **Workaround 3**
 
-       Install Xamarin.GooglePlayServices.Basement v60.1142.0-rc1 on Android
+Install Xamarin.GooglePlayServices.Basement v60.1142.0-rc1 on Android
 
 References:
 

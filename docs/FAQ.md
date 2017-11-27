@@ -4,7 +4,7 @@
 
 1. Getting <b>java.lang.IllegalStateException: Default FirebaseApp is not initialized in this process {your_package_name}</b>. Make sure the google-services.json has the GoogleServicesJson build action. If you have that set, then clean and build again, this is a known issue when using Firebase Component. More info and fix here: https://bugzilla.xamarin.com/show_bug.cgi?id=56108.
 
-Workaround 1
+**Workaround 1**
 
 	 Add the following to the android project .csproj file:
 
@@ -14,7 +14,7 @@ Workaround 1
 		  </Target>
 	 ```
    
-Workaround 2
+**Workaround 2**
 
 	Add the following call:
 	```
@@ -31,15 +31,16 @@ Workaround 2
 	FirebasePushNotificationManager.Initialize(this, true);
 	```
 	
-Workaround 3
+**Workaround 3**
 
        Install Xamarin.GooglePlayServices.Basement v60.1142.0-rc1 on Android
 
 References:
 
 https://forums.xamarin.com/discussion/comment/308465/#Comment_308465
-https://bugzilla.xamarin.com/show_bug.cgi?id=56108#c41
+
 https://bugzilla.xamarin.com/show_bug.cgi?id=56108
+
 https://github.com/CrossGeeks/FirebasePushNotificationPlugin/issues/67
 
 ### Screenshots

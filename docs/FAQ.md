@@ -4,14 +4,40 @@
 
 1. Getting <b>java.lang.IllegalStateException: Default FirebaseApp is not initialized in this process {your_package_name}</b>. Make sure the google-services.json has the GoogleServicesJson build action. If you have that set, then clean and build again, this is a known issue when using Firebase Component. More info and fix here: https://bugzilla.xamarin.com/show_bug.cgi?id=56108.
 
+Solution 1
 
-    Add the following to the android project .csproj file:
+	 Add the following to the android project .csproj file:
 
-    ```
-	  <Target Name="RemoveGoogleServicesJsonStampFiles" BeforeTargets="BeforeBuild">
-	    <Delete Files="$(IntermediateOutputPath)\ProcessGoogleServicesJson.stamp" />
-	  </Target>
-   ```
+	 ```
+		  <Target Name="RemoveGoogleServicesJsonStampFiles" BeforeTargets="BeforeBuild">
+		    <Delete Files="$(IntermediateOutputPath)\ProcessGoogleServicesJson.stamp" />
+		  </Target>
+	 ```
+   
+Solution 2
+
+	Add the following call:
+	```
+	var options = new FirebaseOptions.Builder()
+						     .SetApplicationId("")
+						     .SetApiKey("")
+						     .SetDatabaseUrl("https://*.firebaseio.com")
+						     .SetStorageBucket("*.appspot.com")
+						     .SetGcmSenderId("").Build();
+		    this.firebaseApp = FirebaseApp.InitializeApp(this, options);
+	```
+	Before:
+	```
+	FirebasePushNotificationManager.Initialize(this, true);
+	```
+	
+      
+
+### Screenshots
+![screen shot 2017-11-25 at 00 29 40](https://user-images.githubusercontent.com/315282/33225450-09bc3720-d178-11e7-9200-21b46f0d6309.png)
+
+
+
 
 2. Android initialization should be done on and Android <b>Application class</b> to be able to handle received notifications when application is closed. Since no activity exist when application is closed.
 

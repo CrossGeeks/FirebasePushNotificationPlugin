@@ -64,11 +64,13 @@ https://github.com/CrossGeeks/FirebasePushNotificationPlugin/issues/67
 
 9. <b> Error 1589 NotificationService Not posting notification without small icon </b><br>
 	It happen when the message is received, but the notification isn't displayed. If you got this error, it mean you need to tell which one is your app icon on <b>Android Project Properties > Android Manifest > application Icon</b> or in the <b>AndroidManifext.xml file and put android:icon="@drawable/{replace with your icon file name}"</b> in the
-	
+
+```xml	
 	<application android:label="Test" android:icon="@drawable/{replace with your icon file name}">	
 	...
 	</application>
-	
+```
+
 10. Not getting push notifications on Release but on Debug yes? Uninstall the debug version or increment the build number before making the release build.
 
 ### iOS

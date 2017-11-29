@@ -68,7 +68,8 @@ https://github.com/CrossGeeks/FirebasePushNotificationPlugin/issues/67
 	<application android:label="Test" android:icon="@drawable/{replace with your icon file name}">	
 	...
 	</application>
-
+	
+10. Not getting push notifications on Release but on Debug yes? Uninstall the debug version or increment the build number before making the release build.
 
 ### iOS
 

@@ -108,6 +108,11 @@ namespace Plugin.FirebasePushNotification
         /// </summary>
         public const string PriorityKey = "priority";
 
+        /// <summary>
+        /// Channel id
+        /// </summary>
+        public const string ChannelIdKey = "android_channel_id";
+
         public void OnOpened(NotificationResponse response)
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnOpened");
@@ -260,43 +265,56 @@ namespace Plugin.FirebasePushNotification
 
             var pendingIntent = PendingIntent.GetActivity(context, 0, resultIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
 
-             var notificationBuilder = new NotificationCompat.Builder(context)
+            var chanId = FirebasePushNotificationManager.DefaultNotificationChannelId;
+            if (parameters.TryGetValue(ChannelIdKey, out object channelId) && channelId != null)
+            {
+                chanId = $"{channelId}";
+            }
+
+            var notificationBuilder = new NotificationCompat.Builder(context,chanId)
                  .SetSmallIcon(FirebasePushNotificationManager.IconResource)
                  .SetContentTitle(title)
                  .SetContentText(message)
                  .SetAutoCancel(true)
                  .SetContentIntent(pendingIntent);
 
-
-            if (parameters.TryGetValue(PriorityKey, out object priority) && priority != null)
+            if (Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.O)
             {
-                var priorityValue = $"{priority}";
-                if (!string.IsNullOrEmpty(priorityValue))
+                if (parameters.TryGetValue(PriorityKey, out object priority) && priority != null)
                 {
-                    switch (priorityValue.ToLower())
+                    var priorityValue = $"{priority}";
+                    if (!string.IsNullOrEmpty(priorityValue))
                     {
-                        case "max":
-                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Max);
-                            notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-                            break;
-                        case "high":
-                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.High);
-                            notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-                            break;
-                        case "default":
-                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Default);
-                            notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-                            break;
-                        case "low":
-                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Low);
-                            break;
-                        case "min":
-                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Min);
-                            break;
-                        default:
-                            notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Default);
-                            notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
-                            break;
+                        switch (priorityValue.ToLower())
+                        {
+                            case "max":
+                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Max);
+                                notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                                break;
+                            case "high":
+                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.High);
+                                notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                                break;
+                            case "default":
+                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Default);
+                                notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                                break;
+                            case "low":
+                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Low);
+                                break;
+                            case "min":
+                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Min);
+                                break;
+                            default:
+                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Default);
+                                notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                                break;
+                        }
+
+                    }
+                    else
+                    {
+                        notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
                     }
 
                 }
@@ -305,21 +323,18 @@ namespace Plugin.FirebasePushNotification
                     notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
                 }
 
-            }
-            else
-            {
-                notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
+                try
+                {
+
+                    notificationBuilder.SetSound(FirebasePushNotificationManager.SoundUri);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{DomainTag} - Failed to set sound {ex}");
+                }
             }
 
-            try
-            {
-
-                notificationBuilder.SetSound(FirebasePushNotificationManager.SoundUri);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"{DomainTag} - Failed to set sound {ex}");
-            }
+     
 
             // Try to resolve (and apply) localized parameters
             ResolveLocalizedParameters(notificationBuilder, parameters);
@@ -384,7 +399,7 @@ namespace Plugin.FirebasePushNotification
 
                                 }
                                 
-                                notificationBuilder.AddAction(context.Resources.GetIdentifier(action.Icon, "drawable", Application.Context.PackageName), action.Title, pendingActionIntent);
+                                notificationBuilder.AddAction(new NotificationCompat.Action.Builder(context.Resources.GetIdentifier(action.Icon, "drawable", Application.Context.PackageName), action.Title, pendingActionIntent).Build());
                             }
 
 

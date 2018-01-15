@@ -39,6 +39,8 @@ namespace Plugin.FirebasePushNotification
         public static Type NotificationActivityType { get; set; }
         public static ActivityFlags? NotificationActivityFlags { get; set; } = ActivityFlags.ClearTop | ActivityFlags.SingleTop;
 
+        public static string DefaultNotificationChannelId{ get; set; } = "FirebasePushNotificationChannel";
+        public static string DefaultNotificationChannelName { get; set; } = "General";
 
         internal static PushNotificationActionReceiver ActionReceiver = null;
         static Context _context;
@@ -73,11 +75,11 @@ namespace Plugin.FirebasePushNotification
                 else
                     _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
                
-              
+        
                 CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(response);
             }
         }
-        public static void Initialize(Context context, bool resetToken)
+        public static void Initialize(Context context, bool resetToken, bool createDefaultNotificationChannel = true)
         {
             FirebaseApp.InitializeApp(context);
             
@@ -132,12 +134,23 @@ namespace Plugin.FirebasePushNotification
 
             });
 
-            System.Diagnostics.Debug.WriteLine(CrossFirebasePushNotification.Current.Token);
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O && createDefaultNotificationChannel)
+            {
+                // Create channel to show notifications.
+                string channelId = DefaultNotificationChannelId;
+                string channelName = DefaultNotificationChannelName;
+                NotificationManager notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
+                
+                notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
+                    channelName,NotificationImportance.Default));
+             }
+
+             System.Diagnostics.Debug.WriteLine(CrossFirebasePushNotification.Current.Token);
         }
-        public static void Initialize(Context context, NotificationUserCategory[] notificationCategories,bool resetToken)
+        public static void Initialize(Context context, NotificationUserCategory[] notificationCategories,bool resetToken, bool createDefaultNotificationChannel = true)
         {
 
-                Initialize(context,resetToken);
+                Initialize(context,resetToken,createDefaultNotificationChannel);
                 RegisterUserNotificationCategories(notificationCategories);
 
         }
@@ -166,10 +179,10 @@ namespace Plugin.FirebasePushNotification
         }
 
 
-        public static void Initialize(Context context,IPushNotificationHandler pushNotificationHandler,bool resetToken)
+        public static void Initialize(Context context,IPushNotificationHandler pushNotificationHandler,bool resetToken, bool createDefaultNotificationChannel = true)
         {
             CrossFirebasePushNotification.Current.NotificationHandler = pushNotificationHandler;
-            Initialize(context,resetToken);
+            Initialize(context,resetToken, createDefaultNotificationChannel);
         }
 
         public static void ClearUserNotificationCategories()

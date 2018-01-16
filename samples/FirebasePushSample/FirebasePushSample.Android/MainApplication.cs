@@ -26,7 +26,6 @@ namespace FirebasePushSample.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
-	    
 	    //If debug you should reset the token each time.
             #if DEBUG
 		    FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[]

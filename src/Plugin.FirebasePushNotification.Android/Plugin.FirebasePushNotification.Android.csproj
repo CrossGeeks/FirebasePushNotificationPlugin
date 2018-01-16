@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="FirebasePushNotificationManager.cs" />
     <Compile Include="PNFirebaseIIDService.cs" />
+    <Compile Include="PNFirebaseJobService.cs" />
     <Compile Include="PNFirebaseMessagingService.cs" />
     <Compile Include="DefaultPushNotificationHandler.cs" />
     <Compile Include="PushNotificationActionReceiver.cs" />

@@ -81,7 +81,7 @@ namespace Plugin.FirebasePushNotification
         }
         public static void Initialize(Context context, bool resetToken, bool createDefaultNotificationChannel = true)
         {
-            FirebaseApp.InitializeApp(context);
+           // FirebaseApp.InitializeApp(context);
             
             _context = context;
             

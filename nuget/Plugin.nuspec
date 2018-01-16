@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</description>
     <summary>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</summary>
-    <releaseNotes>Added localization support and customization features for Android</releaseNotes>
+    <releaseNotes>Support for Android O and other minor fixes.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>iOS,Android,firebase,push notifications,cloud messaging,pcl,xamarin,plugins,xam.pcl</tags>
     <dependencies>

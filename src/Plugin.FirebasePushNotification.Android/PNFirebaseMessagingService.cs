@@ -63,5 +63,19 @@ namespace Plugin.FirebasePushNotification
             FirebasePushNotificationManager.RegisterData(parameters);
             CrossFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
         }
+
+        void ScheduleJob()
+        {
+            // [START dispatch_job]
+            /*FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+            Job myJob = dispatcher.newJobBuilder()
+                    .setService(MyJobService.class)
+                .setTag("my-job-tag")
+                .build();
+        dispatcher.schedule(myJob);*/
+        // [END dispatch_job]
+        }
+
     }
+
 }

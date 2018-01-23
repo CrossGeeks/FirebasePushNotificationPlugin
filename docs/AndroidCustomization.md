@@ -39,6 +39,12 @@ By using the default push notification handler. There are a few things you can c
 	//Sets the color will be used for the notification
     public static Color? Color { get; set; }
 
+	//Sets the default notification channel id for Android O
+	public static string DefaultNotificationChannelId { get; set; } = "PushNotificationChannel";
+    
+	//Sets the default notification channel name for Android O
+    public static string DefaultNotificationChannelName { get; set; } = "General";
+
 ```
 
 If **FirebasePushNotificationManager.IconResource** not set will use default application icon.

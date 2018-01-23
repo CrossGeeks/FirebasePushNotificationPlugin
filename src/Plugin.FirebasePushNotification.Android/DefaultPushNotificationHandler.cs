@@ -278,6 +278,11 @@ namespace Plugin.FirebasePushNotification
                  .SetAutoCancel(true)
                  .SetContentIntent(pendingIntent);
 
+            var deleteIntent = new Intent();
+            deleteIntent.SetAction(FirebasePushNotificationManager.NotificationDeletedActionId);
+            var pendingDeleteIntent = PendingIntent.GetBroadcast(context, 0, deleteIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
+            notificationBuilder.SetDeleteIntent(pendingDeleteIntent);
+
             if (Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.O)
             {
                 if (parameters.TryGetValue(PriorityKey, out object priority) && priority != null)

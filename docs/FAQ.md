@@ -52,7 +52,7 @@ https://github.com/CrossGeeks/FirebasePushNotificationPlugin/issues/67
 
 4. On some phones android background services might be blocked by some application. This is the case of <b>ASUS Zenfone 3</b> that has an  <b>Auto-start manager</b>, which disables background services by default. You need to make sure that your push notification service is not being blocked by some application like this one, since you won't receive push notifications when app is closed if so.
 
-5. Must compile against 24+ as plugin is using API 24 specific things. Here is a great breakdown: http://redth.codes/such-android-api-levels-much-confuse-wow/ (Android project must be compiled using 7.0+ target framework)
+5. Must compile against 26+ as plugin is using API 26 specific things. Here is a great breakdown: http://redth.codes/such-android-api-levels-much-confuse-wow/ (Android project must be compiled using 8.0+ target framework)
 
 6. The package name of your Android aplication must <b>start with lower case</b> or you will get the build error: <b><code>Installation error: INSTALL_PARSE_FAILED_MANIFEST_MALFORMED</code> </b>
 

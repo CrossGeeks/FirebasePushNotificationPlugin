@@ -90,6 +90,7 @@
     <Compile Include="PNFirebaseMessagingService.cs" />
     <Compile Include="DefaultPushNotificationHandler.cs" />
     <Compile Include="PushNotificationActionReceiver.cs" />
+    <Compile Include="PushNotificationDeletedReceiver.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

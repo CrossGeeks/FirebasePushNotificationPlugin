@@ -115,6 +115,10 @@ namespace Plugin.FirebasePushNotification.Abstractions
         /// </summary>
         event FirebasePushNotificationDataEventHandler OnNotificationReceived;
         /// <summary>
+        /// Event triggered when a notification is deleted
+        /// </summary>
+        event FirebasePushNotificationDataEventHandler OnNotificationDeleted;
+        /// <summary>
         /// Event triggered when there's an error
         /// </summary>
         event FirebasePushNotificationErrorEventHandler OnNotificationError;

@@ -28,6 +28,7 @@ namespace Plugin.FirebasePushNotification
         internal const string AppVersionCodeKey = "AppVersionCodeKey";
         internal const string AppVersionNameKey = "AppVersionNameKey";
         internal const string AppVersionPackageNameKey = "AppVersionPackageNameKey";
+        internal const string NotificationDeletedActionId = "Plugin.PushNotification.NotificationDeletedActionId";
         static ICollection<string> currentTopics = Android.App.Application.Context.GetSharedPreferences(KeyGroupName, FileCreationMode.Private).GetStringSet(FirebaseTopicsKey, new Collection<string>());
         static IList<NotificationUserCategory> userNotificationCategories = new List<NotificationUserCategory>();
         public static string NotificationContentTitleKey { get; set; }
@@ -257,6 +258,19 @@ namespace Plugin.FirebasePushNotification
             }
         }
 
+        static FirebasePushNotificationDataEventHandler _onNotificationDeleted;
+        public event FirebasePushNotificationDataEventHandler OnNotificationDeleted
+        {
+            add
+            {
+                _onNotificationDeleted += value;
+            }
+            remove
+            {
+                _onNotificationDeleted -= value;
+            }
+        }
+
         static FirebasePushNotificationErrorEventHandler _onNotificationError;
         public event FirebasePushNotificationErrorEventHandler OnNotificationError
         {
@@ -370,6 +384,10 @@ namespace Plugin.FirebasePushNotification
         internal static void RegisterData(IDictionary<string,object> data)
         {
             _onNotificationReceived?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(data));
+        }
+        internal static void RegisterDelete(IDictionary<string, object> data)
+        {
+            _onNotificationDeleted?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(data));
         }
         internal static void SaveToken(string token)
         {

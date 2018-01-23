@@ -44,6 +44,19 @@ namespace Plugin.FirebasePushNotification
             }
         }
 
+        static FirebasePushNotificationDataEventHandler _onNotificationDeleted;
+        public event FirebasePushNotificationDataEventHandler OnNotificationDeleted
+        {
+            add
+            {
+                _onNotificationDeleted += value;
+            }
+            remove
+            {
+                _onNotificationDeleted -= value;
+            }
+        }
+
         static FirebasePushNotificationErrorEventHandler _onNotificationError;
         public event FirebasePushNotificationErrorEventHandler OnNotificationError
         {

@@ -122,6 +122,8 @@ namespace Plugin.FirebasePushNotification
         
         public static async Task Initialize(NSDictionary options, bool autoRegistration = true)
         {
+            App.Configure();
+
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
 
             TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
@@ -172,9 +174,6 @@ namespace Plugin.FirebasePushNotification
                 _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Push notification permission not granted"));
 
             }
-
-
-            App.Configure();
 
             if (autoRegistration)
             {

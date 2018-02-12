@@ -26,9 +26,10 @@ namespace FirebasePushSample.Droid
         {
             base.OnCreate();
             RegisterActivityLifecycleCallbacks(this);
-	    //If debug you should reset the token each time.
+            FirebasePushNotificationManager.NotificationActivityType = typeof(MainActivity);
+            //If debug you should reset the token each time.
             #if DEBUG
-		    FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[]
+            FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[]
 		    {
 			new NotificationUserCategory("message",new List<NotificationUserAction> {
 			    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),

@@ -11,7 +11,7 @@ using Android.Content;
 
 namespace FirebasePushSample.Droid
 {
-    [Activity(Label = "FirebasePushSample", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "FirebasePushSample", Icon = "@drawable/icon", Theme = "@style/MainTheme",LaunchMode = LaunchMode.SingleTop,  ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

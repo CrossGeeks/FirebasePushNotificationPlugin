@@ -126,39 +126,11 @@ namespace Plugin.FirebasePushNotification
 
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
 
-            TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
-
-            // Register your app for remote notifications.
-            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            if(autoRegistration)
             {
-                // iOS 10 or later
-                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
-                {
-                    if (error != null)
-                        _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(error.Description));
-                    else
-                        System.Diagnostics.Debug.WriteLine(granted);
-
-                    permisionTask.SetResult(granted);
-                });
-
-                // For iOS 10 display notification (sent via APNS)
-                UNUserNotificationCenter.Current.Delegate = CrossFirebasePushNotification.Current as IUNUserNotificationCenterDelegate;
-
-                // For iOS 10 data message (sent via FCM)
-                Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
+                await CrossFirebasePushNotification.Current.Register();
             }
-            else
-            {
-                // iOS 9 or before
-                var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
-                var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
-                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
-                permisionTask.SetResult(true);
-            }
-
-
+      
 
             /*if (options != null && options.Keys != null && options.Keys.Count() != 0 && options.ContainsKey(new NSString("UIApplicationLaunchOptionsRemoteNotificationKey")))
             {
@@ -167,18 +139,7 @@ namespace Plugin.FirebasePushNotification
                 // CrossFirebasePushNotification.Current.OnNotificationOpened(GetParameters(data));
 
             }*/
-            var permissonGranted = await permisionTask.Task;
-
-            if (!permissonGranted)
-            {
-                _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Push notification permission not granted"));
-
-            }
-
-            if (autoRegistration)
-            {
-                UIApplication.SharedApplication.RegisterForRemoteNotifications();
-            }
+           
         }
         public static async void Initialize(NSDictionary options, IPushNotificationHandler pushNotificationHandler, bool autoRegistration = true)
         {
@@ -250,16 +211,117 @@ namespace Plugin.FirebasePushNotification
             }
 
         }
-        public static void Register()
+        public async Task Register()
         {
-            UIApplication.SharedApplication.RegisterForRemoteNotifications();
+            TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
+
+            // Register your app for remote notifications.
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                    // iOS 10 or later
+                    var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
+                    UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+                    {
+                        if (error != null)
+                            _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(error.Description));
+                        else
+                            System.Diagnostics.Debug.WriteLine(granted);
+
+                        permisionTask.SetResult(granted);
+                    });
+
+
+                // For iOS 10 display notification (sent via APNS)
+                UNUserNotificationCenter.Current.Delegate = CrossFirebasePushNotification.Current as IUNUserNotificationCenterDelegate;
+
+                // For iOS 10 data message (sent via FCM)
+                Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
+            }
+            else
+            {
+                    // iOS 9 or before
+                    var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
+                    var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
+                    UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+                    permisionTask.SetResult(true);
+            }
+
+
+                var permissonGranted = await permisionTask.Task;
+
+                if (!permissonGranted)
+                {
+                    _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Push notification permission not granted"));
+
+                }
+                else
+                {
+                    UIApplication.SharedApplication.RegisterForRemoteNotifications();
+                }
         }
-        public static void Unregister()
+        /*public static async void Register()
+        {
+            TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+      
+                    // iOS 10 or later
+                    var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
+                    UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+                    {
+                        if (error != null)
+                            _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(error.Description));
+                        else
+                            System.Diagnostics.Debug.WriteLine(granted);
+
+                        permisionTask.SetResult(granted);
+                    });
+
+            }
+            else
+            {
+                    // iOS 9 or before
+                    var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
+                    var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
+                    UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+                    permisionTask.SetResult(true);
+            }
+
+
+
+       
+            var permissonGranted = await permisionTask.Task;
+
+            if (!permissonGranted)
+            {
+               _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Push notification permission not granted"));
+
+            }
+            else
+            {
+                UIApplication.SharedApplication.RegisterForRemoteNotifications();
+            }
+
+             
+        }*/
+        /*public static void Unregister()
         {
             if (connected)
             { 
               CrossFirebasePushNotification.Current.UnsubscribeAll();
               Disconnect();
+            }
+            UIApplication.SharedApplication.UnregisterForRemoteNotifications();
+            InstanceId.SharedInstance.DeleteId((h) => { });
+        }*/
+
+        public void Unregister()
+        {
+            if (connected)
+            {
+                CrossFirebasePushNotification.Current.UnsubscribeAll();
+                Disconnect();
             }
             UIApplication.SharedApplication.UnregisterForRemoteNotifications();
             InstanceId.SharedInstance.DeleteId((h) => { });

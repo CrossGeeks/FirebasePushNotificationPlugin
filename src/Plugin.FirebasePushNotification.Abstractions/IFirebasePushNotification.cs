@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Plugin.FirebasePushNotification.Abstractions
 {
@@ -97,11 +98,16 @@ namespace Plugin.FirebasePushNotification.Abstractions
         /// Unsubscribe all topics
         /// </summary>
         void UnsubscribeAll();
+
+        /// <summary>
+        /// Register for push notifications
+        /// </summary>
+        Task Register();
+
         /// <summary>
         /// Notification handler to receive, customize notification feedback and provide user actions
         /// </summary>
         IPushNotificationHandler NotificationHandler { get; set; }
-
         /// <summary>
         /// Event triggered when token is refreshed
         /// </summary>

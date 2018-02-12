@@ -9,11 +9,16 @@ namespace FirebasePushSample
 {
     public partial class App : Application
     {
+        FirebasePushSample.MainPage mPage;
         public App()
         {
             InitializeComponent();
+            mPage= new FirebasePushSample.MainPage()
+            {
+                Message = "Hello FCM!"
+            };
 
-            MainPage = new FirebasePushSample.MainPage();
+            MainPage = new NavigationPage(mPage);
         }
 
 
@@ -28,6 +33,66 @@ namespace FirebasePushSample
                 System.Diagnostics.Debug.WriteLine($"TOKEN REC: {p.Token}");
             };
             System.Diagnostics.Debug.WriteLine($"TOKEN: {CrossFirebasePushNotification.Current.Token}");
+
+            CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
+            {
+                try
+                {
+                    System.Diagnostics.Debug.WriteLine("Received");
+                    if (p.Data.ContainsKey("body"))
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            mPage.Message = $"{p.Data["body"]}";
+                        });
+
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            };
+
+            CrossFirebasePushNotification.Current.OnNotificationOpened += (s, p) =>
+            {
+                //System.Diagnostics.Debug.WriteLine(p.Identifier);
+
+                System.Diagnostics.Debug.WriteLine("Opened");
+                foreach (var data in p.Data)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+                }
+
+                if (!string.IsNullOrEmpty(p.Identifier))
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        mPage.Message = p.Identifier;
+                    });
+                }
+                else if (p.Data.ContainsKey("color"))
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        mPage.Navigation.PushAsync(new ContentPage()
+                        {
+                            BackgroundColor = Color.FromHex($"{p.Data["color"]}")
+
+                        });
+                    });
+
+                }
+                else if (p.Data.ContainsKey("aps.alert.title"))
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        mPage.Message = $"{p.Data["aps.alert.title"]}";
+                    });
+
+                }
+            };
         }
 
         protected override void OnSleep()

@@ -258,52 +258,6 @@ namespace Plugin.FirebasePushNotification
                 UIApplication.SharedApplication.RegisterForRemoteNotifications();
             }
         }
-        /*public static async void Register()
-        {
-            TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
-
-            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
-            {
-      
-                    // iOS 10 or later
-                    var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-                    UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
-                    {
-                        if (error != null)
-                            _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(error.Description));
-                        else
-                            System.Diagnostics.Debug.WriteLine(granted);
-
-                        permisionTask.SetResult(granted);
-                    });
-
-            }
-            else
-            {
-                    // iOS 9 or before
-                    var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
-                    var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
-                    UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
-                    permisionTask.SetResult(true);
-            }
-
-
-
-       
-            var permissonGranted = await permisionTask.Task;
-
-            if (!permissonGranted)
-            {
-               _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Push notification permission not granted"));
-
-            }
-            else
-            {
-                UIApplication.SharedApplication.RegisterForRemoteNotifications();
-            }
-
-             
-        }*/
 
 
         public void UnregisterForPushNotifications()
@@ -396,6 +350,7 @@ namespace Plugin.FirebasePushNotification
             CrossFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
             System.Diagnostics.Debug.WriteLine("DidReceivedMessage");
         }
+        [Obsolete("DidRegisterRemoteNotifications with these parameters is deprecated, please use the other override instead.")]
         public static void DidRegisterRemoteNotifications(NSData deviceToken,FirebaseTokenType type)
         {
             Messaging.SharedInstance.ApnsToken = deviceToken;

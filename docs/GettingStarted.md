@@ -106,7 +106,7 @@ Example of initialization:
 
 ```
 
-By default the plugin launches the activity where you are calling **ProcessIntent** when you tap at a notification, but you can change this behaviour by setting the type of the activity you want to be launch on *FirebasePushNotificationManager.NotificationActivityType**
+By default the plugin launches the activity where **ProcessIntent** method is called when you tap at a notification, but you can change this behaviour by setting the type of the activity you want to be launch on *FirebasePushNotificationManager.NotificationActivityType**
 
 If you set **FirebasePushNotificationManager.NotificationActivityType** then put the following call on the **OnCreate** of activity of the type set. If not set then put it on your main launcher activity **OnCreate** method (On the Activity you got MainLauncher= true set)
 

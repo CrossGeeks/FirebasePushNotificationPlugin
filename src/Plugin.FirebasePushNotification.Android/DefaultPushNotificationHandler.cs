@@ -243,10 +243,8 @@ namespace Plugin.FirebasePushNotification
                 }
             }
 
-            Intent resultIntent = typeof(Activity).IsAssignableFrom(FirebasePushNotificationManager.NotificationActivityType) ? new Intent(Application.Context, FirebasePushNotificationManager.NotificationActivityType) : context.PackageManager.GetLaunchIntentForPackage(context.PackageName);
+            Intent resultIntent = typeof(Activity).IsAssignableFrom(FirebasePushNotificationManager.NotificationActivityType) ? new Intent(Application.Context, FirebasePushNotificationManager.NotificationActivityType) : (FirebasePushNotificationManager.DefaultNotificationActivityType == null ? context.PackageManager.GetLaunchIntentForPackage(context.PackageName) : new Intent(Application.Context, FirebasePushNotificationManager.DefaultNotificationActivityType));
 
-
-            //Intent resultIntent = new Intent(context, typeof(T));
             Bundle extras = new Bundle();
             foreach(var p in parameters)
                 extras.PutString(p.Key, p.Value.ToString());
@@ -262,8 +260,9 @@ namespace Plugin.FirebasePushNotification
             {
                 resultIntent.SetFlags(FirebasePushNotificationManager.NotificationActivityFlags.Value);
             }
+            int requestCode = new Java.Util.Random().NextInt();
 
-            var pendingIntent = PendingIntent.GetActivity(context, 0, resultIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
+            var pendingIntent = PendingIntent.GetActivity(context, requestCode, resultIntent, PendingIntentFlags.UpdateCurrent);
 
             var chanId = FirebasePushNotificationManager.DefaultNotificationChannelId;
             if (parameters.TryGetValue(ChannelIdKey, out object channelId) && channelId != null)
@@ -278,9 +277,8 @@ namespace Plugin.FirebasePushNotification
                  .SetAutoCancel(true)
                  .SetContentIntent(pendingIntent);
 
-            var deleteIntent = new Intent();
-            deleteIntent.SetAction(FirebasePushNotificationManager.NotificationDeletedActionId);
-            var pendingDeleteIntent = PendingIntent.GetBroadcast(context, 0, deleteIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
+            var deleteIntent = new Intent(context,typeof(PushNotificationDeletedReceiver));
+            var pendingDeleteIntent = PendingIntent.GetBroadcast(context, requestCode, deleteIntent, PendingIntentFlags.UpdateCurrent);
             notificationBuilder.SetDeleteIntent(pendingDeleteIntent);
 
             if (Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.O)
@@ -372,6 +370,8 @@ namespace Plugin.FirebasePushNotification
                     {
                         foreach (var action in userCat.Actions)
                         {
+                            var aRequestCode = Guid.NewGuid().GetHashCode();
+
                             if (userCat.Category.Equals(category, StringComparison.CurrentCultureIgnoreCase))
                             {
                                 Intent actionIntent = null;
@@ -380,55 +380,35 @@ namespace Plugin.FirebasePushNotification
 
                                 if (action.Type == NotificationActionType.Foreground)
                                 {
-                                    actionIntent = typeof(Activity).IsAssignableFrom(FirebasePushNotificationManager.NotificationActivityType) ? new Intent(Application.Context, FirebasePushNotificationManager.NotificationActivityType) : context.PackageManager.GetLaunchIntentForPackage(context.PackageName);
+                                    actionIntent = typeof(Activity).IsAssignableFrom(FirebasePushNotificationManager.NotificationActivityType) ? new Intent(Application.Context, FirebasePushNotificationManager.NotificationActivityType) : (FirebasePushNotificationManager.DefaultNotificationActivityType == null ? context.PackageManager.GetLaunchIntentForPackage(context.PackageName) : new Intent(Application.Context, FirebasePushNotificationManager.DefaultNotificationActivityType));
 
                                     if (FirebasePushNotificationManager.NotificationActivityFlags != null)
                                     {
                                         actionIntent.SetFlags(FirebasePushNotificationManager.NotificationActivityFlags.Value);
                                     }
-
-                                    actionIntent.SetAction($"{action.Id}");
+                                    
                                     extras.PutString(ActionIdentifierKey, action.Id);
                                     actionIntent.PutExtras(extras);
-                                    pendingActionIntent = PendingIntent.GetActivity(context, 0, actionIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
+                                    pendingActionIntent = PendingIntent.GetActivity(context, aRequestCode, actionIntent, PendingIntentFlags.UpdateCurrent);
 
                                 }
                                 else
                                 {
-                                    actionIntent = new Intent();
-                                    //actionIntent.SetAction($"{category}.{action.Id}");
-                                    actionIntent.SetAction($"{Application.Context.PackageManager.GetPackageInfo(Application.Context.PackageName, PackageInfoFlags.MetaData).PackageName}.{action.Id}");
+                                    actionIntent = new Intent(context,typeof(PushNotificationActionReceiver));
                                     extras.PutString(ActionIdentifierKey, action.Id);
                                     actionIntent.PutExtras(extras);
-                                    pendingActionIntent = PendingIntent.GetBroadcast(context, 0, actionIntent, PendingIntentFlags.OneShot | PendingIntentFlags.UpdateCurrent);
+                                    pendingActionIntent = PendingIntent.GetBroadcast(context, aRequestCode, actionIntent,  PendingIntentFlags.UpdateCurrent);
 
                                 }
                                 
                                 notificationBuilder.AddAction(new NotificationCompat.Action.Builder(context.Resources.GetIdentifier(action.Icon, "drawable", Application.Context.PackageName), action.Title, pendingActionIntent).Build());
                             }
-
-
-                            if (FirebasePushNotificationManager.ActionReceiver == null)
-                            {
-                                if(intentFilter == null)
-                                {
-                                    intentFilter = new IntentFilter();
-                                }
-
-                                if (!intentFilter.HasAction(action.Id))
-                                {
-                                    intentFilter.AddAction($"{Application.Context.PackageManager.GetPackageInfo(Application.Context.PackageName, PackageInfoFlags.MetaData).PackageName}.{action.Id}");
-                                }
-                            }
+                            
                         }
                     }
                 }
 
-                if(intentFilter !=null)
-                {
-                    FirebasePushNotificationManager.ActionReceiver = new PushNotificationActionReceiver();
-                    context.RegisterReceiver(FirebasePushNotificationManager.ActionReceiver, intentFilter);
-                }
+          
             }
 
             OnBuildNotification(notificationBuilder, parameters);

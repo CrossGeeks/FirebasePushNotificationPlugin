@@ -5,6 +5,13 @@ using System.Threading.Tasks;
 
 namespace Plugin.FirebasePushNotification.Abstractions
 {
+    public enum FirebasePushNotificationErrorType
+    {
+        Unknown,
+        PermissionDenied,
+        RegistrationFailed,
+        UnregistrationFailed
+    }
 
     public delegate void FirebasePushNotificationTokenEventHandler(object source, FirebasePushNotificationTokenEventArgs e);
 
@@ -23,10 +30,12 @@ namespace Plugin.FirebasePushNotification.Abstractions
 
     public class FirebasePushNotificationErrorEventArgs : EventArgs
     {
+        public FirebasePushNotificationErrorType Type;
         public string Message { get; }
 
-        public FirebasePushNotificationErrorEventArgs(string message)
+        public FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType type, string message)
         {
+            Type = type;
             Message = message;
         }
 
@@ -100,9 +109,15 @@ namespace Plugin.FirebasePushNotification.Abstractions
         void UnsubscribeAll();
 
         /// <summary>
-        /// Register for push notifications
+        /// Register push notifications on demand
         /// </summary>
-        Task Register();
+        /// <returns></returns>
+        Task RegisterForPushNotifications();
+        /// <summary>
+        /// Unregister push notifications on demand
+        /// </summary>
+        /// <returns></returns>
+        void UnregisterForPushNotifications();
 
         /// <summary>
         /// Notification handler to receive, customize notification feedback and provide user actions

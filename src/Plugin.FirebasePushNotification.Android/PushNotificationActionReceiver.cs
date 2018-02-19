@@ -30,7 +30,6 @@ namespace Plugin.FirebasePushNotification
                 }
             }
 
-            CrossFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
             FirebasePushNotificationManager.RegisterData(parameters);
 
             NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
@@ -39,18 +38,12 @@ namespace Plugin.FirebasePushNotification
             {
                 var notificationTag = extras.GetString(DefaultPushNotificationHandler.ActionNotificationTagKey, string.Empty);
 
-                if (notificationTag == null)
+                if (string.IsNullOrEmpty(notificationTag))
                     manager.Cancel(notificationId);
                 else
                     manager.Cancel(notificationTag, notificationId);
 
             }
-            /*Intent resultIntent = context.PackageManager.GetLaunchIntentForPackage(context.PackageName);
-            resultIntent.SetFlags(ActivityFlags.NewTask);
-            context.StartActivity(resultIntent);*/
-
-            context.UnregisterReceiver(FirebasePushNotificationManager.ActionReceiver);
-            FirebasePushNotificationManager.ActionReceiver = null;
         }
     }
 }

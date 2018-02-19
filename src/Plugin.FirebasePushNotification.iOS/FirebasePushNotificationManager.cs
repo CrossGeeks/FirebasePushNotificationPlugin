@@ -128,7 +128,7 @@ namespace Plugin.FirebasePushNotification
 
             if(autoRegistration)
             {
-                await CrossFirebasePushNotification.Current.Register();
+                await CrossFirebasePushNotification.Current.RegisterForPushNotifications();
             }
       
 
@@ -211,53 +211,52 @@ namespace Plugin.FirebasePushNotification
             }
 
         }
-        public async Task Register()
+
+        public async Task RegisterForPushNotifications()
         {
             TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
 
             // Register your app for remote notifications.
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
-                    // iOS 10 or later
-                    var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
-                    UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
-                    {
-                        if (error != null)
-                            _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(error.Description));
-                        else
-                            System.Diagnostics.Debug.WriteLine(granted);
-
-                        permisionTask.SetResult(granted);
-                    });
-
+                // iOS 10 or later
+                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
 
                 // For iOS 10 display notification (sent via APNS)
                 UNUserNotificationCenter.Current.Delegate = CrossFirebasePushNotification.Current as IUNUserNotificationCenterDelegate;
 
+
                 // For iOS 10 data message (sent via FCM)
                 Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
+
+                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+                {
+                    if (error != null)
+                        _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType.PermissionDenied, error.Description));
+                    else if (!granted)
+                        _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType.PermissionDenied, "Push notification permission not granted"));
+
+
+                    permisionTask.SetResult(granted);
+                });
+                
             }
             else
             {
-                    // iOS 9 or before
-                    var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
-                    var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
-                    UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
-                    permisionTask.SetResult(true);
+                // iOS 9 or before
+                var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
+                var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+                permisionTask.SetResult(true);
             }
 
 
-                var permissonGranted = await permisionTask.Task;
+            var permissonGranted = await permisionTask.Task;
 
-                if (!permissonGranted)
-                {
-                    _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Push notification permission not granted"));
-
-                }
-                else
-                {
-                    UIApplication.SharedApplication.RegisterForRemoteNotifications();
-                }
+            if (permissonGranted)
+            {
+                UIApplication.SharedApplication.RegisterForRemoteNotifications();
+            }
         }
         /*public static async void Register()
         {
@@ -305,25 +304,18 @@ namespace Plugin.FirebasePushNotification
 
              
         }*/
-        /*public static void Unregister()
-        {
-            if (connected)
-            { 
-              CrossFirebasePushNotification.Current.UnsubscribeAll();
-              Disconnect();
-            }
-            UIApplication.SharedApplication.UnregisterForRemoteNotifications();
-            InstanceId.SharedInstance.DeleteId((h) => { });
-        }*/
 
-        public void Unregister()
+
+        public void UnregisterForPushNotifications()
         {
             if (connected)
             {
                 CrossFirebasePushNotification.Current.UnsubscribeAll();
                 Disconnect();
             }
+            
             UIApplication.SharedApplication.UnregisterForRemoteNotifications();
+            NSUserDefaults.StandardUserDefaults.SetString(string.Empty, FirebaseTokenKey);
             InstanceId.SharedInstance.DeleteId((h) => { });
         }
         /// <summary>
@@ -417,7 +409,7 @@ namespace Plugin.FirebasePushNotification
 
         public static void RemoteNotificationRegistrationFailed(NSError error)
         {
-            _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(error.Description));
+            _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType.RegistrationFailed,error.Description));
         }
 
         public void ApplicationReceivedRemoteMessage(RemoteMessage remoteMessage)

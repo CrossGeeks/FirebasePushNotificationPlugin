@@ -38,7 +38,7 @@ namespace Plugin.FirebasePushNotification
             {
                 var notificationTag = extras.GetString(DefaultPushNotificationHandler.ActionNotificationTagKey, string.Empty);
 
-                if (string.IsNullOrEmpty(notificationTag))
+                if (notificationTag == null)
                     manager.Cancel(notificationId);
                 else
                     manager.Cancel(notificationTag, notificationId);

@@ -93,6 +93,11 @@ namespace FirebasePushSample
 
                 }
             };
+            CrossFirebasePushNotification.Current.OnNotificationDeleted += (s, p) =>
+            {
+                System.Diagnostics.Debug.WriteLine("Dismissed");
+            };
+
         }
 
         protected override void OnSleep()

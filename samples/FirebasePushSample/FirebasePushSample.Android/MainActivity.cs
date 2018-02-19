@@ -23,14 +23,14 @@ namespace FirebasePushSample.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
 
-            FirebasePushNotificationManager.ProcessIntent(Intent);
+            FirebasePushNotificationManager.ProcessIntent(this,Intent);
 
         }
 
         protected override void OnNewIntent(Intent intent)
         {
             base.OnNewIntent(intent);
-            FirebasePushNotificationManager.ProcessIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(this,intent);
         }
 
     }

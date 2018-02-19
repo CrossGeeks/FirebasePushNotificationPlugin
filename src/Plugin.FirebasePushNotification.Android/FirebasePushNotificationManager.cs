@@ -154,7 +154,7 @@ namespace Plugin.FirebasePushNotification
 
                         if (resetToken || (!string.IsNullOrEmpty(storedPackageName) && (!storedPackageName.Equals(packageName, StringComparison.CurrentCultureIgnoreCase) || !storedVersionName.Equals(versionName, StringComparison.CurrentCultureIgnoreCase) || !storedVersionCode.Equals($"{versionCode}", StringComparison.CurrentCultureIgnoreCase))))
                         {
-                            CleanUp();
+                            CleanUp(false);
 
                         }
 
@@ -233,9 +233,13 @@ namespace Plugin.FirebasePushNotification
         {
             Reset();
         }
-        static void CleanUp()
+        static void CleanUp(bool clearAll = true)
         {
-            CrossFirebasePushNotification.Current.UnsubscribeAll();
+            if(clearAll)
+            {
+                CrossFirebasePushNotification.Current.UnsubscribeAll();
+            }
+        
             FirebaseInstanceId.Instance.DeleteInstanceId();
             SaveToken(string.Empty);
         }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirebasePushSample", "FirebasePushSample\FirebasePushSample.csproj", "{3CB6619F-44BE-439F-9119-0DB084FC9784}"
 EndProject
@@ -96,6 +96,7 @@ Global
 		{FA3C97AC-3E34-4566-A146-CE8B49669AC8}.AppStore|iPhoneSimulator.ActiveCfg = AppStore|iPhoneSimulator
 		{FA3C97AC-3E34-4566-A146-CE8B49669AC8}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
 		{FA3C97AC-3E34-4566-A146-CE8B49669AC8}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{FA3C97AC-3E34-4566-A146-CE8B49669AC8}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{FA3C97AC-3E34-4566-A146-CE8B49669AC8}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{FA3C97AC-3E34-4566-A146-CE8B49669AC8}.Debug|iPhone.Build.0 = Debug|iPhone
 		{FA3C97AC-3E34-4566-A146-CE8B49669AC8}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
@@ -108,5 +109,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91EA4FBA-D31B-4FE3-825F-F0DB629EF91B}
 	EndGlobalSection
 EndGlobal

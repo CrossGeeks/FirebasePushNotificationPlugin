@@ -106,7 +106,7 @@ Example of initialization:
 
 ```
 
-By default the plugin launches the activity where **ProcessIntent** method is called when you tap at a notification, but you can change this behaviour by setting the type of the activity you want to be launch on *FirebasePushNotificationManager.NotificationActivityType**
+By default the plugin launches the activity where **ProcessIntent** method is called when you tap at a notification, but you can change this behaviour by setting the type of the activity you want to be launch on **FirebasePushNotificationManager.NotificationActivityType**
 
 If you set **FirebasePushNotificationManager.NotificationActivityType** then put the following call on the **OnCreate** of activity of the type set. If not set then put it on your main launcher activity **OnCreate** method (On the Activity you got MainLauncher= true set)
 
@@ -222,11 +222,11 @@ Also should override these methods and make the following calls:
 It is drop dead simple to gain access to the FirebasePushNotification APIs in any project. All you need to do is get a reference to the current instance of IFirebasePushNotification via `CrossFirebasePushNotification.Current`:
 
 
-### On Demand Registration
+### On Demand Permission Registration
 
-When plugin initializes by default auto registers the device for push notifications. If needed you can do on demand registration by turning off auto registration when initializing the plugin.
+When plugin initializes by default auto registers the device permissions for push notifications. If needed you can do on demand registration by turning off auto registration when initializing the plugin.
 
-Use the following method for on demand registration:
+Use the following method for on demand permission registration:
 
 ```csharp
    CrossFirebasePushNotification.Current.RegisterForPushNotifications();

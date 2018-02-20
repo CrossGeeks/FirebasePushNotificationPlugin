@@ -222,11 +222,11 @@ Also should override these methods and make the following calls:
 It is drop dead simple to gain access to the FirebasePushNotification APIs in any project. All you need to do is get a reference to the current instance of IFirebasePushNotification via `CrossFirebasePushNotification.Current`:
 
 
-### On Demand Registration
+### On Demand Permission Registration
 
-When plugin initializes by default auto registers the device for push notifications. If needed you can do on demand registration by turning off auto registration when initializing the plugin.
+When plugin initializes by default auto registers the device permissions for push notifications. If needed you can do on demand registration by turning off auto registration when initializing the plugin.
 
-Use the following method for on demand registration:
+Use the following method for on demand permission registration:
 
 ```csharp
    CrossFirebasePushNotification.Current.RegisterForPushNotifications();

@@ -20,6 +20,8 @@ namespace Plugin.FirebasePushNotification
     public class FirebasePushNotificationManager : NSObject, IFirebasePushNotification, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
         public static UNNotificationPresentationOptions CurrentNotificationPresentationOption { get; set; } = UNNotificationPresentationOptions.None;
+        private static bool EnableDelayedResponse;
+        static NotificationResponse delayedNotificationResponse = null;
         static NSObject messagingConnectionChangeNotificationToken;
         static Queue<Tuple<string, bool>> pendingTopics = new Queue<Tuple<string, bool>>();
         static bool connected = false;
@@ -75,7 +77,15 @@ namespace Plugin.FirebasePushNotification
         {
             add
             {
+                var previousVal = _onNotificationOpened;
                 _onNotificationOpened += value;
+                if (delayedNotificationResponse != null && previousVal == null)
+                {
+                    var tmpParams = delayedNotificationResponse;
+                    _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(tmpParams.Data, tmpParams.Identifier, tmpParams.Type));
+                    delayedNotificationResponse = null;
+                }
+
             }
             remove
             {
@@ -120,33 +130,39 @@ namespace Plugin.FirebasePushNotification
 
         public IPushNotificationHandler NotificationHandler { get; set; }
         
-        public static async Task Initialize(NSDictionary options, bool autoRegistration = true)
+        public static async Task Initialize(NSDictionary options, bool autoRegistration = true, bool enableDelayedResponse = true)
         {
+            enableDelayedResponse = enableDelayedResponse;
             App.Configure();
 
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
 
-            if(autoRegistration)
+            if (autoRegistration)
             {
                 await CrossFirebasePushNotification.Current.RegisterForPushNotifications();
             }
-      
 
-            /*if (options != null && options.Keys != null && options.Keys.Count() != 0 && options.ContainsKey(new NSString("UIApplicationLaunchOptionsRemoteNotificationKey")))
+
+            if (options?.Keys != null && options.Keys.Count() != 0 && options.ContainsKey(new NSString("UIApplicationLaunchOptionsRemoteNotificationKey")))
             {
                 NSDictionary data = options.ObjectForKey(new NSString("UIApplicationLaunchOptionsRemoteNotificationKey")) as NSDictionary;
+                var response = new NotificationResponse(GetParameters(data));
 
-                // CrossFirebasePushNotification.Current.OnNotificationOpened(GetParameters(data));
+                if (enableDelayedResponse && _onNotificationOpened == null)
+                {
+                    delayedNotificationResponse = response;
+                }
 
-            }*/
-           
+                _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
+            }
+
         }
-        public static async void Initialize(NSDictionary options, IPushNotificationHandler pushNotificationHandler, bool autoRegistration = true)
+        public static async void Initialize(NSDictionary options, IPushNotificationHandler pushNotificationHandler, bool autoRegistration = true, bool enableDelayedResponse = true)
         {
             CrossFirebasePushNotification.Current.NotificationHandler = pushNotificationHandler;
             await Initialize(options, autoRegistration);
         }
-        public static async void Initialize(NSDictionary options,NotificationUserCategory[] notificationUserCategories,bool autoRegistration = true)
+        public static async void Initialize(NSDictionary options,NotificationUserCategory[] notificationUserCategories,bool autoRegistration = true, bool enableDelayedResponse = true)
         {
 
             await Initialize(options, autoRegistration);
@@ -335,6 +351,7 @@ namespace Plugin.FirebasePushNotification
             System.Diagnostics.Debug.WriteLine("WillPresentNotification");
             var parameters = GetParameters(notification.Request.Content.UserInfo);
             _onNotificationReceived?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(parameters));
+
             CrossFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
 
             completionHandler(CurrentNotificationPresentationOption);
@@ -515,10 +532,18 @@ namespace Plugin.FirebasePushNotification
             else if (response.IsDismissAction)
                 catType = NotificationCategoryType.Dismiss;
      
-            var notificationResponse = new NotificationResponse(parameters, $"{response.ActionIdentifier}".Equals("com.apple.UNNotificationDefaultActionIdentifier",StringComparison.CurrentCultureIgnoreCase)?string.Empty:$"{response.ActionIdentifier}",catType);
-            _onNotificationOpened?.Invoke(this,new FirebasePushNotificationResponseEventArgs(notificationResponse.Data,notificationResponse.Identifier,notificationResponse.Type));
-           
-            CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(notificationResponse);
+            var notificationResponse = new NotificationResponse(parameters, $"{response.ActionIdentifier}".Equals("com.apple.UNNotificationDefaultActionIdentifier", StringComparison.CurrentCultureIgnoreCase)?string.Empty:$"{response.ActionIdentifier}",catType);
+
+            if (EnableDelayedResponse && _onNotificationOpened == null)
+            {
+                delayedNotificationResponse = notificationResponse;
+            }
+            else
+            {
+                _onNotificationOpened?.Invoke(this, new FirebasePushNotificationResponseEventArgs(notificationResponse.Data, notificationResponse.Identifier, notificationResponse.Type));
+
+                CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(notificationResponse);
+            }
             
             // Inform caller it has been handled
             completionHandler();

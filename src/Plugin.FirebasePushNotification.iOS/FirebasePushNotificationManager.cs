@@ -38,7 +38,17 @@ namespace Plugin.FirebasePushNotification
         {
             add
             {
+                var previous = _onTokenRefresh;
                 _onTokenRefresh += value;
+
+                if (EnableDelayedResponse && previous == null)
+                {
+                    var token = Token;
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        _onTokenRefresh?.Invoke(this, new FirebasePushNotificationTokenEventArgs(Token));
+                    }
+                }
             }
             remove
             {

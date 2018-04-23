@@ -142,7 +142,7 @@ namespace Plugin.FirebasePushNotification
         
         public static async Task Initialize(NSDictionary options, bool autoRegistration = true, bool enableDelayedResponse = true)
         {
-            enableDelayedResponse = enableDelayedResponse;
+            EnableDelayedResponse = enableDelayedResponse;
             App.Configure();
 
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
@@ -150,20 +150,6 @@ namespace Plugin.FirebasePushNotification
             if (autoRegistration)
             {
                 await CrossFirebasePushNotification.Current.RegisterForPushNotifications();
-            }
-
-
-            if (options?.Keys != null && options.Keys.Count() != 0 && options.ContainsKey(new NSString("UIApplicationLaunchOptionsRemoteNotificationKey")))
-            {
-                NSDictionary data = options.ObjectForKey(new NSString("UIApplicationLaunchOptionsRemoteNotificationKey")) as NSDictionary;
-                var response = new NotificationResponse(GetParameters(data));
-
-                if (enableDelayedResponse && _onNotificationOpened == null)
-                {
-                    delayedNotificationResponse = response;
-                }
-
-                _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
             }
 
         }

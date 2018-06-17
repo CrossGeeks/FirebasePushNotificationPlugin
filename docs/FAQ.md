@@ -21,7 +21,7 @@
 - On your Xiaomi make sure your phone has the "Auto-start" property enabled for your app.
 - On your Asus make sure the <b>Auto-start manager</b> of your phone has the "Auto-start" property enabled for your app
 
-These phones disables background services starting by default. You need to make sure that your push notification service is not being blocked by the manufacturer application, since you won't receive push notifications when app is closed if so.
+   These phones disables background services starting by default. You need to make sure that your push notification service is not being blocked by the manufacturer application, since you won't receive push notifications when app is closed if so.
 
 5. Must compile against 26+ as plugin is using API 26 specific things. Here is a great breakdown: http://redth.codes/such-android-api-levels-much-confuse-wow/ (Android project must be compiled using 8.0+ target framework)
 

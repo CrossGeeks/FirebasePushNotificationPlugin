@@ -132,6 +132,10 @@ namespace Plugin.FirebasePushNotification.Abstractions
         /// </summary>
         event FirebasePushNotificationResponseEventHandler OnNotificationOpened;
         /// <summary>
+        /// Event triggered when a notification is opened by tapping an action
+        /// </summary>
+        event FirebasePushNotificationResponseEventHandler OnNotificationAction;
+        /// <summary>
         /// Event triggered when a notification is received
         /// </summary>
         event FirebasePushNotificationDataEventHandler OnNotificationReceived;
@@ -151,5 +155,22 @@ namespace Plugin.FirebasePushNotification.Abstractions
         /// Send device group message
         /// </summary>
         void SendDeviceGroupMessage(IDictionary<string, string> parameters,string groupKey,string messageId,int timeOfLive);
+
+
+        /// <summary>
+        /// Clear all notifications
+        /// </summary>
+        void ClearAllNotifications();
+
+        /// <summary>
+        /// Remove specific id notification
+        /// </summary>
+        void RemoveNotification(int id);
+
+        /// <summary>
+        /// Remove specific id and tag notification
+        /// </summary>
+        void RemoveNotification(string tag,int id);
+
     }
 }

@@ -22,14 +22,13 @@ namespace Plugin.FirebasePushNotification
         public static UNNotificationPresentationOptions CurrentNotificationPresentationOption { get; set; } = UNNotificationPresentationOptions.None;
         static NSObject messagingConnectionChangeNotificationToken;
         static Queue<Tuple<string, bool>> pendingTopics = new Queue<Tuple<string, bool>>();
-        static bool connected = false;
+        static bool hasToken = false;
         static NSString FirebaseTopicsKey = new NSString("FirebaseTopics");
         const string FirebaseTokenKey = "FirebaseToken";
         static NSMutableArray currentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(FirebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
         public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; } }
 
         static IList<NotificationUserCategory> usernNotificationCategories = new List<NotificationUserCategory>();
-
 
         static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
         public event FirebasePushNotificationTokenEventHandler OnTokenRefresh
@@ -80,6 +79,20 @@ namespace Plugin.FirebasePushNotification
             remove
             {
                 _onNotificationOpened -= value;
+            }
+        }
+
+
+        static FirebasePushNotificationResponseEventHandler _onNotificationAction;
+        public event FirebasePushNotificationResponseEventHandler OnNotificationAction
+        {
+            add
+            {
+                _onNotificationAction += value;
+            }
+            remove
+            {
+                _onNotificationAction -= value;
             }
         }
 
@@ -150,64 +163,68 @@ namespace Plugin.FirebasePushNotification
         {
 
             await Initialize(options, autoRegistration);
+
             RegisterUserNotificationCategories(notificationUserCategories);
 
         }
         public static void RegisterUserNotificationCategories(NotificationUserCategory[] userCategories)
         {
-            if (userCategories != null && userCategories.Length > 0)
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
-                usernNotificationCategories.Clear();
-                IList<UNNotificationCategory> categories = new List<UNNotificationCategory>();
-                foreach (var userCat in userCategories)
+                if (userCategories != null && userCategories.Length > 0)
                 {
-                    IList<UNNotificationAction> actions = new List<UNNotificationAction>();
-
-                    foreach(var action in userCat.Actions)
+                    usernNotificationCategories.Clear();
+                    IList<UNNotificationCategory> categories = new List<UNNotificationCategory>();
+                    foreach (var userCat in userCategories)
                     {
-                      
-                        // Create action
-                        var actionID = action.Id;
-                        var title = action.Title;
-                        var notificationActionType = UNNotificationActionOptions.None;
-                        switch (action.Type)
+                        IList<UNNotificationAction> actions = new List<UNNotificationAction>();
+
+                        foreach (var action in userCat.Actions)
                         {
-                            case NotificationActionType.AuthenticationRequired:
-                                notificationActionType = UNNotificationActionOptions.AuthenticationRequired;
-                                break;
-                            case NotificationActionType.Destructive:
-                                notificationActionType = UNNotificationActionOptions.Destructive;
-                                break;
-                            case NotificationActionType.Foreground:
-                                notificationActionType = UNNotificationActionOptions.Foreground;
-                                break;
+
+                            // Create action
+                            var actionID = action.Id;
+                            var title = action.Title;
+                            var notificationActionType = UNNotificationActionOptions.None;
+                            switch (action.Type)
+                            {
+                                case NotificationActionType.AuthenticationRequired:
+                                    notificationActionType = UNNotificationActionOptions.AuthenticationRequired;
+                                    break;
+                                case NotificationActionType.Destructive:
+                                    notificationActionType = UNNotificationActionOptions.Destructive;
+                                    break;
+                                case NotificationActionType.Foreground:
+                                    notificationActionType = UNNotificationActionOptions.Foreground;
+                                    break;
+
+                            }
+
+
+                            var notificationAction = UNNotificationAction.FromIdentifier(actionID, title, notificationActionType);
+
+                            actions.Add(notificationAction);
 
                         }
 
+                        // Create category
+                        var categoryID = userCat.Category;
+                        var notificationActions = actions.ToArray() ?? new UNNotificationAction[] { };
+                        var intentIDs = new string[] { };
+                        var categoryOptions = new UNNotificationCategoryOptions[] { };
 
-                        var notificationAction = UNNotificationAction.FromIdentifier(actionID, title, notificationActionType);
+                        var category = UNNotificationCategory.FromIdentifier(categoryID, notificationActions, intentIDs, userCat.Type == NotificationCategoryType.Dismiss ? UNNotificationCategoryOptions.CustomDismissAction : UNNotificationCategoryOptions.None);
 
-                        actions.Add(notificationAction);
+                        categories.Add(category);
+
+                        usernNotificationCategories.Add(userCat);
 
                     }
 
-                    // Create category
-                    var categoryID = userCat.Category;
-                    var notificationActions = actions.ToArray()?? new UNNotificationAction[]{ };
-                    var intentIDs = new string[] { };
-                    var categoryOptions = new UNNotificationCategoryOptions[] { };
-
-                    var category = UNNotificationCategory.FromIdentifier(categoryID, notificationActions, intentIDs,userCat.Type == NotificationCategoryType.Dismiss? UNNotificationCategoryOptions.CustomDismissAction:UNNotificationCategoryOptions.None);
-
-                    categories.Add(category);
-
-                    usernNotificationCategories.Add(userCat);
+                    // Register categories
+                    UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(categories.ToArray()));
 
                 }
-
-                // Register categories
-                UNUserNotificationCenter.Current.SetNotificationCategories(new NSSet<UNNotificationCategory>(categories.ToArray()));
-         
             }
 
         }
@@ -215,6 +232,10 @@ namespace Plugin.FirebasePushNotification
         public async Task RegisterForPushNotifications()
         {
             TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
+
+            Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
+
+            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
 
             // Register your app for remote notifications.
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
@@ -224,10 +245,6 @@ namespace Plugin.FirebasePushNotification
 
                 // For iOS 10 display notification (sent via APNS)
                 UNUserNotificationCenter.Current.Delegate = CrossFirebasePushNotification.Current as IUNUserNotificationCenterDelegate;
-
-
-                // For iOS 10 data message (sent via FCM)
-                Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
 
                 UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
                 {
@@ -247,6 +264,7 @@ namespace Plugin.FirebasePushNotification
                 var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
                 var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
                 UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+
                 permisionTask.SetResult(true);
             }
 
@@ -262,70 +280,18 @@ namespace Plugin.FirebasePushNotification
 
         public void UnregisterForPushNotifications()
         {
-            if (connected)
+            if (hasToken)
             {
                 CrossFirebasePushNotification.Current.UnsubscribeAll();
-                Disconnect();
-            }
-            
+                Messaging.SharedInstance.ShouldEstablishDirectChannel = false;
+                hasToken = false;
+            // Disconnect();
+             }
+
             UIApplication.SharedApplication.UnregisterForRemoteNotifications();
             NSUserDefaults.StandardUserDefaults.SetString(string.Empty, FirebaseTokenKey);
             InstanceId.SharedInstance.DeleteId((h) => { });
         }
-        /// <summary>
-        /// Connects to Firebase Cloud Messaging
-        /// </summary>
-        public static void Connect()
-        {
-            if (messagingConnectionChangeNotificationToken != null)
-            {
-                NSNotificationCenter.DefaultCenter.RemoveObserver(messagingConnectionChangeNotificationToken);
-            }
-
-            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
-
-            messagingConnectionChangeNotificationToken = NSNotificationCenter.DefaultCenter.AddObserver(Messaging.ConnectionStateChangedNotification, OnMessagingDirectChannelStateChanged);
-        }
-        static void OnMessagingDirectChannelStateChanged(NSNotification notification)
-        {
-            if (Messaging.SharedInstance.IsDirectChannelEstablished)
-            {
-                connected = true;
-                while (pendingTopics.Count > 0)
-                {
-                    var pTopic = pendingTopics.Dequeue();
-
-                    if (pTopic.Item2)
-                    {
-                        CrossFirebasePushNotification.Current.Subscribe(pTopic.Item1);
-                    }
-                    else
-                    {
-                        CrossFirebasePushNotification.Current.Unsubscribe(pTopic.Item1);
-                    }
-
-                }
-            }
-           /*else
-            {
-                _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs("Connection couldn't be established"));
-            }*/
-        }
-        public static void Disconnect()
-        {
-            // Use this method to release shared resources, save user data, invalidate timers and store the application state.
-            // If your application supports background exection this method is called instead of WillTerminate when the user quits.
-            //Messaging.SharedInstance.Disconnect();
-            Messaging.SharedInstance.ShouldEstablishDirectChannel = false;
-            connected = false;
-
-            if (messagingConnectionChangeNotificationToken != null)
-            {
-                NSNotificationCenter.DefaultCenter.RemoveObserver(messagingConnectionChangeNotificationToken);
-                messagingConnectionChangeNotificationToken = null;
-            }
-        }
-
         // To receive notifications in foreground on iOS 10 devices.
         [Export("userNotificationCenter:willPresentNotification:withCompletionHandler:")]
         public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
@@ -337,6 +303,22 @@ namespace Plugin.FirebasePushNotification
             _onNotificationReceived?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(parameters));
             CrossFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
 
+            if ((parameters.TryGetValue("priority", out object priority) && ($"{priority}".ToLower() == "high" || $"{priority}".ToLower() == "max")))
+            {
+                if (!CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.Alert))
+                {
+                    CurrentNotificationPresentationOption |= UNNotificationPresentationOptions.Alert;
+
+                }
+            }
+            else
+            {
+                if (CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.Alert))
+                {
+                    CurrentNotificationPresentationOption &= ~UNNotificationPresentationOptions.Alert;
+
+                }
+            }
             completionHandler(CurrentNotificationPresentationOption);
         }
 
@@ -433,7 +415,7 @@ namespace Plugin.FirebasePushNotification
 
        public void Subscribe(string topic)
        {
-            if(!connected)
+            if(!hasToken)
             {
                 pendingTopics.Enqueue(new Tuple<string,bool>(topic,true));
                 return;
@@ -441,7 +423,7 @@ namespace Plugin.FirebasePushNotification
             
             if (!currentTopics.Contains(new NSString(topic)))
             {
-                Messaging.SharedInstance.Subscribe($"/topics/{topic}");
+                Messaging.SharedInstance.Subscribe($"{topic}");
                 currentTopics.Add(new NSString(topic));
             }
 
@@ -468,7 +450,7 @@ namespace Plugin.FirebasePushNotification
 
        public void Unsubscribe(string topic)
        {
-            if (!connected)
+            if (!hasToken)
             {
                 pendingTopics.Enqueue(new Tuple<string, bool>(topic, false));
                 return;
@@ -476,7 +458,7 @@ namespace Plugin.FirebasePushNotification
             var deletedKey = new NSString($"{topic}");
             if (currentTopics.Contains(deletedKey))
             {
-                Messaging.SharedInstance.Unsubscribe($"/topics/{topic}");
+                Messaging.SharedInstance.Unsubscribe($"{topic}");
                 nint idx = (nint)currentTopics.IndexOf(deletedKey);
                 if (idx != -1)
                 {
@@ -491,7 +473,7 @@ namespace Plugin.FirebasePushNotification
 
         public void SendDeviceGroupMessage(IDictionary<string, string> parameters, string groupKey, string messageId, int timeOfLive)
         {
-            if (connected)
+            if (hasToken)
             {
                 NSMutableDictionary message = new NSMutableDictionary();
                 foreach (var p in parameters)
@@ -506,7 +488,7 @@ namespace Plugin.FirebasePushNotification
         [Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
         public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
         {
-
+           
             var parameters = GetParameters(response.Notification.Request.Content.UserInfo);
        
             NotificationCategoryType catType = NotificationCategoryType.Default;
@@ -514,17 +496,29 @@ namespace Plugin.FirebasePushNotification
                 catType = NotificationCategoryType.Custom;
             else if (response.IsDismissAction)
                 catType = NotificationCategoryType.Dismiss;
-     
-            var notificationResponse = new NotificationResponse(parameters, $"{response.ActionIdentifier}".Equals("com.apple.UNNotificationDefaultActionIdentifier",StringComparison.CurrentCultureIgnoreCase)?string.Empty:$"{response.ActionIdentifier}",catType);
-            _onNotificationOpened?.Invoke(this,new FirebasePushNotificationResponseEventArgs(notificationResponse.Data,notificationResponse.Identifier,notificationResponse.Type));
-           
-            CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(notificationResponse);
+            var ident = $"{response.ActionIdentifier}".Equals("com.apple.UNNotificationDefaultActionIdentifier", StringComparison.CurrentCultureIgnoreCase) ? string.Empty : $"{response.ActionIdentifier}";
+            var notificationResponse = new NotificationResponse(parameters, ident,catType);
+
+            if(string.IsNullOrEmpty(ident))
+            {
+                _onNotificationOpened?.Invoke(this, new FirebasePushNotificationResponseEventArgs(notificationResponse.Data, notificationResponse.Identifier, notificationResponse.Type));
+
+                CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(notificationResponse);
+            }
+            else
+            {
+                _onNotificationAction?.Invoke(this, new FirebasePushNotificationResponseEventArgs(notificationResponse.Data, notificationResponse.Identifier, notificationResponse.Type));
+
+               // CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(notificationResponse);
+            }
+         
             
             // Inform caller it has been handled
             completionHandler();
         }
 
-        public void DidRefreshRegistrationToken(Messaging messaging, string fcmToken)
+        [Export("messaging:didReceiveRegistrationToken:")]
+        public void DidReceiveRegistrationToken(Messaging messaging, string fcmToken)
         {
             // Note that this callback will be fired everytime a new token is generated, including the first
             // time. So if you need to retrieve the token as soon as it is available this is where that
@@ -533,12 +527,69 @@ namespace Plugin.FirebasePushNotification
             if (!string.IsNullOrEmpty(refreshedToken))
             {
                 _onTokenRefresh?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationTokenEventArgs(refreshedToken));
-                Connect();
+                hasToken = true;
+                while (pendingTopics.Count > 0)
+                {
+                    var pTopic = pendingTopics.Dequeue();
+
+                    if (pTopic.Item2)
+                    {
+                        CrossFirebasePushNotification.Current.Subscribe(pTopic.Item1);
+                    }
+                    else
+                    {
+                        CrossFirebasePushNotification.Current.Unsubscribe(pTopic.Item1);
+                    }
+
+                }
             }
 
             NSUserDefaults.StandardUserDefaults.SetString(fcmToken, FirebaseTokenKey);
         }
+        
+        public void ClearAllNotifications()
+        {
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                UNUserNotificationCenter.Current.RemoveAllDeliveredNotifications(); // To remove all delivered notifications
+            }
+            else
+            {
+                UIApplication.SharedApplication.CancelAllLocalNotifications();
+            }
+        }
+        public async void RemoveNotification(string tag, int id)
+        {
+            RemoveNotification(id);
+        }
+        public async void RemoveNotification(int id)
+        {
+            string NotificationIdKey = "id";
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+
+                var deliveredNotifications = await UNUserNotificationCenter.Current.GetDeliveredNotificationsAsync();
+                var deliveredNotificationsMatches = deliveredNotifications.Where(u => $"{u.Request.Content.UserInfo[NotificationIdKey]}".Equals($"{id}")).Select(s => s.Request.Identifier).ToArray();
+                if(deliveredNotificationsMatches.Length >0)
+                {
+                    UNUserNotificationCenter.Current.RemoveDeliveredNotifications(deliveredNotificationsMatches);
+
+                }
+            }
+            else
+            {
+                var scheduledNotifications = UIApplication.SharedApplication.ScheduledLocalNotifications.Where(u => u.UserInfo[NotificationIdKey].Equals($"{id}"));
+//  var notification = notifications.Where(n => n.UserInfo.ContainsKey(NSObject.FromObject(NotificationKey)))  
+//         .FirstOrDefault(n => n.UserInfo[NotificationKey].Equals(NSObject.FromObject(id)));
+            foreach (var notification in scheduledNotifications)
+                {
+                    UIApplication.SharedApplication.CancelLocalNotification(notification);
+                }
+
+            }
+        }
     }
+
 
     public enum FirebaseTokenType
     {

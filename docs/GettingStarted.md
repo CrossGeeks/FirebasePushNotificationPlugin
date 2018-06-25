@@ -202,18 +202,8 @@ Also should override these methods and make the following calls:
             FirebasePushNotificationManager.DidReceiveMessage(userInfo);
             // Do your magic to handle the notification data
             System.Console.WriteLine(userInfo);
-        }
 
-        public override void OnActivated(UIApplication uiApplication)
-        {
-            FirebasePushNotificationManager.Connect();
-           
-        }
-        public override void DidEnterBackground(UIApplication application)
-        {
-            // Use this method to release shared resources, save user data, invalidate timers and store the application state.
-            // If your application supports background exection this method is called instead of WillTerminate when the user quits.
-            FirebasePushNotificationManager.Disconnect();
+			completionHandler (UIBackgroundFetchResult.NewData);
         }
 ```
 
@@ -300,9 +290,26 @@ Push message opened event usage sample:
                     System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
                 }
 
+             
+ };
+```
+
+Push message action tapped event usage sample:
+**OnNotificationAction**
+```csharp
+  
+  CrossFirebasePushNotification.Current.OnNotificationAction += (s,p) =>
+  {
+                System.Diagnostics.Debug.WriteLine("Action");
+           
                 if(!string.IsNullOrEmpty(p.Identifier))
                 {
                     System.Diagnostics.Debug.WriteLine($"ActionId: {p.Identifier}");
+				    foreach(var data in p.Data)
+					{
+						System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+					}
+
                 }
              
  };

@@ -46,7 +46,8 @@ namespace Plugin.FirebasePushNotification
         internal static Type DefaultNotificationActivityType { get; set; } = null;
 
         //internal static PushNotificationActionReceiver ActionReceiver = new PushNotificationActionReceiver();
-        static Context _context;
+        
+
         [Obsolete("ProcessIntent with these parameters is deprecated, please use the other override instead.")]
         public static void ProcessIntent(Intent intent, bool enableDelayedResponse = true)
         {
@@ -62,7 +63,7 @@ namespace Plugin.FirebasePushNotification
 
                 if (parameters.Count > 0)
                 {
-                    NotificationManager manager = _context.GetSystemService(Context.NotificationService) as NotificationManager;
+                    NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
                     var notificationId = extras.GetInt(DefaultPushNotificationHandler.ActionNotificationIdKey, -1);
                     if (notificationId != -1)
                     {
@@ -73,21 +74,36 @@ namespace Plugin.FirebasePushNotification
                             manager.Cancel(notificationTag,notificationId);
                     }
 
-              
-                        var response = new NotificationResponse(parameters, extras.GetString(DefaultPushNotificationHandler.ActionIdentifierKey, string.Empty));
+                    var response = new NotificationResponse(parameters, extras.GetString(DefaultPushNotificationHandler.ActionIdentifierKey, string.Empty));
 
+                    if (string.IsNullOrEmpty(response.Identifier))
+                    {
                         if (_onNotificationOpened == null && enableDelayedResponse)
+                        {
                             delayedNotificationResponse = response;
-                        else
+                        }
+                        else 
+                        {
                             _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
-
+                        }
+                    }
+                    else
+                    {
+                        if (_onNotificationAction == null && enableDelayedResponse)
+                        {
+                            delayedNotificationResponse = response;
+                        }
+                        else
+                        {
+                            _onNotificationAction?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
+                        }
+                    }
 
                     CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(response);
                 }
              
             }
         }
-
         public static void ProcessIntent(Activity activity, Intent intent, bool enableDelayedResponse = true)
         {
             DefaultNotificationActivityType = activity.GetType();
@@ -103,7 +119,7 @@ namespace Plugin.FirebasePushNotification
 
                 if (parameters.Count > 0)
                 {
-                    NotificationManager manager = _context.GetSystemService(Context.NotificationService) as NotificationManager;
+                    NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
                     var notificationId = extras.GetInt(DefaultPushNotificationHandler.ActionNotificationIdKey, -1);
                     if (notificationId != -1)
                     {
@@ -117,10 +133,29 @@ namespace Plugin.FirebasePushNotification
 
                     var response = new NotificationResponse(parameters, extras.GetString(DefaultPushNotificationHandler.ActionIdentifierKey, string.Empty));
 
-                    if (_onNotificationOpened == null && enableDelayedResponse)
-                        delayedNotificationResponse = response;
+
+                    if (string.IsNullOrEmpty(response.Identifier))
+                    {
+                        if (_onNotificationOpened == null && enableDelayedResponse)
+                        {
+                            delayedNotificationResponse = response;
+                        }
+                        else
+                        {
+                            _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
+                        }
+                    }
                     else
-                        _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
+                    {
+                        if (_onNotificationAction == null && enableDelayedResponse)
+                        {
+                            delayedNotificationResponse = response;
+                        }
+                        else
+                        {
+                            _onNotificationAction?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
+                        }
+                    }
 
 
                     CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(response);
@@ -130,8 +165,6 @@ namespace Plugin.FirebasePushNotification
         }
         public static void Initialize(Context context, bool resetToken, bool createDefaultNotificationChannel = true,bool autoRegistration = true)
         {
-            _context = context;
-            
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
 
             if(autoRegistration)
@@ -297,14 +330,42 @@ namespace Plugin.FirebasePushNotification
                 if (delayedNotificationResponse != null && previousVal == null)
                 {
                     var tmpParams = delayedNotificationResponse;
-                    _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current,new FirebasePushNotificationResponseEventArgs(tmpParams.Data,tmpParams.Identifier,tmpParams.Type));
-                    delayedNotificationResponse = null;
+                    if(string.IsNullOrEmpty(tmpParams.Identifier))
+                    {
+                        _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(tmpParams.Data, tmpParams.Identifier, tmpParams.Type));
+                        delayedNotificationResponse = null;
+                    }
+                  
                 }
                
             }
             remove
             {
                 _onNotificationOpened -= value;
+            }
+        }
+
+        static FirebasePushNotificationResponseEventHandler _onNotificationAction;
+        public event FirebasePushNotificationResponseEventHandler OnNotificationAction
+        {
+            add
+            {
+                var previousVal = _onNotificationAction;
+                _onNotificationAction += value;
+                if (delayedNotificationResponse != null && previousVal == null)
+                {
+                    var tmpParams = delayedNotificationResponse;
+                    if (!string.IsNullOrEmpty(tmpParams.Identifier))
+                    {
+                        _onNotificationAction?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(tmpParams.Data, tmpParams.Identifier, tmpParams.Type));
+                        delayedNotificationResponse = null;
+                    }
+
+                }
+            }
+            remove
+            {
+                _onNotificationAction -= value;
             }
         }
 
@@ -448,6 +509,12 @@ namespace Plugin.FirebasePushNotification
         {
             _onNotificationReceived?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(data));
         }
+        internal static void RegisterAction(IDictionary<string, object> data, string identifier = "", NotificationCategoryType type = NotificationCategoryType.Default)
+        {
+            var response = new NotificationResponse(data, data.ContainsKey(DefaultPushNotificationHandler.ActionIdentifierKey)?$"{data[DefaultPushNotificationHandler.ActionIdentifierKey]}": string.Empty);
+
+            _onNotificationAction?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data,response.Identifier,response.Type));
+        }
         internal static void RegisterDelete(IDictionary<string, object> data)
         {
             _onNotificationDeleted?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(data));
@@ -460,5 +527,31 @@ namespace Plugin.FirebasePushNotification
         }
 
         #endregion
+
+        public void ClearAllNotifications()
+        {
+            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+            manager.CancelAll();
+        }
+
+        public void RemoveNotification(int id)
+        {
+            NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+            manager.Cancel(id);
+        }
+
+        public void RemoveNotification(string tag, int id)
+        {
+            if (string.IsNullOrEmpty(tag))
+            {
+                RemoveNotification(id);
+            }
+            else
+            {
+                NotificationManager manager = Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+                manager.Cancel(tag, id);
+            }
+
+        }
     }
 }

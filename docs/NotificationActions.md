@@ -143,12 +143,12 @@ iOS on **AppDelegate** FinishLaunching:
 Should use **click_action** key to when sending notification with categories. The value for this key will be the category.
 
 
-You will get the identifier of the action that was tapped on **OnNotificationOpened** event:
+You will get the identifier of the action that was tapped on **OnNotificationAction** event:
 
 ```csharp
-CrossFirebasePushNotification.Current.OnNotificationOpened += (s,p) =>
+CrossFirebasePushNotification.Current.OnNotificationAction += (s,p) =>
 {
-                System.Diagnostics.Debug.WriteLine("Opened");
+                System.Diagnostics.Debug.WriteLine("Notification action tapped");
               
 
                 if(!string.IsNullOrEmpty(p.Identifier))

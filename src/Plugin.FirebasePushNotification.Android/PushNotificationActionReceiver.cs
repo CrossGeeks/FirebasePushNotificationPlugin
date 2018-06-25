@@ -29,8 +29,7 @@ namespace Plugin.FirebasePushNotification
                     System.Diagnostics.Debug.WriteLine(key, $"{extras.Get(key)}");
                 }
             }
-
-            FirebasePushNotificationManager.RegisterData(parameters);
+            FirebasePushNotificationManager.RegisterAction(parameters);
 
             NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
             var notificationId = extras.GetInt(DefaultPushNotificationHandler.ActionNotificationIdKey, -1);

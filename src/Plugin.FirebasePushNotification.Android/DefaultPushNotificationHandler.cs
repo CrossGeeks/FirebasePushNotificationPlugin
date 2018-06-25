@@ -122,7 +122,7 @@ namespace Plugin.FirebasePushNotification
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnReceived");
 
-            if (parameters.TryGetValue(SilentKey, out object silent) && (silent.ToString() == "true" || silent.ToString() == "1"))
+            if ((parameters.TryGetValue(SilentKey, out object silent) && (silent.ToString() == "true" || silent.ToString() == "1")))
                 return;
 
             Context context = Application.Context;

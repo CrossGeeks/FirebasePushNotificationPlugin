@@ -134,10 +134,25 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
                 {
                     System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
                 }
+             
+ };
+```
 
+**OnNotificationAction**
+```csharp
+  
+  CrossFirebasePushNotification.Current.OnNotificationAction += (s,p) =>
+  {
+                System.Diagnostics.Debug.WriteLine("Action");
+           
                 if(!string.IsNullOrEmpty(p.Identifier))
                 {
                     System.Diagnostics.Debug.WriteLine($"ActionId: {p.Identifier}");
+				    foreach(var data in p.Data)
+					{
+						System.Diagnostics.Debug.WriteLine($"{data.Key} : {data.Value}");
+					}
+
                 }
              
  };

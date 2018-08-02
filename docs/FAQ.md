@@ -16,7 +16,13 @@
 
 3. You won't receive any push notifications if application is stopped while <b>debugging</b>, should reopen and close again for notifications to work when app closed. This is due to the application being on an unstable state when stopped while debugging.
 
-4. On some phones android background services might be blocked by some application. This is the case of <b>ASUS Zenfone 3</b> that has an  <b>Auto-start manager</b>, which disables background services by default. You need to make sure that your push notification service is not being blocked by some application like this one, since you won't receive push notifications when app is closed if so.
+4. On some phones android background services might be blocked by some application. This is the case of the following phones:
+
+	- On your Huawei device go to Settings > Protected apps > check "My App" where.
+	- On your Xiaomi make sure your phone has the "Auto-start" property enabled for your app.
+	- On your Asus make sure the <b>Auto-start manager</b> of your phone has the "Auto-start" property enabled for your app
+
+   These phones disables background services starting by default. You need to make sure that your push notification service is not being blocked by the manufacturer application, since you won't receive push notifications when app is closed if so.
 
 5. Must compile against 26+ as plugin is using API 26 specific things. Here is a great breakdown: http://redth.codes/such-android-api-levels-much-confuse-wow/ (Android project must be compiled using 8.0+ target framework)
 

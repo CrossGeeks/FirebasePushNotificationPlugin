@@ -55,10 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.FirebasePushNotification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plugin.FirebasePushNotification.2.3.0\lib\netstandard1.0\Plugin.FirebasePushNotification.dll</HintPath>
+      <HintPath>..\packages\Plugin.FirebasePushNotification.2.3.5\lib\netstandard1.0\Plugin.FirebasePushNotification.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.FirebasePushNotification.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plugin.FirebasePushNotification.2.3.0\lib\netstandard1.0\Plugin.FirebasePushNotification.Abstractions.dll</HintPath>
+      <HintPath>..\packages\Plugin.FirebasePushNotification.2.3.5\lib\netstandard1.0\Plugin.FirebasePushNotification.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.5.0.122203\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Core.dll</HintPath>

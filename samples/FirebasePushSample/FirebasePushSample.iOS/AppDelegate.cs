@@ -46,12 +46,7 @@ namespace FirebasePushSample.iOS
 
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
         {
-            #if DEBUG
-                        FirebasePushNotificationManager.DidRegisterRemoteNotifications(deviceToken, FirebaseTokenType.Sandbox);
-            #endif
-            #if RELEASE
-		                FirebasePushNotificationManager.DidRegisterRemoteNotifications(deviceToken,FirebaseTokenType.Production);
-            #endif
+            FirebasePushNotificationManager.DidRegisterRemoteNotifications(deviceToken);
 
         }
 
@@ -72,19 +67,8 @@ namespace FirebasePushSample.iOS
             FirebasePushNotificationManager.DidReceiveMessage(userInfo);
             // Do your magic to handle the notification data
             System.Console.WriteLine(userInfo);
-        }
 
-        public override void OnActivated(UIApplication uiApplication)
-        {
-            FirebasePushNotificationManager.Connect();
-            base.OnActivated(uiApplication);
-           
-        }
-        public override void DidEnterBackground(UIApplication application)
-        {
-            // Use this method to release shared resources, save user data, invalidate timers and store the application state.
-            // If your application supports background exection this method is called instead of WillTerminate when the user quits.
-            FirebasePushNotificationManager.Disconnect();
+            completionHandler(UIBackgroundFetchResult.NewData);
         }
     }
 }

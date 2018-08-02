@@ -44,5 +44,8 @@ Usage sample on iOS Project:
 
 A good place to do this would be on the **OnReceived** method of a custom push notification handler if it changes depending on the notification, if not you can just set it once on the AppDelegate **FinishLaunching**.
 
+
+For on-demand heads-up notification send inside your payload data key "priority" : "high"
+
 <= Back to [Table of Contents](../README.md)
 

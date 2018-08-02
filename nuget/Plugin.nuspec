@@ -20,7 +20,7 @@
            <dependency id="NETStandard.Library" version="1.6.1" />
          </group>
         <group targetFramework="MonoAndroid80">
-            <dependency id="Xamarin.Firebase.Messaging" version="[60.1142.1]" />
+            <dependency id="Xamarin.Firebase.Messaging" version="60.1142.1" />
             <dependency id="Xamarin.Android.Support.v4" version="26.0.2" />
         </group>
         <group targetFramework="Xamarin.iOS10">

@@ -450,7 +450,7 @@ namespace Plugin.FirebasePushNotification
         public void Subscribe(string topic)
         {
 
-            if (!currentTopics.Contains((topic)))
+            if (!currentTopics.Equals((topic)))
             {
                 FirebaseMessaging.Instance.SubscribeToTopic(topic);
                 currentTopics.Add(topic);
@@ -472,7 +472,7 @@ namespace Plugin.FirebasePushNotification
         {
             foreach (var t in currentTopics)
             {
-                if (currentTopics.Contains(t))
+                if (currentTopics.Equals(t))
                 {
                     FirebaseMessaging.Instance.UnsubscribeFromTopic(t);
                 }
@@ -487,7 +487,7 @@ namespace Plugin.FirebasePushNotification
 
         public void Unsubscribe(string topic)
         {
-            if (currentTopics.Contains(topic))
+            if (currentTopics.Equals(topic))
             {
                 FirebaseMessaging.Instance.UnsubscribeFromTopic(topic);
                 currentTopics.Remove(topic);

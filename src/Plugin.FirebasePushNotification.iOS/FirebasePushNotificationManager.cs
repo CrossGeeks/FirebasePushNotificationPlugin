@@ -421,7 +421,7 @@ namespace Plugin.FirebasePushNotification
                 return;
             }
             
-            if (!currentTopics.Contains(new NSString(topic)))
+            if (!currentTopics.Equals(new NSString(topic)))
             {
                 Messaging.SharedInstance.Subscribe($"{topic}");
                 currentTopics.Add(new NSString(topic));
@@ -456,7 +456,7 @@ namespace Plugin.FirebasePushNotification
                 return;
             }
             var deletedKey = new NSString($"{topic}");
-            if (currentTopics.Contains(deletedKey))
+            if (currentTopics.Equals(deletedKey))
             {
                 Messaging.SharedInstance.Unsubscribe($"{topic}");
                 nint idx = (nint)currentTopics.IndexOf(deletedKey);

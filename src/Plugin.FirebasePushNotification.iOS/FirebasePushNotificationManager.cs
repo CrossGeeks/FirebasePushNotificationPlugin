@@ -135,7 +135,8 @@ namespace Plugin.FirebasePushNotification
         
         public static async Task Initialize(NSDictionary options, bool autoRegistration = true)
         {
-            App.Configure();
+            if(App.DefaultInstance == null)
+              App.Configure();
 
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
 
@@ -311,7 +312,7 @@ namespace Plugin.FirebasePushNotification
 
                 }
             }
-            else
+            else if ($"{priority}".ToLower() == "default" ||  $"{priority}".ToLower() == "low" || $"{priority}".ToLower() == "min")
             {
                 if (CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.Alert))
                 {

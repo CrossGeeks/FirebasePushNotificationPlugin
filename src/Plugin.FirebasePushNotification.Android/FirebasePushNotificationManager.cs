@@ -221,7 +221,7 @@ namespace Plugin.FirebasePushNotification
                 NotificationManager notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
                 
                 notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
-                    channelName,NotificationImportance.Default));
+                    channelName,NotificationImportance.High));
              }
 
              System.Diagnostics.Debug.WriteLine(CrossFirebasePushNotification.Current.Token);

@@ -50,16 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Firebase.Analytics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Firebase.iOS.Analytics.4.0.5.1\lib\Xamarin.iOS10\Firebase.Analytics.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Firebase.iOS.Analytics.5.5.0\lib\Xamarin.iOS10\Firebase.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.CloudMessaging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Firebase.iOS.CloudMessaging.3.1.2\lib\Xamarin.iOS10\Firebase.CloudMessaging.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Firebase.iOS.Core.5.1.3\lib\Xamarin.iOS10\Firebase.Core.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Firebase.iOS.Core.5.2.0\lib\Xamarin.iOS10\Firebase.Core.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.InstanceID, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.2.1\lib\Xamarin.iOS10\Firebase.InstanceID.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.4.0\lib\Xamarin.iOS10\Firebase.InstanceID.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -75,12 +75,12 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Xamarin.Firebase.iOS.Analytics.4.0.5.1\build\Xamarin.Firebase.iOS.Analytics.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Firebase.iOS.Analytics.4.0.5.1\build\Xamarin.Firebase.iOS.Analytics.targets'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Build.Download.0.4.11\build\Xamarin.Build.Download.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Build.Download.0.4.11\build\Xamarin.Build.Download.props'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Build.Download.0.4.11\build\Xamarin.Build.Download.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Build.Download.0.4.11\build\Xamarin.Build.Download.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.2.1\build\Xamarin.Firebase.iOS.InstanceID.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.2.1\build\Xamarin.Firebase.iOS.InstanceID.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.4.0\build\Xamarin.Firebase.iOS.InstanceID.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.4.0\build\Xamarin.Firebase.iOS.InstanceID.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Xamarin.Firebase.iOS.Analytics.5.5.0\build\Xamarin.Firebase.iOS.Analytics.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Firebase.iOS.Analytics.5.5.0\build\Xamarin.Firebase.iOS.Analytics.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Xamarin.Firebase.iOS.Analytics.4.0.5.1\build\Xamarin.Firebase.iOS.Analytics.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.iOS.Analytics.4.0.5.1\build\Xamarin.Firebase.iOS.Analytics.targets')" />
   <Import Project="..\..\packages\Xamarin.Build.Download.0.4.11\build\Xamarin.Build.Download.targets" Condition="Exists('..\..\packages\Xamarin.Build.Download.0.4.11\build\Xamarin.Build.Download.targets')" />
-  <Import Project="..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.2.1\build\Xamarin.Firebase.iOS.InstanceID.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.2.1\build\Xamarin.Firebase.iOS.InstanceID.targets')" />
+  <Import Project="..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.4.0\build\Xamarin.Firebase.iOS.InstanceID.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.iOS.InstanceID.3.4.0\build\Xamarin.Firebase.iOS.InstanceID.targets')" />
+  <Import Project="..\..\packages\Xamarin.Firebase.iOS.Analytics.5.5.0\build\Xamarin.Firebase.iOS.Analytics.targets" Condition="Exists('..\..\packages\Xamarin.Firebase.iOS.Analytics.5.5.0\build\Xamarin.Firebase.iOS.Analytics.targets')" />
 </Project>

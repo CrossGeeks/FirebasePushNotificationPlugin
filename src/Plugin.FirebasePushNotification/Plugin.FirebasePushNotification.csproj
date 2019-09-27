@@ -4,6 +4,12 @@
     <TargetFramework>netstandard1.0</TargetFramework>
     <AssemblyName>Plugin.FirebasePushNotification</AssemblyName>
     <RootNamespace>Plugin.FirebasePushNotification</RootNamespace>
+    <PackageId>Agvance.Plugin.FirebasePushNotification</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Rohit</Authors>
+    <Company>SSI</Company>
+    <PackageProjectUrl>https://github.com/rohitvipin/FirebasePushNotificationPlugin</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rohitvipin/FirebasePushNotificationPlugin</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

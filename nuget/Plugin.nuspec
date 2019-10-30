@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package >
   <metadata minClientVersion="2.8.1">
-    <id>Agvance.Plugin.FirebasePushNotification</id>
+    <id>Plugin.FirebasePushNotification</id>
     <version>2.3.6</version>
     <title>Firebase Push Notification Plugin for Xamarin</title>
-    <authors>Rohit Vipin Mathews</authors>
-    <owners>SSI</owners>
+    <authors>Rendy Del Rosario</authors>
+    <owners>crossgeeks rdelrosario</owners>
     <licenseUrl>https://raw.githubusercontent.com/CrossGeeks/FirebasePushNotificationPlugin/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</projectUrl>
     <iconUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/art/icon.png?raw=true</iconUrl>

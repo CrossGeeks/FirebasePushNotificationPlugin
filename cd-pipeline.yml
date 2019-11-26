@@ -1,0 +1,57 @@
+# set the version numbering, this results in 1.0.1 for the first build incrementing that way.
+name: 3.0$(rev:.r)
+
+# Defines that a commit to the master branch should trigger this build
+trigger:
+- master
+
+# Defines that PRs against this branch should also trigger this build
+pr:
+- master
+
+# the machine and prerequisites to run this build on
+pool:
+  name: Hosted VS2017
+  demands: msbuild
+
+# all of the steps in this build
+steps:
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 4.9.3'
+  inputs:
+    versionSpec: 4.9.3
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: 'src\**\*.sln'
+
+# build and pack a beta version of the NuGet package. Versioning is done through the name tag in this definition.
+- task: MSBuild@1
+  displayName: 'Build beta'
+  inputs:
+    solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
+    configuration: 'Release'
+    msbuildArguments: '/t:restore;build;pack /p:PackageVersion=$(Build.BuildNumber)-beta /p:PackageOutputPath=$(build.artifactstagingdirectory)/beta /p:AssemblyFileVersion=$(Build.BuildNumber)  '
+    clean: true
+
+# build and pack a final version of the NuGet package. Versioning is done through the name tag in this definition.
+- task: MSBuild@1
+  displayName: 'Build final'
+  inputs:
+    solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
+    configuration: 'Release'
+    msbuildArguments: '/t:restore;build;pack /p:PackageVersion=$(Build.BuildNumber) /p:PackageOutputPath=$(build.artifactstagingdirectory)/final /p:AssemblyFileVersion=$(Build.BuildNumber) '
+    clean: true
+    
+# copy all the nupkg files created to the artifact directory
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: '$(build.sourcesdirectory)'
+    Contents: '**\*.nupkg'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+# publish the artifacts as results of the build
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'

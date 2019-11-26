@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Plugin.FirebasePushNotification.Abstractions
+namespace Plugin.FirebasePushNotification
 {
     public enum NotificationActionType
     {

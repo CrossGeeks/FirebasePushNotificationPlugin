@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace Plugin.FirebasePushNotification.Abstractions
+namespace Plugin.FirebasePushNotification
 {
     public interface IPushNotificationHandler
     {

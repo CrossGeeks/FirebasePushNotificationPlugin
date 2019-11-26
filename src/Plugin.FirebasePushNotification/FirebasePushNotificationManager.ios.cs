@@ -1,8 +1,6 @@
-using Firebase.Analytics;
 using Firebase.CloudMessaging;
 using Firebase.InstanceID;
 using Foundation;
-using Plugin.FirebasePushNotification.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +18,6 @@ namespace Plugin.FirebasePushNotification
     public class FirebasePushNotificationManager : NSObject, IFirebasePushNotification, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
         public static UNNotificationPresentationOptions CurrentNotificationPresentationOption { get; set; } = UNNotificationPresentationOptions.None;
-        static NSObject messagingConnectionChangeNotificationToken;
         static Queue<Tuple<string, bool>> pendingTopics = new Queue<Tuple<string, bool>>();
         static bool hasToken = false;
         static NSString FirebaseTopicsKey = new NSString("FirebaseTopics");
@@ -139,7 +136,7 @@ namespace Plugin.FirebasePushNotification
               App.Configure();
 
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
-
+            Messaging.SharedInstance.AutoInitEnabled = autoRegistration;
             if(autoRegistration)
             {
                 await CrossFirebasePushNotification.Current.RegisterForPushNotifications();
@@ -232,6 +229,9 @@ namespace Plugin.FirebasePushNotification
 
         public async Task RegisterForPushNotifications()
         {
+
+            Messaging.SharedInstance.AutoInitEnabled = true;
+
             TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
 
             Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
@@ -281,6 +281,7 @@ namespace Plugin.FirebasePushNotification
 
         public void UnregisterForPushNotifications()
         {
+        
             if (hasToken)
             {
                 CrossFirebasePushNotification.Current.UnsubscribeAll();
@@ -289,6 +290,7 @@ namespace Plugin.FirebasePushNotification
             // Disconnect();
              }
 
+            Messaging.SharedInstance.AutoInitEnabled = false;
             UIApplication.SharedApplication.UnregisterForRemoteNotifications();
             NSUserDefaults.StandardUserDefaults.SetString(string.Empty, FirebaseTokenKey);
             InstanceId.SharedInstance.DeleteId((h) => { });
@@ -588,6 +590,12 @@ namespace Plugin.FirebasePushNotification
                 }
 
             }
+        }
+
+        public async Task<string> GetTokenAsync()
+        {
+            var result=await InstanceId.SharedInstance.GetInstanceIdAsync();
+            return result?.Token;
         }
     }
 

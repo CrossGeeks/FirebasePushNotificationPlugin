@@ -1,21 +1,76 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.41">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90</TargetFrameworks>
+
+    <!--Assembly and Namespace info -->
     <AssemblyName>Plugin.FirebasePushNotification</AssemblyName>
     <RootNamespace>Plugin.FirebasePushNotification</RootNamespace>
+
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>3.0.0</AssemblyVersion>
+    <AssemblyFileVersion>3.0.0</AssemblyFileVersion>
+    <Version>3.0.0</Version>
+    <PackOnBuild>true</PackOnBuild>
+    <NeutralLanguage>en</NeutralLanguage>
+    <LangVersion>default</LangVersion>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+    <LangVersion>latest</LangVersion>
+
+    <PackageProjectUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/art/icon.png?raw=true</PackageIconUrl>
+    <RepositoryUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</RepositoryUrl>
+    <PackageTags>iOS,Android,firebase,push notifications,cloud messaging,xamarin,plugins</PackageTags>
+
+    <Title>Firebase Push Notification Plugin for Xamarin iOS and Android</Title>
+    <Summary>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Summary>
+    <Description>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Description>
+
+    <Owners>crossgeeks,rdelrosario</Owners>
+    <Authors>Rendy Del Rosario</Authors>
+    <Copyright>Copyright 2017 CrossGeeks</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.0\Plugin.FirebasePushNotification.xml</DocumentationFile>
-    <DebugType>none</DebugType>
-    <DebugSymbols>False</DebugSymbols>
+  <!-- Define what happens on build and release -->
+   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <Import Project="..\Plugin.FirebasePushNotification.Shared\Plugin.FirebasePushNotification.Shared.projitems" Label="Shared" />
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DebugType>pdbonly</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Plugin.FirebasePushNotification.Abstractions\Plugin.FirebasePushNotification.Abstractions.csproj" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.shared.*.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+     <Compile Include="**\*.ios.cs" />
+     <Compile Include="**\*.ios.*.cs" />
+     <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging" Version="4.1.1.1" />
+     <PackageReference Include="Xamarin.Firebase.iOS.InstanceID" Version="4.2.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+     <Compile Include="**\*.android.cs" />
+     <Compile Include="**\*.android.*.cs" />
+    <PackageReference Include="Xamarin.Firebase.Messaging" Version="71.1740.0" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="71.1620.0" />
+  </ItemGroup>
+   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

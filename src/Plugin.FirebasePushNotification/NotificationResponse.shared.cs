@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Plugin.FirebasePushNotification.Abstractions
+namespace Plugin.FirebasePushNotification
 {
     public class NotificationResponse
     {

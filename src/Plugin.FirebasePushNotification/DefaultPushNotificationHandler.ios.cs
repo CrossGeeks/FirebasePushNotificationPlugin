@@ -5,7 +5,6 @@ using System.Text;
 
 using Foundation;
 using UIKit;
-using Plugin.FirebasePushNotification.Abstractions;
 using UserNotifications;
 using System.Collections.ObjectModel;
 

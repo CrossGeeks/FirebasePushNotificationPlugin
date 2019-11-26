@@ -9,7 +9,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Plugin.FirebasePushNotification.Abstractions;
 using Android.Media;
 using Android.Support.V4.App;
 using System.Collections.ObjectModel;
@@ -66,6 +65,21 @@ namespace Plugin.FirebasePushNotification
         /// Category
         /// </summary>
         public const string CategoryKey = "category";
+
+        /// <summary>
+        /// Notification Category
+        /// </summary>
+        public const string NotificationCategoryKey = "notification_category";
+
+        /// <summary>
+        /// Full Intent
+        /// </summary>
+        public const string UseFullIntentKey = "use_full_intent";
+
+        /// <summary>
+        /// OnGoing
+        /// </summary>
+        public const string OnGoingKey = "ongoing";
 
         /// <summary>
         /// Silent
@@ -291,25 +305,25 @@ namespace Plugin.FirebasePushNotification
                         switch (priorityValue.ToLower())
                         {
                             case "max":
-                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Max);
+                                notificationBuilder.SetPriority(NotificationCompat.PriorityMax);
                                 notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
                                 break;
                             case "high":
-                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.High);
+                                notificationBuilder.SetPriority(NotificationCompat.PriorityHigh);
                                 notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
                                 break;
                             case "default":
-                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Default);
+                                notificationBuilder.SetPriority(NotificationCompat.PriorityDefault);
                                 notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
                                 break;
                             case "low":
-                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Low);
+                                notificationBuilder.SetPriority(NotificationCompat.PriorityLow);
                                 break;
                             case "min":
-                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Min);
+                                notificationBuilder.SetPriority(NotificationCompat.PriorityMin);
                                 break;
                             default:
-                                notificationBuilder.SetPriority((int)Android.App.NotificationPriority.Default);
+                                notificationBuilder.SetPriority(NotificationCompat.PriorityDefault);
                                 notificationBuilder.SetVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 });
                                 break;
                         }
@@ -415,6 +429,8 @@ namespace Plugin.FirebasePushNotification
 
             NotificationManager notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
             notificationManager.Notify(tag, notifyId, notificationBuilder.Build());
+
+            
  
         }
 

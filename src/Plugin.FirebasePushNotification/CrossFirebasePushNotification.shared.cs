@@ -1,5 +1,4 @@
-﻿using Plugin.FirebasePushNotification.Abstractions;
-using System;
+﻿using System;
 
 namespace Plugin.FirebasePushNotification
 {
@@ -28,14 +27,17 @@ namespace Plugin.FirebasePushNotification
 
     static IFirebasePushNotification CreateFirebasePushNotification()
     {
-#if NETSTANDARD1_0
-        return null;
-#else
-        return new FirebasePushNotificationManager();
-#endif
-    }
 
-    internal static Exception NotImplementedInReferenceAssembly()
+#if NETSTANDARD1_0 || NETSTANDARD2_0
+            return null;
+#else
+#pragma warning disable IDE0022 // Use expression body for methods
+            return new FirebasePushNotificationManager();
+#pragma warning restore IDE0022 // Use expression body for methods
+#endif
+        }
+
+        internal static Exception NotImplementedInReferenceAssembly()
     {
       return new NotImplementedException("This functionality is not implemented in the portable version of this assembly.  You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
     }

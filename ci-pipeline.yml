@@ -1,0 +1,36 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+# Defines that a commit to the master branch should trigger this build
+trigger:
+- master
+
+# Defines that PRs against this branch should also trigger this build
+pr:
+- master
+
+# The type of machine this build should run on and what software should be on it
+pool:
+  name: Hosted VS2017
+  demands: msbuild
+
+# The different steps in our build
+steps:
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 4.9.3'
+  inputs:
+    versionSpec: 4.9.3
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: 'src/**/*.sln'
+
+- task: MSBuild@1
+  displayName: 'Build solution'
+  inputs:
+    solution: 'src/**/*.sln'
+    msbuildArguments: '/t:restore;build /p:PackageOutputPath=$(build.artifactstagingdirectory)'
+    clean: true

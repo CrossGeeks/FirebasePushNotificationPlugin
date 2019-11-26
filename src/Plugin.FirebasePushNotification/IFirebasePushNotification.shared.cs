@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace Plugin.FirebasePushNotification.Abstractions
+namespace Plugin.FirebasePushNotification
 {
     public enum FirebasePushNotificationErrorType
     {
@@ -171,6 +171,8 @@ namespace Plugin.FirebasePushNotification.Abstractions
         /// Remove specific id and tag notification
         /// </summary>
         void RemoveNotification(string tag,int id);
+
+        Task<string> GetTokenAsync();
 
     }
 }

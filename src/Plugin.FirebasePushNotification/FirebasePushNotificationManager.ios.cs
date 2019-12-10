@@ -130,7 +130,7 @@ namespace Plugin.FirebasePushNotification
 
         public IPushNotificationHandler NotificationHandler { get; set; }
         
-        public static async Task Initialize(NSDictionary options, bool autoRegistration = true)
+        public static void Initialize(NSDictionary options, bool autoRegistration = true)
         {
             if(App.DefaultInstance == null)
               App.Configure();
@@ -139,7 +139,7 @@ namespace Plugin.FirebasePushNotification
             Messaging.SharedInstance.AutoInitEnabled = autoRegistration;
             if(autoRegistration)
             {
-                await CrossFirebasePushNotification.Current.RegisterForPushNotifications();
+                CrossFirebasePushNotification.Current.RegisterForPushNotifications();
             }
       
 
@@ -152,15 +152,15 @@ namespace Plugin.FirebasePushNotification
             }*/
            
         }
-        public static async void Initialize(NSDictionary options, IPushNotificationHandler pushNotificationHandler, bool autoRegistration = true)
+        public static void  Initialize(NSDictionary options, IPushNotificationHandler pushNotificationHandler, bool autoRegistration = true)
         {
             CrossFirebasePushNotification.Current.NotificationHandler = pushNotificationHandler;
-            await Initialize(options, autoRegistration);
+            Initialize(options, autoRegistration);
         }
-        public static async void Initialize(NSDictionary options,NotificationUserCategory[] notificationUserCategories,bool autoRegistration = true)
+        public static void Initialize(NSDictionary options,NotificationUserCategory[] notificationUserCategories,bool autoRegistration = true)
         {
 
-            await Initialize(options, autoRegistration);
+            Initialize(options, autoRegistration);
 
             RegisterUserNotificationCategories(notificationUserCategories);
 
@@ -227,12 +227,10 @@ namespace Plugin.FirebasePushNotification
 
         }
 
-        public async Task RegisterForPushNotifications()
+        public void RegisterForPushNotifications()
         {
 
             Messaging.SharedInstance.AutoInitEnabled = true;
-
-            TaskCompletionSource<bool> permisionTask = new TaskCompletionSource<bool>();
 
             Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
 
@@ -253,9 +251,9 @@ namespace Plugin.FirebasePushNotification
                         _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType.PermissionDenied, error.Description));
                     else if (!granted)
                         _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType.PermissionDenied, "Push notification permission not granted"));
+                    else
+                        InvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
 
-
-                    permisionTask.SetResult(granted);
                 });
                 
             }
@@ -266,16 +264,9 @@ namespace Plugin.FirebasePushNotification
                 var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
                 UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
 
-                permisionTask.SetResult(true);
-            }
-
-
-            var permissonGranted = await permisionTask.Task;
-
-            if (permissonGranted)
-            {
                 UIApplication.SharedApplication.RegisterForRemoteNotifications();
             }
+
         }
 
 
@@ -561,7 +552,7 @@ namespace Plugin.FirebasePushNotification
                 UIApplication.SharedApplication.CancelAllLocalNotifications();
             }
         }
-        public async void RemoveNotification(string tag, int id)
+        public void RemoveNotification(string tag, int id)
         {
             RemoveNotification(id);
         }

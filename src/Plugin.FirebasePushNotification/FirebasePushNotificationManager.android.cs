@@ -251,10 +251,10 @@ namespace Plugin.FirebasePushNotification
 
            
         }
-        public async System.Threading.Tasks.Task RegisterForPushNotifications()
+        public void RegisterForPushNotifications()
         {
             FirebaseMessaging.Instance.AutoInitEnabled = true;
-            await System.Threading.Tasks.Task.Run(async() =>
+            System.Threading.Tasks.Task.Run(async() =>
             {
                 var token = await GetTokenAsync();
                 if (!string.IsNullOrEmpty(token))

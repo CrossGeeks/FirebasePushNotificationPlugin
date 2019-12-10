@@ -112,7 +112,7 @@ namespace Plugin.FirebasePushNotification
         /// Register push notifications on demand
         /// </summary>
         /// <returns></returns>
-        Task RegisterForPushNotifications();
+        void RegisterForPushNotifications();
         /// <summary>
         /// Unregister push notifications on demand
         /// </summary>

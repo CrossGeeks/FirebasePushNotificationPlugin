@@ -3,7 +3,7 @@ Simple cross platform plugin for handling firebase push notifications.
 
 ### Setup
 * Available on NuGet: http://www.nuget.org/packages/Plugin.FirebasePushNotification [![NuGet](https://img.shields.io/nuget/v/Plugin.FirebasePushNotification.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.FirebasePushNotification/)
-* Install into your PCL project and Client projects.
+* Install into your .NETStandard project and Client projects.
 
 **Platform Support**
 

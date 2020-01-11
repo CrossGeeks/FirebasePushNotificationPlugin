@@ -14,7 +14,7 @@ Simple cross platform plugin for handling firebase push notifications.
 
 ### API Usage
 
-Call **CrossFirebasePushNotification.Current** from any project or PCL to gain access to APIs.
+Call **CrossFirebasePushNotification.Current** from any project to gain access to APIs.
 
 ## Features
 

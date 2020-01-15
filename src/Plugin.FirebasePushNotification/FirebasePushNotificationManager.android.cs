@@ -521,6 +521,7 @@ namespace Plugin.FirebasePushNotification
         //Raises event for push notification token refresh
         internal static void RegisterToken(string token)
         {
+            SaveToken(token);
             _onTokenRefresh?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationTokenEventArgs(token));
         }
         internal static void RegisterData(IDictionary<string,object> data)

@@ -116,7 +116,7 @@
       <HintPath>..\packages\Xamarin.Firebase.Messaging.71.1740.0\lib\monoandroid90\Xamarin.Firebase.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.FirebasePushNotification">
-      <HintPath>..\packages\Plugin.FirebasePushNotification.3.0.3\lib\monoandroid90\Plugin.FirebasePushNotification.dll</HintPath>
+      <HintPath>..\packages\Plugin.FirebasePushNotification.3.0.8\lib\monoandroid90\Plugin.FirebasePushNotification.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.Annotations">
       <HintPath>..\packages\Xamarin.Android.Support.Annotations.28.0.0.3\lib\monoandroid90\Xamarin.Android.Support.Annotations.dll</HintPath>

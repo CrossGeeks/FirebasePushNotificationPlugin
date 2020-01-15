@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.FirebasePushNotification">
-      <HintPath>..\packages\Plugin.FirebasePushNotification.3.0.3\lib\netstandard1.0\Plugin.FirebasePushNotification.dll</HintPath>
+      <HintPath>..\packages\Plugin.FirebasePushNotification.3.0.8\lib\netstandard1.0\Plugin.FirebasePushNotification.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core">
       <HintPath>..\packages\Xamarin.Forms.4.4.0.991477\lib\netstandard1.0\Xamarin.Forms.Core.dll</HintPath>

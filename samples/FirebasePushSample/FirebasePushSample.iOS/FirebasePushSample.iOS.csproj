@@ -137,7 +137,7 @@
       <HintPath>..\packages\Xamarin.Firebase.iOS.CloudMessaging.4.1.1.1\lib\xamarinios10\Firebase.CloudMessaging.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.FirebasePushNotification">
-      <HintPath>..\packages\Plugin.FirebasePushNotification.3.0.3\lib\xamarinios10\Plugin.FirebasePushNotification.dll</HintPath>
+      <HintPath>..\packages\Plugin.FirebasePushNotification.3.0.8\lib\xamarinios10\Plugin.FirebasePushNotification.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Analytics">
       <HintPath>..\packages\Xamarin.Firebase.iOS.Analytics.6.0.4\lib\xamarinios10\Firebase.Analytics.dll</HintPath>

@@ -88,14 +88,11 @@ namespace Plugin.FirebasePushNotification
             // Get updated InstanceID token.
             var refreshedToken = p0;
 
-            //If previous token is null or empty resubscribe to topics since the old instance id isn't valid anymore
-            if (string.IsNullOrEmpty(CrossFirebasePushNotification.Current.Token))
+            //Resubscribe to topics since the old instance id isn't valid anymore
+            //CrossFirebasePushNotification.Current.SubscribedTopics.
+            foreach (var t in CrossFirebasePushNotification.Current.SubscribedTopics)
             {
-                foreach (var t in CrossFirebasePushNotification.Current.SubscribedTopics)
-                {
-                    FirebaseMessaging.Instance.SubscribeToTopic(t);
-                }
-
+                FirebaseMessaging.Instance.SubscribeToTopic(t);
             }
 
             var editor = Android.App.Application.Context.GetSharedPreferences(FirebasePushNotificationManager.KeyGroupName, FileCreationMode.Private).Edit();

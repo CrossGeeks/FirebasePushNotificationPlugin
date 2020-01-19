@@ -127,12 +127,12 @@ namespace Plugin.FirebasePushNotification
         /// </summary>
         public const string ChannelIdKey = "channel_id";
 
-        public void OnOpened(NotificationResponse response)
+        public virtual void OnOpened(NotificationResponse response)
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnOpened");
         }
 
-        public void OnReceived(IDictionary<string, object> parameters)
+        public virtual void OnReceived(IDictionary<string, object> parameters)
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnReceived");
 
@@ -439,7 +439,7 @@ namespace Plugin.FirebasePushNotification
         /// </summary>
         /// <param name="notificationBuilder">Notification builder.</param>
         /// <param name="parameters">Parameters.</param>
-        private void ResolveLocalizedParameters(NotificationCompat.Builder notificationBuilder, IDictionary<string, object> parameters)
+        void ResolveLocalizedParameters(NotificationCompat.Builder notificationBuilder, IDictionary<string, object> parameters)
         {
             string getLocalizedString(string name, params string[] arguments)
             {
@@ -478,7 +478,7 @@ namespace Plugin.FirebasePushNotification
             }
         }
 
-        public void OnError(string error)
+        public virtual void OnError(string error)
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnError - {error}");
         }

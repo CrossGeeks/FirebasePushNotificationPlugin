@@ -233,7 +233,7 @@ If icon not set will set the **FirebasePushNotificationManager.IconResource** va
 
   }
 }
-
+```
 
 <= Back to [Table of Contents](../README.md)
 

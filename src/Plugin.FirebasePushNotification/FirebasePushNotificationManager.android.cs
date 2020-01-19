@@ -37,6 +37,7 @@ namespace Plugin.FirebasePushNotification
         public static string NotificationContentTextKey { get; set; }
         public static string NotificationContentDataKey { get; set; }
         public static int IconResource { get; set; }
+        public static int LargeIconResource { get; set; }
         public static Android.Net.Uri SoundUri { get; set; }
         public static Color? Color { get; set; }
         public static Type NotificationActivityType { get; set; }

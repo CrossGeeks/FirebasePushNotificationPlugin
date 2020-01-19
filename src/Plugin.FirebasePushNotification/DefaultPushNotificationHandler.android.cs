@@ -291,6 +291,19 @@ namespace Plugin.FirebasePushNotification
                  .SetAutoCancel(true)
                  .SetContentIntent(pendingIntent);
 
+            if (FirebasePushNotificationManager.LargeIconResource > 0)
+            {
+                try
+                {
+                    var largeIcon = BitmapFactory.DecodeResource(context.Resources, FirebasePushNotificationManager.LargeIconResource);
+                    notificationBuilder.SetLargeIcon(largeIcon);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+                }
+            }
+
             var deleteIntent = new Intent(context,typeof(PushNotificationDeletedReceiver));
             var pendingDeleteIntent = PendingIntent.GetBroadcast(context, requestCode, deleteIntent, PendingIntentFlags.CancelCurrent);
             notificationBuilder.SetDeleteIntent(pendingDeleteIntent);

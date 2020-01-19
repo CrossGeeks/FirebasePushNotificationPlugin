@@ -125,7 +125,7 @@ namespace Plugin.FirebasePushNotification
         /// <summary>
         /// Channel id
         /// </summary>
-        public const string ChannelIdKey = "android_channel_id";
+        public const string ChannelIdKey = "channel_id";
 
         public void OnOpened(NotificationResponse response)
         {

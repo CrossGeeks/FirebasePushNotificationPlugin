@@ -227,8 +227,6 @@ If icon not set will set the **FirebasePushNotificationManager.IconResource** va
    "data" : {
      "title": "hello",
      "body": "firebase",
-     "id": 1,
-     "tag" : "msg",
      "channel_id" : "PushNotificationChannel"
 
   }

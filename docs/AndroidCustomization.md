@@ -229,7 +229,7 @@ If icon not set will set the **FirebasePushNotificationManager.IconResource** va
      "body": "firebase",
      "id": 1,
      "tag" : "msg",
-     "channel_id" : "general"
+     "channel_id" : "PushNotificationChannel"
 
   }
 }

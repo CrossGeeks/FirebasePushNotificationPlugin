@@ -75,6 +75,7 @@ There are also some keys you can set on the payload:
 * **sound** : Sets the notification sound
 * **icon** : Sets the notification icon
 * **click_action** : Sets name for notification action
+* **channel_id** : Sets id for the notification channel that will be used when notification is delivered
 
 If **sound** or **icon** keys present have priority over the **FirebasePushNotificationManager.SoundUri** and **FirebasePushNotificationManager.IconResource** static customization properties mentioned above.
 
@@ -214,6 +215,25 @@ If icon not set will set the **FirebasePushNotificationManager.IconResource** va
 #####  Notification Actions
 
 * For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
+
+#####  Notification Channel Id
+
+* **channel_id** key is set as the notification channel id if present will use that specified notification channel for this notification.
+
+ Payload sample with id and tag
+
+```json
+{
+   "data" : {
+     "title": "hello",
+     "body": "firebase",
+     "id": 1,
+     "tag" : "msg",
+     "channel_id" : "general"
+
+  }
+}
+
 
 <= Back to [Table of Contents](../README.md)
 

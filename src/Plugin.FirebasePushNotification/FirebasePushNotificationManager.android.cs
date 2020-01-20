@@ -45,6 +45,7 @@ namespace Plugin.FirebasePushNotification
 
         public static string DefaultNotificationChannelId{ get; set; } = "FirebasePushNotificationChannel";
         public static string DefaultNotificationChannelName { get; set; } = "General";
+        public static NotificationImportance DefaultNotificationChannelImportance { get; set; } = NotificationImportance.Default;
 
         internal static Type DefaultNotificationActivityType { get; set; } = null;
 
@@ -167,7 +168,7 @@ namespace Plugin.FirebasePushNotification
                 NotificationManager notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
                 
                 notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
-                    channelName,NotificationImportance.Default));
+                    channelName,DefaultNotificationChannelImportance));
              }
 
              System.Diagnostics.Debug.WriteLine(CrossFirebasePushNotification.Current.Token);

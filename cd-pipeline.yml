@@ -35,7 +35,7 @@ steps:
   inputs:
     solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
     configuration: 'Release'
-    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /t:Pack /p:PackageVersion=$(Build.BuildNumber)-beta /p:PackageOutputPath=$(build.artifactstagingdirectory)/beta /p:AssemblyFileVersion=$(Build.BuildNumber) '
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /t:Pack /p:PackageVersion=$(Build.BuildNumber)-beta /p:PackageOutputPath=$(build.artifactstagingdirectory)/beta /p:AssemblyFileVersion=$(Build.BuildNumber)'
 
 # build and pack a final version of the NuGet package. Versioning is done through the name tag in this definition.
 - task: MSBuild@1

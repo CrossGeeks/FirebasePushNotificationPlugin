@@ -13,8 +13,7 @@ pr:
 
 # The type of machine this build should run on and what software should be on it
 pool:
-  name: Hosted VS2017
-  demands: msbuild
+  vmImage: macos-10.14
 
 # The different steps in our build
 steps:

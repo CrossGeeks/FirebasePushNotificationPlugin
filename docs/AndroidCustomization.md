@@ -223,7 +223,7 @@ If icon not set will set the **FirebasePushNotificationManager.IconResource** va
 
 * **channel_id** key is set as the notification channel id if present will use that specified notification channel for this notification.
 
- Payload sample with id and tag
+ Payload sample with channel id
 
 ```json
 {

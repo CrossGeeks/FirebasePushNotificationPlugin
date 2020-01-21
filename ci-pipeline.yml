@@ -17,19 +17,19 @@ pool:
 
 # The different steps in our build
 steps:
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.9.3'
-  inputs:
-    versionSpec: 4.9.3
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
+- bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
+  displayName: Switch to the latest Xamarin SDK
+
+- task: UseDotNet@2
+  displayName: 'Use .Net Core sdk'
   inputs:
-    restoreSolution: 'src/**/*.sln'
+     version: $(NETCORE_VERSION)
+     includePreviewVersions: false
 
 - task: MSBuild@1
   displayName: 'Build solution'
   inputs:
     solution: 'src/**/*.sln'
-    msbuildArguments: '/t:restore;build /p:PackageOutputPath=$(build.artifactstagingdirectory)'
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false /p:PackageOutputPath=$(build.artifactstagingdirectory)'
     clean: true

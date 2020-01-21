@@ -29,30 +29,21 @@ steps:
      version: $(NETCORE_VERSION)
      includePreviewVersions: false
 
-- task: MSBuild@1
-  displayName: 'Build solution'
-  inputs:
-    solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
-    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
-    clean: true
-
 # build and pack a beta version of the NuGet package. Versioning is done through the name tag in this definition.
 - task: MSBuild@1
-  displayName: 'Pack beta build'
+  displayName: 'Build & Pack beta build'
   inputs:
     solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
     configuration: 'Release'
-    msbuildArguments: '/t:Pack /p:PackageVersion=$(Build.BuildNumber)-beta /p:PackageOutputPath=$(build.artifactstagingdirectory)/beta /p:AssemblyFileVersion=$(Build.BuildNumber)  '
-    clean: true
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /t:Pack /p:PackageVersion=$(Build.BuildNumber)-beta /p:PackageOutputPath=$(build.artifactstagingdirectory)/beta /p:AssemblyFileVersion=$(Build.BuildNumber) '
 
 # build and pack a final version of the NuGet package. Versioning is done through the name tag in this definition.
 - task: MSBuild@1
-  displayName: 'Pack final build'
+  displayName: 'Build & Pack final build'
   inputs:
     solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
     configuration: 'Release'
-    msbuildArguments: '/t:Pack /p:PackageOutputPath=$(build.artifactstagingdirectory)/final /p:AssemblyFileVersion=$(Build.BuildNumber) '
-    clean: true
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true  /t:Pack /p:PackageOutputPath=$(build.artifactstagingdirectory)/final /p:AssemblyFileVersion=$(Build.BuildNumber)'
     
 # copy all the nupkg files created to the artifact directory
 - task: CopyFiles@2

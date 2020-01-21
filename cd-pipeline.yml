@@ -33,7 +33,7 @@ steps:
   displayName: 'Build solution'
   inputs:
     solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
-    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false /p:PackageOutputPath=$(build.artifactstagingdirectory)'
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
     clean: true
 
 # build and pack a beta version of the NuGet package. Versioning is done through the name tag in this definition.

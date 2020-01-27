@@ -268,15 +268,46 @@ namespace Plugin.FirebasePushNotification
 
         public async Task<string> GetTokenAsync()
         {
+
             _tokenTcs = new TaskCompletionSource<string>();
             FirebaseInstanceId.Instance.GetInstanceId().AddOnCompleteListener(this);
-            return await _tokenTcs.Task;
+
+            string retVal = null;
+
+            try
+            {
+                retVal = await _tokenTcs.Task;
+            }
+            catch (Exception ex)
+            {
+                _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType.RegistrationFailed, $"{ex}"));
+            }
+
+            return retVal;
+
+
         }
 
         public void OnComplete(Android.Gms.Tasks.Task task)
         {
-            string token = task.Result.JavaCast<IInstanceIdResult>().Token;
-            _tokenTcs?.TrySetResult(token);
+
+            try
+            {
+                if (task.IsSuccessful)
+                {
+                    string token = task.Result.JavaCast<IInstanceIdResult>().Token;
+                    _tokenTcs?.TrySetResult(token);
+                }
+                else
+                {
+                    _tokenTcs?.TrySetException(task.Exception);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _tokenTcs?.TrySetException(ex);
+            }
         }
 
         public void UnregisterForPushNotifications()

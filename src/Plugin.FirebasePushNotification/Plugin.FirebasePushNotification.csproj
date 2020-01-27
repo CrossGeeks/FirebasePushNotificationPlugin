@@ -25,10 +25,11 @@
     <PackageIconUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/art/icon.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</RepositoryUrl>
     <PackageTags>iOS,Android,firebase,push notifications,cloud messaging,xamarin,plugins</PackageTags>
-
+    <PackageReleaseNotes>Android token registration error handling</PackageReleaseNotes>
     <Title>Firebase Push Notification Plugin for Xamarin iOS and Android</Title>
     <Summary>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Summary>
     <Description>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Description>
+    
 
     <Owners>crossgeeks,rdelrosario</Owners>
     <Authors>Rendy Del Rosario</Authors>

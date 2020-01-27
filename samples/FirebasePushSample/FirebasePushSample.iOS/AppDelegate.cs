@@ -6,7 +6,6 @@ using Foundation;
 using UIKit;
 using Plugin.FirebasePushNotification;
 using System.Collections.ObjectModel;
-using Plugin.FirebasePushNotification.Abstractions;
 
 namespace FirebasePushSample.iOS
 {

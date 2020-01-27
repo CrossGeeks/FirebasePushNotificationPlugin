@@ -36,14 +36,17 @@ By using the default push notification handler. There are a few things you can c
     //Sets the sound  uri will be used for the notification
     public static Android.Net.Uri SoundUri { get; set; }
 
-	//Sets the color will be used for the notification
+    //Sets the color will be used for the notification
     public static Color? Color { get; set; }
 
-	//Sets the default notification channel id for Android O
-	public static string DefaultNotificationChannelId { get; set; } = "PushNotificationChannel";
+    //Sets the default notification channel id for Android O
+    public static string DefaultNotificationChannelId { get; set; } = "PushNotificationChannel";
     
-	//Sets the default notification channel name for Android O
+    //Sets the default notification channel name for Android O
     public static string DefaultNotificationChannelName { get; set; } = "General";
+    
+    //Sets the default notification channel importance for Android O
+    public static NotificationImportance DefaultNotificationChannelImportance { get; set; } = NotificationImportance.Default;
 
 ```
 
@@ -75,6 +78,7 @@ There are also some keys you can set on the payload:
 * **sound** : Sets the notification sound
 * **icon** : Sets the notification icon
 * **click_action** : Sets name for notification action
+* **channel_id** : Sets id for the notification channel that will be used when notification is delivered
 
 If **sound** or **icon** keys present have priority over the **FirebasePushNotificationManager.SoundUri** and **FirebasePushNotificationManager.IconResource** static customization properties mentioned above.
 
@@ -214,6 +218,23 @@ If icon not set will set the **FirebasePushNotificationManager.IconResource** va
 #####  Notification Actions
 
 * For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
+
+#####  Notification Channel Id
+
+* **channel_id** key is set as the notification channel id if present will use that specified notification channel for this notification.
+
+ Payload sample with channel id
+
+```json
+{
+   "data" : {
+     "title": "hello",
+     "body": "firebase",
+     "channel_id" : "PushNotificationChannel"
+
+  }
+}
+```
 
 <= Back to [Table of Contents](../README.md)
 

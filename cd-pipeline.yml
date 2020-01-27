@@ -1,5 +1,9 @@
+variables:
+  MONO_VERSION: 6_4_0
+  NETCORE_VERSION: '3.0.x'
+
 # set the version numbering, this results in 1.0.1 for the first build incrementing that way.
-name: 3.0$(rev:.r)
+name: 3.1$(rev:.r)
 
 # Defines that a commit to the master branch should trigger this build
 trigger:
@@ -11,37 +15,36 @@ pr:
 
 # the machine and prerequisites to run this build on
 pool:
-  name: Hosted VS2017
-  demands: msbuild
+  vmImage: macos-10.14
 
-# all of the steps in this build
+# The different steps in our build
 steps:
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.9.3'
-  inputs:
-    versionSpec: 4.9.3
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
+- bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
+  displayName: Switch to the latest Xamarin SDK
+
+- task: UseDotNet@2
+  displayName: 'Use .Net Core sdk'
   inputs:
-    restoreSolution: 'src\**\*.sln'
+     version: $(NETCORE_VERSION)
+     includePreviewVersions: false
 
 # build and pack a beta version of the NuGet package. Versioning is done through the name tag in this definition.
 - task: MSBuild@1
-  displayName: 'Build beta'
+  displayName: 'Build & Pack beta build'
   inputs:
     solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
     configuration: 'Release'
-    msbuildArguments: '/t:restore;build;pack /p:PackageVersion=$(Build.BuildNumber)-beta /p:PackageOutputPath=$(build.artifactstagingdirectory)/beta /p:AssemblyFileVersion=$(Build.BuildNumber)  '
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false /t:Pack /p:PackageVersion=$(Build.BuildNumber)-beta /p:PackageOutputPath=$(build.artifactstagingdirectory)/beta /p:AssemblyFileVersion=$(Build.BuildNumber)'
     clean: true
 
 # build and pack a final version of the NuGet package. Versioning is done through the name tag in this definition.
 - task: MSBuild@1
-  displayName: 'Build final'
+  displayName: 'Build & Pack final build'
   inputs:
     solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
     configuration: 'Release'
-    msbuildArguments: '/t:restore;build;pack /p:PackageVersion=$(Build.BuildNumber) /p:PackageOutputPath=$(build.artifactstagingdirectory)/final /p:AssemblyFileVersion=$(Build.BuildNumber) '
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false /t:Pack /p:PackageVersion=$(Build.BuildNumber) /p:PackageOutputPath=$(build.artifactstagingdirectory)/final /p:AssemblyFileVersion=$(Build.BuildNumber)'
     clean: true
     
 # copy all the nupkg files created to the artifact directory

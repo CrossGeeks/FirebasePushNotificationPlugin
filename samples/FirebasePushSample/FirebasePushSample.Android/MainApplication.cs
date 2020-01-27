@@ -7,7 +7,6 @@ using Plugin.CurrentActivity;
 using Plugin.FirebasePushNotification;
 using Android.Widget;
 using Firebase;
-using Plugin.FirebasePushNotification.Abstractions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -15,7 +14,7 @@ namespace FirebasePushSample.Droid
 {
 	//You can specify additional application information in this attribute
     [Application]
-    public class MainApplication : Application, Application.IActivityLifecycleCallbacks
+    public class MainApplication : Application
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer)
           :base(handle, transer)
@@ -25,7 +24,7 @@ namespace FirebasePushSample.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-            RegisterActivityLifecycleCallbacks(this);
+            CrossCurrentActivity.Current.Init(this);
 
 
             //Set the default notification channel for your app when running Android Oreo
@@ -79,43 +78,6 @@ namespace FirebasePushSample.Droid
 
             
 
-        }
-
-        public override void OnTerminate()
-        {
-            base.OnTerminate();
-            UnregisterActivityLifecycleCallbacks(this);
-        }
-
-        public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
-        {
-            CrossCurrentActivity.Current.Activity = activity;
-        }
-
-        public void OnActivityDestroyed(Activity activity)
-        {
-        }
-
-        public void OnActivityPaused(Activity activity)
-        {
-        }
-
-        public void OnActivityResumed(Activity activity)
-        {
-            CrossCurrentActivity.Current.Activity = activity;
-        }
-
-        public void OnActivitySaveInstanceState(Activity activity, Bundle outState)
-        {
-        }
-
-        public void OnActivityStarted(Activity activity)
-        {
-            CrossCurrentActivity.Current.Activity = activity;
-        }
-
-        public void OnActivityStopped(Activity activity)
-        {
         }
     }
 }

@@ -1,3 +1,8 @@
+variables:
+  MONO_VERSION: 6_4_0
+  NETCORE_VERSION: '3.0.x'
+  XCODE_VERSION: 11.1
+
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
@@ -13,24 +18,26 @@ pr:
 
 # The type of machine this build should run on and what software should be on it
 pool:
-  name: Hosted VS2017
-  demands: msbuild
+  vmImage: macos-10.14
 
 # The different steps in our build
 steps:
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.9.3'
-  inputs:
-    versionSpec: 4.9.3
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
+- bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
+  displayName: Switch to the latest Xamarin SDK
+
+- bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
+  displayName: Switch to the latest Xcode
+
+- task: UseDotNet@2
+  displayName: 'Use .Net Core sdk'
   inputs:
-    restoreSolution: 'src/**/*.sln'
+     version: $(NETCORE_VERSION)
+     includePreviewVersions: false
 
 - task: MSBuild@1
   displayName: 'Build solution'
   inputs:
     solution: 'src/**/*.sln'
-    msbuildArguments: '/t:restore;build /p:PackageOutputPath=$(build.artifactstagingdirectory)'
+    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false /p:PackageOutputPath=$(build.artifactstagingdirectory)'
     clean: true

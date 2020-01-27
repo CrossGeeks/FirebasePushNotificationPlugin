@@ -5,7 +5,6 @@ using Android.Gms.Common;
 using Plugin.FirebasePushNotification;
 using Android.Content.PM;
 using System.Collections.ObjectModel;
-using Plugin.FirebasePushNotification.Abstractions;
 using System.Collections.Generic;
 using Android.Content;
 

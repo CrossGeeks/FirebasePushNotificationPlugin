@@ -21,7 +21,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>12.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>FirebasePushSample</string>
 	<key>CFBundleIdentifier</key>
@@ -67,5 +67,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleName</key>
+	<string>FirebasePushSample</string>
 </dict>
 </plist>

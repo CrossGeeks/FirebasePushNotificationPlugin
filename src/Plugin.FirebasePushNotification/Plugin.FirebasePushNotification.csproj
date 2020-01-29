@@ -36,7 +36,7 @@
     <Copyright>Copyright 2017 CrossGeeks</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <!-- Define what happens on build and release -->

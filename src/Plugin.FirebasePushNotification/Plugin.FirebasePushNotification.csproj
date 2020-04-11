@@ -25,7 +25,10 @@
     <PackageIconUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin/blob/master/art/icon.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</RepositoryUrl>
     <PackageTags>iOS,Android,firebase,push notifications,cloud messaging,xamarin,plugins</PackageTags>
-    <PackageReleaseNotes>Android token registration error handling</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      - Avoid showing notifications in Android when in foreground and priority is high or notification channel importance is set to high
+      - Android ShowWhen & SetWhen support
+    </PackageReleaseNotes>
     <Title>Firebase Push Notification Plugin for Xamarin iOS and Android</Title>
     <Summary>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Summary>
     <Description>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Description>
@@ -62,14 +65,18 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
      <Compile Include="**\*.ios.cs" />
      <Compile Include="**\*.ios.*.cs" />
-     <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging" Version="4.1.1.1" />
-     <PackageReference Include="Xamarin.Firebase.iOS.InstanceID" Version="4.2.1" />
+     <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging" Version="4.1.1.2" />
+     <PackageReference Include="Xamarin.Firebase.iOS.Core" Version="6.6.0" />
+     <PackageReference Include="Xamarin.Firebase.iOS.InstanceID" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
      <Compile Include="**\*.android.cs" />
      <Compile Include="**\*.android.*.cs" />
+     <PackageReference Include="Xamarin.Firebase.Common" Version="[71.1610.0, 72)" />
      <PackageReference Include="Xamarin.Firebase.Messaging" Version="[71.1740.0, 72)" />
+     <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="[71.1620.0, 72)" />
+     <PackageReference Include="Xamarin.GooglePlayServices.Tasks" Version="[71.1601.0, 72)" />
   </ItemGroup>
    <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

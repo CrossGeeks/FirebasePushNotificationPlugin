@@ -77,8 +77,10 @@ There are also some keys you can set on the payload:
 * **priority** : Sets the notification priority
 * **sound** : Sets the notification sound
 * **icon** : Sets the notification icon
-* **click_action** : Sets name for notification action
+* **large_icon** : Sets the notification large icon
+* **click_action** : Sets name for the notification action
 * **channel_id** : Sets id for the notification channel that will be used when notification is delivered
+* **show_when** : Indicates if the notification timestamp will be shown.
 
 If **sound** or **icon** keys present have priority over the **FirebasePushNotificationManager.SoundUri** and **FirebasePushNotificationManager.IconResource** static customization properties mentioned above.
 
@@ -215,6 +217,39 @@ Payload sample with icon and sound
 
 If icon not set will set the **FirebasePushNotificationManager.IconResource** value if not set either will use the default application icon.
 
+#####  Notification Large Icon
+
+* You can send the large_icon to be displayed on the notification by using **large_icon** key, an icon with the value set should be in your *Resources/drawable* folder.
+
+Payload sample with large icon
+
+```json
+{
+   "data" : {
+     "title": "hello",
+     "body": "world",
+     "priority":"high",
+     "large_icon":"test"
+  }
+}
+```
+
+Payload sample with large icon and sound
+
+```json
+{
+   "data" : {
+     "title": "hello",
+     "body": "world",
+     "priority":"high",
+     "large_icon":"test",
+     "sound":"test"
+  }
+}
+```
+
+If large icon not set will set the **FirebasePushNotificationManager.LargeIconResource** value.
+
 #####  Notification Actions
 
 * For notification with actions will look for **click_action** key value as the match. More information here:  [Notification Actions](NotificationActions.md)
@@ -231,6 +266,23 @@ If icon not set will set the **FirebasePushNotificationManager.IconResource** va
      "title": "hello",
      "body": "firebase",
      "channel_id" : "PushNotificationChannel"
+
+  }
+}
+```
+
+#####  Notification Show When
+
+* **show_when** key if set to false will not show the notification timestamp, otherwise will show it
+
+ Payload sample without timestamp
+
+```json
+{
+   "data" : {
+     "title": "hello",
+     "body": "firebase",
+     "show_when" : "false"
 
   }
 }

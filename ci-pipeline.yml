@@ -38,6 +38,6 @@ steps:
 - task: MSBuild@1
   displayName: 'Build solution'
   inputs:
-    solution: '**/*.sln'
+    solution: '/**/*.sln'
     msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false /p:PackageOutputPath=$(build.artifactstagingdirectory)'
     clean: true

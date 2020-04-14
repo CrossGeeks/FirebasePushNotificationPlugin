@@ -3,7 +3,7 @@
     <Copyright>Copyright (c) CrossGeeks</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/CrossGeeks/FirebasePushNotificationPlugin/master/icons/icon.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/CrossGeeks/FirebasePushNotificationPlugin/master/art/icon.png</PackageIconUrl>
     <!--<PackageIcon>icon.png</PackageIcon>
     <PackageIconFullPath>$(MSBuildThisFileDirectory)icon.png</PackageIconFullPath>-->
     <Authors>Rendy Del Rosario</Authors>

@@ -12,10 +12,6 @@
     <Title>Firebase Push Notification Plugin for Xamarin iOS and Android</Title>
     <Summary>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Summary>
     <Description>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Description>
-    <PackageReleaseNotes>
-      - Avoid showing notifications in Android when in foreground and priority is high or notification channel importance is set to high
-      - Android ShowWhen and SetWhen support
-    </PackageReleaseNotes>
 
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 

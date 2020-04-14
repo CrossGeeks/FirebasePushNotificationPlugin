@@ -55,11 +55,12 @@ steps:
     Contents: '**\*.nupkg'
     TargetFolder: '$(build.artifactstagingdirectory)'
 
-- task: DeleteFiles@1
-  inputs:
-    SourceFolder: '$(build.artifactstagingdirectory)'
-    Contents: '**\*.symbols.nupkg'
 
 # publish the artifacts as results of the build
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
+
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(build.artifactstagingdirectory)'
+    Contents: '**\*.symbols.nupkg'

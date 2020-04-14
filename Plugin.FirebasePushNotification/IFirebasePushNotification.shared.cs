@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace Plugin.FirebasePushNotification
@@ -23,7 +22,7 @@ namespace Plugin.FirebasePushNotification
         {
             Token = token;
         }
-        
+
     }
 
     public delegate void FirebasePushNotificationErrorEventHandler(object source, FirebasePushNotificationErrorEventArgs e);
@@ -78,7 +77,7 @@ namespace Plugin.FirebasePushNotification
     /// Interface for FirebasePushNotification
     /// </summary>
     public interface IFirebasePushNotification
-  {
+    {
         /// <summary>
         /// Get all user notification categories
         /// </summary>
@@ -154,7 +153,7 @@ namespace Plugin.FirebasePushNotification
         /// <summary>
         /// Send device group message
         /// </summary>
-        void SendDeviceGroupMessage(IDictionary<string, string> parameters,string groupKey,string messageId,int timeOfLive);
+        void SendDeviceGroupMessage(IDictionary<string, string> parameters, string groupKey, string messageId, int timeOfLive);
 
 
         /// <summary>
@@ -170,7 +169,7 @@ namespace Plugin.FirebasePushNotification
         /// <summary>
         /// Remove specific id and tag notification
         /// </summary>
-        void RemoveNotification(string tag,int id);
+        void RemoveNotification(string tag, int id);
 
         Task<string> GetTokenAsync();
 

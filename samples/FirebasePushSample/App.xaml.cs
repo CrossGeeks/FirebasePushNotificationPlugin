@@ -1,19 +1,16 @@
-﻿using Plugin.FirebasePushNotification;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using Plugin.FirebasePushNotification;
 using Xamarin.Forms;
 
 namespace FirebasePushSample
 {
     public partial class App : Application
     {
-        FirebasePushSample.MainPage mPage;
+        private FirebasePushSample.MainPage mPage;
         public App()
         {
             InitializeComponent();
-            mPage= new FirebasePushSample.MainPage()
+            mPage = new FirebasePushSample.MainPage()
             {
                 Message = "Hello FCM!"
             };
@@ -28,7 +25,7 @@ namespace FirebasePushSample
 
             // Handle when your app starts
             CrossFirebasePushNotification.Current.Subscribe("general");
-            CrossFirebasePushNotification.Current.OnTokenRefresh += (s,p) =>
+            CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
             {
                 System.Diagnostics.Debug.WriteLine($"TOKEN REC: {p.Token}");
             };

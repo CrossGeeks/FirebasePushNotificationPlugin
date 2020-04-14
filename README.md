@@ -56,4 +56,4 @@ Here you will find detailed documentation on setting up and using the Firebase P
 * [Jonatan Rinckus](https://github.com/JonatanRinckus)
 * [Daniel-Jay Pascual](https://github.com/djrpascu)
 * [db2222](https://github.com/db2222)
-* [@martijn00](https://github.com/martijn00)
+* [martijn00](https://github.com/martijn00)

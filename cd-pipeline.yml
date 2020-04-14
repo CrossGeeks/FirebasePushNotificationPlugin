@@ -33,7 +33,7 @@ steps:
 - task: MSBuild@1
   displayName: 'Build & Pack beta build'
   inputs:
-    solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
+    solution: 'Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
     configuration: 'Release'
     msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false /t:Pack /p:PackageVersion=$(Build.BuildNumber)-beta /p:PackageOutputPath=$(build.artifactstagingdirectory)/beta /p:AssemblyFileVersion=$(Build.BuildNumber)'
     clean: true
@@ -42,7 +42,7 @@ steps:
 - task: MSBuild@1
   displayName: 'Build & Pack final build'
   inputs:
-    solution: 'src/Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
+    solution: 'Plugin.FirebasePushNotification/Plugin.FirebasePushNotification.csproj'
     configuration: 'Release'
     msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false /t:Pack /p:PackageVersion=$(Build.BuildNumber) /p:PackageOutputPath=$(build.artifactstagingdirectory)/final /p:AssemblyFileVersion=$(Build.BuildNumber)'
     clean: true

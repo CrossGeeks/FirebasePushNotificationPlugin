@@ -1,0 +1,129 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+
+    <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid9.0;monoandroid10.0</TargetFrameworks>
+    <!--<TargetFrameworks>netstandard2.0;xamarin.ios10;xamarin.mac20;xamarin.tvos10;xamarin.watchos10;monoandroid10.0;tizen40;netcoreapp3.1;net472</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.17763;$(TargetFrameworks)</TargetFrameworks>-->
+
+    <!--Assembly and Namespace info -->
+    <AssemblyName>Plugin.FirebasePushNotification</AssemblyName>
+    <RootNamespace>Plugin.FirebasePushNotification</RootNamespace>
+    <Title>Firebase Push Notification Plugin for Xamarin iOS and Android</Title>
+    <Summary>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Summary>
+    <Description>Receive and handle firebase push notifications across Xamarin.iOS and Xamarin.Android</Description>
+    <PackageReleaseNotes>
+      - Avoid showing notifications in Android when in foreground and priority is high or notification channel importance is set to high
+      - Android ShowWhen and SetWhen support
+    </PackageReleaseNotes>
+
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('uap')) And '$(OS)' == 'Windows_NT'">
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Platforms\**\*.cs" />
+    <None Include="Platforms\**\*.cs" />
+    <None Include="Resources\*.cs" />
+    <Compile Remove="Resources\*.cs" />
+    <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+    <None Include="readme.txt" pack="true" PackagePath="." />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.shared.*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+    <None Remove="Platforms\Netstandard\**\*.cs" />
+    <Compile Include="Platforms\Netstandard\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) And '$(OS)' == 'Windows_NT' ">
+    <None Remove="Platforms\Net\**\*.cs" />
+    <None Remove="Platforms\Wpf\**\*.cs" />
+    <Compile Include="Platforms\Net\**\*.cs" />
+    <Compile Include="Platforms\Wpf\**\*.cs" />
+    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.5.0.530" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'!='netstandard2.0'">
+    <None Remove="Platforms\Shared\**\*.cs" />
+    <Compile Include="Platforms\Shared\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
+    <Compile Include="Platforms\Windows\**\*.cs" />
+    <Compile Include="Platforms\Uap\**\*.cs" />
+    <Page Include="Platforms\Uap\**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+    <None Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+    <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
+    <None Remove="Platforms\Apple\**\*.cs" />
+    <None Remove="Platforms\Ios\**\*.cs" />
+    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Apple\**\*.cs" />
+    <Compile Include="Platforms\Ios\**\*.cs" />
+    <Compile Include="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="**\*.ios.cs" />
+    <Compile Include="**\*.ios.*.cs" />
+    <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging" Version="4.3.0" />
+    <PackageReference Include="Xamarin.Firebase.iOS.Core" Version="6.6.6" />
+    <PackageReference Include="Xamarin.Firebase.iOS.InstanceID" Version="4.3.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
+    <None Remove="Platforms\Apple\**\*.cs" />
+    <None Remove="Platforms\Mac\**\*.cs" />
+    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Apple\**\*.cs" />
+    <Compile Include="Platforms\Mac\**\*.cs" />
+    <Compile Include="Platforms\Xamarin\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.tvos')) ">
+    <None Remove="Platforms\Apple\**\*.cs" />
+    <None Remove="Platforms\Tvos\**\*.cs" />
+    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Apple\**\*.cs" />
+    <Compile Include="Platforms\Tvos\**\*.cs" />
+    <Compile Include="Platforms\Xamarin\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.watchos')) ">
+    <None Remove="Platforms\Apple\**\*.cs" />
+    <None Remove="Platforms\Watchos\**\*.cs" />
+    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Apple\**\*.cs" />
+    <Compile Include="Platforms\Watchos\**\*.cs" />
+    <Compile Include="Platforms\Xamarin\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
+    <None Remove="Platforms\Android\**\*.cs" />
+    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Android\**\*.cs" />
+    <Compile Include="Platforms\Xamarin\**\*.cs" />
+    <AndroidResource Include="Resources\**\*.xml" SubType="Designer" Generator="MSBuild:UpdateAndroidResources" />
+    <AndroidResource Include="Resources\**\*.json" Generator="MSBuild:UpdateAndroidResources" />
+    <Compile Include="**\*.android.cs" />
+    <Compile Include="**\*.android.*.cs" />
+    <PackageReference Include="Xamarin.Firebase.Common" Version="71.1610.0" />
+    <PackageReference Include="Xamarin.Firebase.Messaging" Version="71.1740.0" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="71.1620.0" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Tasks" Version="71.1601.0" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
+    <None Remove="Platforms\Tizen\**\*.cs" />
+    <None Remove="Platforms\Xamarin\**\*.cs" />
+    <Compile Include="Platforms\Tizen\**\*.cs" />
+    <Compile Include="Platforms\Xamarin\**\*.cs" />
+  </ItemGroup>
+
+</Project>

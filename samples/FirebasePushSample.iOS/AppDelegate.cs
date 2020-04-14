@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
 using Foundation;
-using UIKit;
 using Plugin.FirebasePushNotification;
-using System.Collections.ObjectModel;
+using UIKit;
 
 namespace FirebasePushSample.iOS
 {
@@ -24,12 +21,12 @@ namespace FirebasePushSample.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-        
+
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
-        FirebasePushNotificationManager.Initialize(options, new NotificationUserCategory[]
-        {
+            FirebasePushNotificationManager.Initialize(options, new NotificationUserCategory[]
+            {
                 new NotificationUserCategory("message",new List<NotificationUserAction> {
                     new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground)
                 }),
@@ -38,7 +35,7 @@ namespace FirebasePushSample.iOS
                     new NotificationUserAction("Reject","Reject",NotificationActionType.Destructive)
                 })
 
-        });
+            });
 
             return base.FinishedLaunching(app, options);
         }

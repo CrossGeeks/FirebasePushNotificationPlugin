@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace Plugin.FirebasePushNotification
 {
@@ -30,17 +23,20 @@ namespace Plugin.FirebasePushNotification
             }
             FirebasePushNotificationManager.RegisterAction(parameters);
 
-            NotificationManager manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
+            var manager = context.GetSystemService(Context.NotificationService) as NotificationManager;
             var notificationId = extras.GetInt(DefaultPushNotificationHandler.ActionNotificationIdKey, -1);
             if (notificationId != -1)
             {
                 var notificationTag = extras.GetString(DefaultPushNotificationHandler.ActionNotificationTagKey, string.Empty);
 
                 if (notificationTag == null)
+                {
                     manager.Cancel(notificationId);
+                }
                 else
+                {
                     manager.Cancel(notificationTag, notificationId);
-
+                }
             }
         }
     }

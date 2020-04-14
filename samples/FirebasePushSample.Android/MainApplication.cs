@@ -1,23 +1,19 @@
 using System;
-
+using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Plugin.CurrentActivity;
 using Plugin.FirebasePushNotification;
-using Android.Widget;
-using Firebase;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace FirebasePushSample.Droid
 {
-	//You can specify additional application information in this attribute
+    //You can specify additional application information in this attribute
     [Application]
     public class MainApplication : Application
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer)
-          :base(handle, transer)
+          : base(handle, transer)
         {
         }
 
@@ -39,21 +35,21 @@ namespace FirebasePushSample.Droid
 
 
             //If debug you should reset the token each time.
-        #if DEBUG
-            FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[]
-		    {
-			new NotificationUserCategory("message",new List<NotificationUserAction> {
-			    new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
-			    new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)
+#if DEBUG
+            FirebasePushNotificationManager.Initialize(this, new NotificationUserCategory[]
+            {
+            new NotificationUserCategory("message",new List<NotificationUserAction> {
+                new NotificationUserAction("Reply","Reply",NotificationActionType.Foreground),
+                new NotificationUserAction("Forward","Forward",NotificationActionType.Foreground)
 
-			}),
-			new NotificationUserCategory("request",new List<NotificationUserAction> {
-			    new NotificationUserAction("Accept","Accept",NotificationActionType.Default,"check"),
-			    new NotificationUserAction("Reject","Reject",NotificationActionType.Default,"cancel")
-			})
+            }),
+            new NotificationUserCategory("request",new List<NotificationUserAction> {
+                new NotificationUserAction("Accept","Accept",NotificationActionType.Default,"check"),
+                new NotificationUserAction("Reject","Reject",NotificationActionType.Default,"cancel")
+            })
 
-		    },true);
-	     #else
+            }, true);
+#else
 	            FirebasePushNotificationManager.Initialize(this,new NotificationUserCategory[]
 		    {
 			new NotificationUserCategory("message",new List<NotificationUserAction> {
@@ -67,16 +63,16 @@ namespace FirebasePushSample.Droid
 			})
 
 		    },false);
-	      #endif
+#endif
 
-            CrossFirebasePushNotification.Current.OnNotificationReceived += (s,p) =>
+            CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
             {
-                System.Diagnostics.Debug.WriteLine("NOTIFICATION RECEIVED",p.Data);
-   
-                
+                System.Diagnostics.Debug.WriteLine("NOTIFICATION RECEIVED", p.Data);
+
+
             };
 
-            
+
 
         }
     }

@@ -137,6 +137,7 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
              
  };
 ```
+**Note: This is the event were you will navigate to an specific page/activity/viewcontroller, if needed**
 
 **OnNotificationAction**
 ```csharp
@@ -169,8 +170,6 @@ Note: On iOS you don't need to set the topic as /topics/{topic name} that is alr
   };
 
 ```
-
-**Note: This is the event were you will navigate to an specific page/activity/viewcontroller, if needed**
 
 ### Push Notification Handler
 

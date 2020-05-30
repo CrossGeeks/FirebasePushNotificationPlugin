@@ -49,7 +49,7 @@ steps:
 
 - task: DeleteFiles@1
   inputs:
-    SourceFolder: $(build.artifactstagingdirectory)
+    SourceFolder: $(Build.ArtifactStagingDirectory)
     Contents: '*.symbols.nupkg'
 
 - task: DeleteFiles@1

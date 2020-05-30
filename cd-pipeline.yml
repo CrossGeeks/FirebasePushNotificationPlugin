@@ -49,18 +49,18 @@ steps:
 
 - task: DeleteFiles@1
   inputs:
-    SourceFolder: '$(build.artifactstagingdirectory)'
+    SourceFolder: $(build.artifactstagingdirectory)
     Contents: '**\*.symbols.nupkg'
 
 - task: DeleteFiles@1
   inputs:
-    SourceFolder: '$(build.sourcesdirectory)'
+    SourceFolder: $(build.sourcesdirectory)
     Contents: '**\*.symbols.nupkg'
 
     
 - task: DeleteFiles@1
   inputs:
-    SourceFolder: '$(build.binariesdirectory)'
+    SourceFolder: $(build.binariesdirectory)
     Contents: '**\*.symbols.nupkg'
 
 # publish the artifacts as results of the build

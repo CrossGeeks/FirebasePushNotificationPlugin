@@ -54,3 +54,8 @@ steps:
   displayName: 'Publish Artifact: drop'
 
 
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(build.artifactstagingdirectory)'
+    Contents: '**\*.symbols.nupkg'
+

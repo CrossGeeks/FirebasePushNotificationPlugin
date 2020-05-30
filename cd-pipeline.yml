@@ -3,7 +3,7 @@ variables:
   NETCORE_VERSION: '3.0.x'
 
 # set the version numbering, this results in 1.0.1 for the first build incrementing that way.
-name: 3.2$(rev:.r)
+name: 3.3$(rev:.r)
 
 # Defines that a commit to the master branch should trigger this build
 trigger:

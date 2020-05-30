@@ -386,6 +386,7 @@ namespace Plugin.FirebasePushNotification
             }
 
             var deleteIntent = new Intent(context, typeof(PushNotificationDeletedReceiver));
+            deleteIntent.PutExtras(extras);
             var pendingDeleteIntent = PendingIntent.GetBroadcast(context, requestCode, deleteIntent, PendingIntentFlags.CancelCurrent);
             notificationBuilder.SetDeleteIntent(pendingDeleteIntent);
 

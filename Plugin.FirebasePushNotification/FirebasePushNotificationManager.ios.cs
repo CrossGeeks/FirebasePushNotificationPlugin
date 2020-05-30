@@ -139,19 +139,30 @@ namespace Plugin.FirebasePushNotification
 
             CrossFirebasePushNotification.Current.NotificationHandler = CrossFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
             Messaging.SharedInstance.AutoInitEnabled = autoRegistration;
+
+            if (options?.ContainsKey(UIApplication.LaunchOptionsRemoteNotificationKey) ?? false)
+            {
+                var pushPayload = options[UIApplication.LaunchOptionsRemoteNotificationKey] as NSDictionary;
+                if (pushPayload != null)
+                {
+                    var parameters = GetParameters(pushPayload);
+
+                    var notificationResponse = new NotificationResponse(parameters, string.Empty, NotificationCategoryType.Default);
+
+
+                    /*if (_onNotificationOpened == null && enableDelayedResponse)
+                        delayedNotificationResponse = notificationResponse;
+                    else*/
+                    _onNotificationOpened?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(notificationResponse.Data, notificationResponse.Identifier, notificationResponse.Type));
+
+                    CrossFirebasePushNotification.Current.NotificationHandler?.OnOpened(notificationResponse);
+                }
+            }
+
             if (autoRegistration)
             {
                 CrossFirebasePushNotification.Current.RegisterForPushNotifications();
             }
-
-
-            /*if (options != null && options.Keys != null && options.Keys.Count() != 0 && options.ContainsKey(new NSString("UIApplicationLaunchOptionsRemoteNotificationKey")))
-            {
-                NSDictionary data = options.ObjectForKey(new NSString("UIApplicationLaunchOptionsRemoteNotificationKey")) as NSDictionary;
-
-                // CrossFirebasePushNotification.Current.OnNotificationOpened(GetParameters(data));
-
-            }*/
 
         }
         public static void Initialize(NSDictionary options, IPushNotificationHandler pushNotificationHandler, bool autoRegistration = true)
@@ -236,7 +247,7 @@ namespace Plugin.FirebasePushNotification
 
             Messaging.SharedInstance.Delegate = CrossFirebasePushNotification.Current as IMessagingDelegate;
 
-            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
+            //Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
 
             // Register your app for remote notifications.
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
@@ -283,7 +294,7 @@ namespace Plugin.FirebasePushNotification
             if (hasToken)
             {
                 CrossFirebasePushNotification.Current.UnsubscribeAll();
-                Messaging.SharedInstance.ShouldEstablishDirectChannel = false;
+                //Messaging.SharedInstance.ShouldEstablishDirectChannel = false;
                 hasToken = false;
                 // Disconnect();
             }
@@ -476,13 +487,16 @@ namespace Plugin.FirebasePushNotification
         {
             if (hasToken)
             {
-                var message = new NSMutableDictionary();
-                foreach (var p in parameters)
+                using (var message = new NSMutableDictionary())
                 {
-                    message.Add(new NSString(p.Key), new NSString(p.Value));
-                }
+                    foreach (var p in parameters)
+                    {
+                        message.Add(new NSString(p.Key), new NSString(p.Value));
+                    }
 
-                Messaging.SharedInstance.SendMessage(message, groupKey, messageId, timeOfLive);
+                    Messaging.SharedInstance.SendMessage(message, groupKey, messageId, timeOfLive);
+                }
+                  
             }
         }
 

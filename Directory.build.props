@@ -18,7 +18,7 @@
     <RepositoryUrl>https://github.com/CrossGeeks/FirebasePushNotificationPlugin</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <Version>3.2.0</Version>
+    <Version>3.3.0</Version>
 
     <!--<Nullable>enable</Nullable>-->
     <LangVersion>8.0</LangVersion>

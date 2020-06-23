@@ -551,16 +551,17 @@ namespace Plugin.FirebasePushNotification
                 while (pendingTopics.Count > 0)
                 {
                     var pTopic = pendingTopics.Dequeue();
-
-                    if (pTopic.Item2)
+                    if (pTopic != null)
                     {
-                        CrossFirebasePushNotification.Current.Subscribe(pTopic.Item1);
+                        if (pTopic.Item2)
+                        {
+                            CrossFirebasePushNotification.Current.Subscribe(pTopic.Item1);
+                        }
+                        else
+                        {
+                            CrossFirebasePushNotification.Current.Unsubscribe(pTopic.Item1);
+                        }
                     }
-                    else
-                    {
-                        CrossFirebasePushNotification.Current.Unsubscribe(pTopic.Item1);
-                    }
-
                 }
             }
 

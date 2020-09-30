@@ -4,7 +4,6 @@ using Firebase.Messaging;
 using System.Collections.Generic;
 using Android.Content;
 using Android.OS;
-using Firebase;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Android.Gms.Tasks;
@@ -13,7 +12,6 @@ using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.Media;
-using Android.Runtime;
 using System.Threading.Tasks;
 using Java.Interop;
 

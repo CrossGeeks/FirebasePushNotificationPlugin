@@ -12,6 +12,8 @@ using System.Threading;
 using Android.App;
 using Android.Content.PM;
 using Android.Graphics;
+using Android.Media;
+using Android.Runtime;
 using System.Threading.Tasks;
 using Java.Interop;
 
@@ -175,8 +177,18 @@ namespace Plugin.FirebasePushNotification
                 var channelName = DefaultNotificationChannelName;
                 var notificationManager = (NotificationManager)context.GetSystemService(Context.NotificationService);
 
-                notificationManager.CreateNotificationChannel(new NotificationChannel(channelId,
-                    channelName, DefaultNotificationChannelImportance));
+                Android.Net.Uri defaultSoundUri = SoundUri != null ? SoundUri : RingtoneManager.GetDefaultUri(RingtoneType.Notification);
+                AudioAttributes attributes = new AudioAttributes.Builder()
+                    .SetUsage(AudioUsageKind.Notification)
+                    .SetContentType(AudioContentType.Sonification)
+                    .SetLegacyStreamType(Stream.Notification)
+                    .Build();
+
+                NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, DefaultNotificationChannelImportance);
+                notificationChannel.EnableLights(true);
+                notificationChannel.SetSound(defaultSoundUri, attributes);
+
+                notificationManager.CreateNotificationChannel(notificationChannel);
             }
 
             System.Diagnostics.Debug.WriteLine(CrossFirebasePushNotification.Current.Token);

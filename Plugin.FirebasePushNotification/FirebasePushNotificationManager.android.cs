@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Firebase.Iid;
 using Firebase.Messaging;
 using System.Collections.Generic;
@@ -198,22 +198,22 @@ namespace Plugin.FirebasePushNotification
             RegisterUserNotificationCategories(notificationCategories);
 
         }
+    
         public static void Reset()
         {
-            try
+            ThreadPool.QueueUserWorkItem(state =>
             {
-                ThreadPool.QueueUserWorkItem(state =>
+                try
                 {
                     CleanUp();
-                });
-            }
-            catch (Exception ex)
-            {
-                _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType.UnregistrationFailed, ex.ToString()));
-            }
-
-
+                }
+                catch (Exception ex)
+                {
+                    _onNotificationError?.Invoke(CrossFirebasePushNotification.Current, new FirebasePushNotificationErrorEventArgs(FirebasePushNotificationErrorType.UnregistrationFailed, ex.ToString()));
+                }
+            });
         }
+
         public void RegisterForPushNotifications()
         {
             FirebaseMessaging.Instance.AutoInitEnabled = true;

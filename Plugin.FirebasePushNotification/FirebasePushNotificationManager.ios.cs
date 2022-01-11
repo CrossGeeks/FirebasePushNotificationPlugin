@@ -565,7 +565,7 @@ namespace Plugin.FirebasePushNotification
                 }
             }
 
-            NSUserDefaults.StandardUserDefaults.SetString(fcmToken, FirebaseTokenKey);
+            NSUserDefaults.StandardUserDefaults.SetString(fcmToken ?? string.Empty, FirebaseTokenKey);
         }
 
         public void ClearAllNotifications()

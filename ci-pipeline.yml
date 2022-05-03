@@ -1,7 +1,7 @@
 variables:
   MONO_VERSION: 6_4_0
   NETCORE_VERSION: '3.0.x'
-  XCODE_VERSION: 13.1
+  XCODE_VERSION: 13.2
 
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.

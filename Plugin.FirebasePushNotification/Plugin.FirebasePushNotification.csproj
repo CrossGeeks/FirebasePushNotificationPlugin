@@ -108,13 +108,11 @@
     <AndroidResource Include="Resources\**\*.json" Generator="MSBuild:UpdateAndroidResources" />
     <Compile Include="**\*.android.cs" />
     <Compile Include="**\*.android.*.cs" />
-    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Firebase.Common" Version="71.1610.0" />
     <PackageReference Include="Xamarin.Firebase.Messaging" Version="71.1740.0" />
-    <PackageReference Include="Xamarin.GooglePlayServices.Base" Version="71.1610.0" />
-    <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="71.1620.0" />
-    <PackageReference Include="Xamarin.GooglePlayServices.Tasks" Version="71.1601.0" />
-    
+    <PackageReference Include="Xamarin.GooglePlayServices.Base" Version=" 117.4.0" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="117.4.0" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Tasks" Version="117.2.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">

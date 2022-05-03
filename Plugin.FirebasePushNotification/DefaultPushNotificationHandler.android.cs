@@ -14,6 +14,7 @@ using Android.Support.V4.App;
 using System.Collections.ObjectModel;
 using Android.Content.PM;
 using Android.Content.Res;
+using AndroidX.Core.App;
 using Java.Util;
 using static Android.App.ActivityManager;
 

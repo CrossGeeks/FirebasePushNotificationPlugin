@@ -1,5 +1,5 @@
 variables:
-  MONO_VERSION: 6_4_0
+  MONO_VERSION: latest
   NETCORE_VERSION: '3.0.x'
   XCODE_VERSION: 13.2
 

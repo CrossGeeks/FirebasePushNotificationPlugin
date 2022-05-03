@@ -18,7 +18,7 @@ pr:
 
 # The type of machine this build should run on and what software should be on it
 pool:
-  vmImage: macos-10.14
+  vmImage: macos-latest
 
 # The different steps in our build
 steps:

@@ -136,8 +136,11 @@
     <BundleResource Include="GoogleService-Info.plist" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.7.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.5.0.617</Version>
+      <Version>5.0.0.2401</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -123,9 +123,6 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Android.Support.Core.Utils">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.7.2</Version>
     </PackageReference>

@@ -1,9 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
-using Plugin.CurrentActivity;
 using Plugin.FirebasePushNotification;
 
 namespace FirebasePushSample.Droid
@@ -20,7 +19,6 @@ namespace FirebasePushSample.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-            CrossCurrentActivity.Current.Init(this);
 
 
             //Set the default notification channel for your app when running Android Oreo

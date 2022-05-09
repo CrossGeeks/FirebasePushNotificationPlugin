@@ -1,5 +1,4 @@
 ﻿using System;
-using Firebase.Iid;
 using Firebase.Messaging;
 using System.Collections.Generic;
 using Android.Content;
@@ -13,7 +12,6 @@ using Android.Content.PM;
 using Android.Graphics;
 using Android.Media;
 using System.Threading.Tasks;
-using Java.Interop;
 
 namespace Plugin.FirebasePushNotification
 {
@@ -231,9 +229,8 @@ namespace Plugin.FirebasePushNotification
 
         public async Task<string> GetTokenAsync()
         {
-
             _tokenTcs = new TaskCompletionSource<string>();
-            FirebaseInstanceId.Instance.GetInstanceId().AddOnCompleteListener(this);
+            FirebaseMessaging.Instance.GetToken().AddOnCompleteListener(this);
 
             string retVal = null;
 
@@ -258,7 +255,7 @@ namespace Plugin.FirebasePushNotification
             {
                 if (task.IsSuccessful)
                 {
-                    var token = task.Result.JavaCast<IInstanceIdResult>().Token;
+                    var token = task.Result.ToString();
                     _tokenTcs?.TrySetResult(token);
                 }
                 else
@@ -286,7 +283,7 @@ namespace Plugin.FirebasePushNotification
                 CrossFirebasePushNotification.Current.UnsubscribeAll();
             }
 
-            FirebaseInstanceId.Instance.DeleteInstanceId();
+            FirebaseMessaging.Instance.DeleteToken();
             SaveToken(string.Empty);
         }
 

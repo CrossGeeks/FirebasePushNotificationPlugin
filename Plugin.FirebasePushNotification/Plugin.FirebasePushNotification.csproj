@@ -68,8 +68,6 @@
     <Compile Include="**\*.ios.cs" />
     <Compile Include="**\*.ios.*.cs" />
     <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging" Version="4.3.0" />
-    <PackageReference Include="Xamarin.Firebase.iOS.Core" Version="6.6.6" />
-    <PackageReference Include="Xamarin.Firebase.iOS.InstanceID" Version="4.3.3" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
@@ -108,12 +106,9 @@
     <AndroidResource Include="Resources\**\*.json" Generator="MSBuild:UpdateAndroidResources" />
     <Compile Include="**\*.android.cs" />
     <Compile Include="**\*.android.*.cs" />
-    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.7.0.2" />
-    <PackageReference Include="Xamarin.Firebase.Common" Version="71.1610.0" />
-    <PackageReference Include="Xamarin.Firebase.Messaging" Version="71.1740.0" />
-    <PackageReference Include="Xamarin.GooglePlayServices.Base" Version=" 117.4.0" />
-    <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="117.4.0" />
-    <PackageReference Include="Xamarin.GooglePlayServices.Tasks" Version="117.2.0" />
+    <PackageReference Include="Xamarin.Firebase.Common" Version="120.0.0.5" />
+    <PackageReference Include="Xamarin.Firebase.Messaging" Version="122.0.0.5" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Base" Version="118.0.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Firebase.Messaging;
 using System.Collections.Generic;
 using Android.Content;
@@ -38,6 +38,7 @@ namespace Plugin.FirebasePushNotification
         public static int IconResource { get; set; }
         public static int LargeIconResource { get; set; }
         public static bool ShouldShowWhen { get; set; } = true;
+        public static bool UseBigTextStyle { get; set; } = true;
         public static Android.Net.Uri SoundUri { get; set; }
         public static Color? Color { get; set; }
         public static Type NotificationActivityType { get; set; }

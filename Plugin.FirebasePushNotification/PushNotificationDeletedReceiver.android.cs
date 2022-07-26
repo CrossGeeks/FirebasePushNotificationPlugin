@@ -3,7 +3,7 @@ using Android.Content;
 
 namespace Plugin.FirebasePushNotification
 {
-    [BroadcastReceiver]
+    [BroadcastReceiver(Enabled = true, Exported = false)]
     public class PushNotificationDeletedReceiver : BroadcastReceiver
     {
         public override void OnReceive(Context context, Intent intent)

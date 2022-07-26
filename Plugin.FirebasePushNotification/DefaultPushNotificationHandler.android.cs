@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -139,6 +139,11 @@ namespace Plugin.FirebasePushNotification
         /// </summary>
         public const string ShowWhenKey = "show_when";
 
+        /// <summary>
+        /// Use BigText notification style to support long message
+        /// </summary>
+        public const string BigTextStyleKey = "bigtextstyle";
+
         public virtual void OnOpened(NotificationResponse response)
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnOpened");
@@ -160,6 +165,7 @@ namespace Plugin.FirebasePushNotification
             var message = string.Empty;
             var tag = string.Empty;
             var showWhenVisible = FirebasePushNotificationManager.ShouldShowWhen;
+            var useBigTextStyle = FirebasePushNotificationManager.UseBigTextStyle;
             var soundUri = FirebasePushNotificationManager.SoundUri;
             var largeIconResource = FirebasePushNotificationManager.LargeIconResource;
             var smallIconResource = FirebasePushNotificationManager.IconResource;
@@ -223,6 +229,11 @@ namespace Plugin.FirebasePushNotification
             if (parameters.TryGetValue(ShowWhenKey, out var shouldShowWhen))
             {
                 showWhenVisible = $"{shouldShowWhen}".ToLower() == "true";
+            }
+
+            if (parameters.TryGetValue(BigTextStyleKey, out var shouldUseBigTextStyle))
+            {
+                useBigTextStyle = $"{shouldUseBigTextStyle}".ToLower() == "true";
             }
 
             if (parameters.TryGetValue(TagKey, out var tagContent))
@@ -457,7 +468,7 @@ namespace Plugin.FirebasePushNotification
                 notificationBuilder.SetColor(notificationColor.Value);
             }
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBean)
+            if (useBigTextStyle && Build.VERSION.SdkInt >= BuildVersionCodes.JellyBean)
             {
                 // Using BigText notification style to support long message
                 var style = new NotificationCompat.BigTextStyle();

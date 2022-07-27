@@ -231,7 +231,7 @@ namespace Plugin.FirebasePushNotification
                 showWhenVisible = $"{shouldShowWhen}".ToLower() == "true";
             }
 
-            if (parameters.TryGetValue(BigTextStyleKey, out var shouldUseBigTextStyle))
+            if (parameters.TryGetValue(BigTextStyleKey, out var shouldUseBigTextStyle) && shouldUseBigTextStyle != null)
             {
                 useBigTextStyle = $"{shouldUseBigTextStyle}".ToLower() == "true";
             }

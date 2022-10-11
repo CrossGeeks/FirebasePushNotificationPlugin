@@ -5,7 +5,7 @@ using Android.Content;
 
 namespace Plugin.FirebasePushNotification
 {
-    [BroadcastReceiver]
+    [BroadcastReceiver(Enabled = true, Exported = false)]
     public class PushNotificationActionReceiver : BroadcastReceiver
     {
         public override void OnReceive(Context context, Intent intent)

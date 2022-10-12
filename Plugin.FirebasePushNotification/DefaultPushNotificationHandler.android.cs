@@ -153,7 +153,7 @@ namespace Plugin.FirebasePushNotification
         {
             System.Diagnostics.Debug.WriteLine($"{DomainTag} - OnReceived");
 
-            if ((parameters.TryGetValue(SilentKey, out var silent) && (silent.ToString() == "true" || silent.ToString() == "1")) || (IsInForeground() && (!(!parameters.ContainsKey(ChannelIdKey) && parameters.TryGetValue(PriorityKey, out var imp) && ($"{imp}" == "high" || $"{imp}" == "max")) || (!parameters.ContainsKey(PriorityKey) && !parameters.ContainsKey(ChannelIdKey) && FirebasePushNotificationManager.DefaultNotificationChannelImportance != NotificationImportance.High && FirebasePushNotificationManager.DefaultNotificationChannelImportance != NotificationImportance.Max))))
+            if (SkipNotificationProcessing(parameters))
             {
                 return;
             }
@@ -605,6 +605,18 @@ namespace Plugin.FirebasePushNotification
         /// <param name="notificationBuilder">Notification builder.</param>
         /// <param name="parameters">Notification parameters.</param>
         public virtual void OnBuildNotification(NotificationCompat.Builder notificationBuilder, IDictionary<string, object> parameters) { }
+
+        /// <summary>
+        /// Override to implement own condition to skip notification processing or not.
+        /// </summary>
+        /// <param name="parameters">Notification parameters.</param>
+        /// <returns>true to skip processing or false to continue</returns>
+        public virtual bool SkipNotificationProcessing(IDictionary<string, object> parameters)
+        {
+            var result = (parameters.TryGetValue(SilentKey, out var silent) && (silent.ToString() == "true" || silent.ToString() == "1")) || (IsInForeground() && (!(!parameters.ContainsKey(ChannelIdKey) && parameters.TryGetValue(PriorityKey, out var imp) && ($"{imp}" == "high" || $"{imp}" == "max")) || (!parameters.ContainsKey(PriorityKey) && !parameters.ContainsKey(ChannelIdKey) && FirebasePushNotificationManager.DefaultNotificationChannelImportance != NotificationImportance.High && FirebasePushNotificationManager.DefaultNotificationChannelImportance != NotificationImportance.Max)));
+            System.Diagnostics.Debug.WriteLine($"{DomainTag} - {nameof(SkipNotificationProcessing)}: {result}");
+            return result;
+        }
 
         private bool IsInForeground()
         {

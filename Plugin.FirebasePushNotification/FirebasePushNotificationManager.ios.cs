@@ -446,10 +446,7 @@ namespace Plugin.FirebasePushNotification
 
         public void UnsubscribeAll()
         {
-            for (nuint i = 0; i < currentTopics.Count; i++)
-            {
-                Unsubscribe(currentTopics.GetItem<NSString>(i));
-            }
+            Unsubscribe(SubscribedTopics);
         }
 
         public void Unsubscribe(string[] topics)

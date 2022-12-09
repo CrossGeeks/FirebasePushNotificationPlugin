@@ -24,7 +24,7 @@ namespace Plugin.FirebasePushNotification
         private static NSString FirebaseTopicsKey = new NSString("FirebaseTopics");
         private const string FirebaseTokenKey = "FirebaseToken";
         private static NSMutableArray currentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(FirebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
-        public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; } }
+        public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance?.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance?.FcmToken; } }
 
         private static IList<NotificationUserCategory> usernNotificationCategories = new List<NotificationUserCategory>();
         private static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
